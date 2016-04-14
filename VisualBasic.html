@@ -116,11 +116,11 @@
 <ul class="sectlevel2">
 <li><a href="#_componentes_ado_net">19.1. Componentes ADO.NET</a></li>
 <li><a href="#_connection">19.2. Connection</a></li>
-<li><a href="#_command">19.3. Command</a></li>
-<li><a href="#_datareader">19.4. DataReader</a></li>
-<li><a href="#_dataadapter">19.5. DataAdapter</a></li>
-<li><a href="#_dataset">19.6. DataSet</a></li>
-<li><a href="#_connectionstring">19.7. ConnectionString</a></li>
+<li><a href="#_conexiones_sobre_db2">19.3. Conexiones sobre DB2</a></li>
+<li><a href="#_command">19.4. Command</a></li>
+<li><a href="#_datareader">19.5. DataReader</a></li>
+<li><a href="#_dataadapter">19.6. DataAdapter</a></li>
+<li><a href="#_dataset">19.7. DataSet</a></li>
 </ul>
 </li>
 <li><a href="#_windows_forms">20. Windows Forms</a>
@@ -2882,17 +2882,17 @@ stack.Peek()</code></pre>
 <p>Command &#8594; Representa sentencias de SQL sobre la BD.</p>
 </li>
 <li>
-<p>DataReader &#8594; Proporciona un flujo de datos desde la BD a la aplicación de alto rendimiento.</p>
+<p>DataReader &#8594; Proporciona un flujo de datos de entrada de alto rendimiento desde el origen de datos (BD) a la aplicación.</p>
 </li>
 <li>
-<p>DataAdapter &#8594; Permite cargar nuevos datos en el <strong>DataSet</strong> a traves de <strong>Command</strong>. Proporciona un puente entre el origen de datos y el DataSet.</p>
+<p>DataAdapter &#8594; Proporciona un puente entre el origen de datos (BD) y el <strong>DataSet</strong>, a través de <strong>Command</strong>.</p>
 </li>
 <li>
-<p>DataSet &#8594; Conjunto de objetos <strong>DataTable</strong>, representa una copia en memoria de los datos de la base de datos</p>
+<p>DataSet &#8594; Conjunto de objetos <strong>DataTable</strong>, representa una copia en memoria de los datos de la base de datos.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>DataTable &#8594; Representa una Tabla de una base de datos</p>
+<p>DataTable &#8594; Representa una Tabla de una base de datos en memoria.</p>
 </li>
 </ul>
 </div>
@@ -2903,7 +2903,7 @@ stack.Peek()</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>Para poder emplear en el codigo de una clase estas clases, se ha de añadir</p>
+<p>Para poder emplear el API para el caso de SQLServer, se han de añadir los siguientes <strong>Imports</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2915,14 +2915,137 @@ Imports System.Data</code></pre>
 <div class="sect2">
 <h3 id="_connection">19.2. Connection</h3>
 <div class="paragraph">
-<p>Representan la conexion a la base de datos, dado que la base de datos no admite infinitas conexiones, se ha de cuidar no dejarlas abiertas y cerrarlas cuando no se necesiten, para ello y aprovechando que implementan <strong>IDisposable</strong>, se puede emplear la estructura <strong>Using&#8230;&#8203;End Using</strong></p>
+<p>Representan la conexion a la base de datos, dado que la base de datos no admite infinitas conexiones, se ha de cuidar no dejarlas abiertas y cerrarlas cuando no se necesiten, para ello y aprovechando que implementan <strong>IDisposable</strong>, se puede emplear la estructura <strong>Using&#8230;&#8203;End Using</strong>, que garantiza la invocación del método <strong>close</strong> de <strong>IDiposable</strong>.</p>
 </div>
 <div class="paragraph">
 <p>No se puede reabrir un objeto <strong>Connection</strong> una vez cerrado, se ha de crear un nuevo objeto.</p>
 </div>
+<div class="paragraph">
+<p>Una parte importante de la conexión, es la cadena de conexión, que dependerá del origen de datos al que se realice la conexión.</p>
+</div>
+<div class="paragraph">
+<p>La cadena de conexión es la representación en String de la conexion sobre un origen de datos.</p>
+</div>
+<div class="paragraph">
+<p>Un ejemplo de conexión sobre una BD SQLServer contenida en un fichero mdf, sería</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="visualbasic">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;D:\Dropbox\Contenido\dotNET\Visual Basic\BaseDeDatos.mdf&quot;;Integrated Security=True;Connect Timeout=30</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Visual Studio, permite facilmente obtenerlas y almacenarlas en el fichero de configración <strong>App.config</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="visualbasic">&lt;configuration&gt;
+    &lt;connectionStrings&gt;
+        &lt;add name=&quot;PersonasConnectionString&quot;
+            connectionString=&quot;Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&amp;quot;D:\BaseDeDatos.mdf&amp;quot;;Integrated Security=True;Connect Timeout=30&quot;
+            providerName=&quot;System.Data.SqlClient&quot; /&gt;
+    &lt;/connectionStrings&gt;
+&lt;/configuration&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para cargar una connectionString del fichero de configuracion, hay que añadir la referencia al proyecto de <strong>System.Configuracion</strong> y añadir el Imports a la clase correspondiente</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="visualbasic">Imports System.Configuracion</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para recuperarla, se emplea la clase <strong>ConfigurationManager</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="visualbasic">Dim stCon As String = ConfigurationManager.ConnectionStrings(&quot;PersonasConnectionString&quot;).ConnectionString</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conexiones_sobre_excel">19.2.1. Conexiones sobre Excel</h4>
+<div class="paragraph">
+<p>Se pueden establecer conexiones sobre un Excel con ADO.NET, tomando este como la base de datos, con las restricciones que Excel tiene.</p>
+</div>
+<div class="paragraph">
+<p>Para versiones de Excel entre la 8.0 y la 10.0, se empleará la cadena de conexión</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="visualbasic">Dim cadconex As String = &quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=&quot; &amp; ruta &amp; &quot;;Extended Properties=&quot;&quot;Excel 8.0;HDR=Yes;IMEX=1&quot;&quot;&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para versiones de Excel superior a la 10.0, se empleará la cadena de conexión</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="visualbasic">Dim cadconex As String = &quot;Provider=Microsoft.ACE.OLEDB.12.0;Data Source=&quot; &amp; ruta &amp; &quot;;Extended Properties=&quot;&quot;Excel 12.0 Xml;HDR=YES;IMEX=0&quot;&quot;&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para este último caso, existe un problema en los equipos de x64, ya que no hay disponible Drivers, y habrá que instalar los de x86, que se pueden descargar <a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=23734"><strong>aqui</strong></a>, donde habrá que seleccionar la versión de descarga de x86.</p>
+</div>
+<div class="paragraph">
+<p>Las consulas a crear tienen una serie de caracteristicas por no ser Excel una base de datos relacional, ni seguir el lenguaje SQL.</p>
+</div>
+<div class="paragraph">
+<p>Así pues, se considerara una tabla, o bien una hoja entera, o un subconjunto de ella, indicandolo en las consultas con la siguiente sintaxis</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Una tabla es una hoja</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="visualbasic">select * from [Clientes$]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Donde podemos <strong>Clientes</strong> es el nombre de la hoja Excel.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Una tabla es un subcojunto de celdas de una hoja</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="visualbasic">select * from [Clientes$A1:C4]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Donde se indica que el conjunto de celdas comprendidas entre las columnas A y C y las filas 1 y 4, forman la tabla.</p>
+</div>
+<div class="paragraph">
+<p>En todo caso, la primera fila, se tomará como los nombres de los campos. Estos nombre de los campos, no debeán tener espacios en blanco.</p>
+</div>
+<div class="paragraph">
+<p>De no querer que la primera fila sea la cabacera, se ha de indicar con HDR=NO en las propiedades extendidas de la cadena de conexión. En caso de no tener cabecera, el proveedor OLE DB denomina automáticamente a los campos en su lugar (donde F1 representaría el primer campo, F2 representaría el segundo campo, etcétera).</p>
+</div>
+<div class="paragraph">
+<p>Los tipos de datos para cada campo, son adivinados por ADO.NET, inspeccionando los valores de 8 campos, se puede modificar el numero de campos inspeccionado para obtener el tipo, con MAXSCANROWS=&lt;numero&gt; en las propiedades extendidas de la cadena de conexión.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_command">19.3. Command</h3>
+<h3 id="_conexiones_sobre_db2">19.3. Conexiones sobre DB2</h3>
+<div class="paragraph">
+<p><a href="http://www-01.ibm.com/support/docview.wss?uid=swg21385217"><strong>Aquí</strong></a> se pueden encontrar los enlaces de descarga para los Driver de DB2, para las distitnas tecnologias, incluida .NET.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.ibm.com/support/knowledgecenter/SSEPGG_10.5.0/com.ibm.db2.luw.apdv.samptop.doc/com.ibm.db2.luw.apdv.samptop.doc-gentopic25.html?lang=es"><strong>Aquí</strong></a> se pueden acceder a ejemplos que proporciona IBM, para el acceso a datos en DB2, emplean ADO.NET.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_command">19.4. Command</h3>
 <div class="paragraph">
 <p>Representan una consulta sobre la base de datos.</p>
 </div>
@@ -2959,7 +3082,7 @@ Imports System.Data</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>Los Command son parametrizables, se pueden definir en el string que representa la consulta parametros indicados con el prefijo @, y posteriormente ser sustituidos.</p>
+<p>Los <strong>Command</strong> son parametrizables, se pueden definir en el string que representa la consulta parametros indicados con el prefijo @, y posteriormente ser sustituidos.</p>
 </div>
 <div class="paragraph">
 <p>Ejemplo de Command que realiza una consulta</p>
@@ -3043,7 +3166,7 @@ End Using</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_datareader">19.4. DataReader</h3>
+<h3 id="_datareader">19.5. DataReader</h3>
 <div class="paragraph">
 <p>Representa un conjunto de registros leidos de la base de datos, es un objeto que solo permite leer de la base de datos.</p>
 </div>
@@ -3105,7 +3228,7 @@ End Using</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dataadapter">19.5. DataAdapter</h3>
+<h3 id="_dataadapter">19.6. DataAdapter</h3>
 <div class="paragraph">
 <p>Es el puente entre el <strong>DataSet</strong> y el <strong>DataSource</strong>.</p>
 </div>
@@ -3124,7 +3247,7 @@ End Using</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dataset">19.6. DataSet</h3>
+<h3 id="_dataset">19.7. DataSet</h3>
 <div class="paragraph">
 <p>Contiene n objetos DataTable, que estan formados por filas <strong>DataRow</strong> y columnas de datos <strong>DataColumn</strong>.</p>
 </div>
@@ -3164,42 +3287,6 @@ Using con
     DataGridView1.DataSource = ds.Tables(&quot;MisPersonas&quot;)
 
 End Using</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_connectionstring">19.7. ConnectionString</h3>
-<div class="paragraph">
-<p>Representan las cadenas de conexion sobre una base de datos.</p>
-</div>
-<div class="paragraph">
-<p>Visual Studio, permite facilmente obtenerlas y almacenarlas en el fichero de configración <strong>App.config</strong>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="visualbasic">&lt;configuration&gt;
-    &lt;connectionStrings&gt;
-        &lt;add name=&quot;PersonasConnectionString&quot;
-            connectionString=&quot;Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&amp;quot;D:\BaseDeDatos.mdf&amp;quot;;Integrated Security=True;Connect Timeout=30&quot;
-            providerName=&quot;System.Data.SqlClient&quot; /&gt;
-    &lt;/connectionStrings&gt;
-&lt;/configuration&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Para cargar una connectionString del fichero de configuracion, hay que añadir la referencia al proyecto de <strong>System.Configuracion</strong> y añadir el Imports a la clase correspondiente</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="visualbasic">Imports System.Configuracion</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Para recuperarla, se emplea la clase <strong>ConfigurationManager</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="visualbasic">Dim stCon As String = ConfigurationManager.ConnectionStrings(&quot;PersonasConnectionString&quot;).ConnectionString</code></pre>
 </div>
 </div>
 </div>
@@ -3332,7 +3419,7 @@ End Using</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-08 06:56:16 Hora de verano romance
+Last updated 2016-04-08 20:37:41 Hora de verano romance
 </div>
 </div>
 </body>
