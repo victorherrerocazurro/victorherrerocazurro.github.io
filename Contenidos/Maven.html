@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.4">
+<meta name="description" content="Curso sobre las herramientas a emplear para establecer un ecosistema de desarrollo Java, que asegure la calidad del Software.">
+<meta name="keywords" content="Ecosistemas de proyectos Java, Test, Pruebas, Unitarias, Aceptacion, Integracion, Maven, SVN, Incidencias">
+<meta name="author" content="Victor Herrero Cazurro">
+<title>Maven</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="css/asciidoctor.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/coderay-asciidoctor.css">
+</head>
+<body class="article toc2 toc-right">
+<div id="header">
+<h1>Maven</h1>
+<div class="details">
+<span id="author" class="author">Victor Herrero Cazurro</span><br>
+<span id="email" class="email">&lt;<a href="https://github.com/victorherrerocazurro">@vherrero11</a>&gt;</span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_maven">1. Maven</a>
+<ul class="sectlevel2">
+<li><a href="#_introducción">1.1. Introducción</a></li>
+<li><a href="#_instalación">1.2. Instalación</a></li>
+<li><a href="#_caracteristicas">1.3. Caracteristicas</a></li>
+<li><a href="#_arquetipos">1.4. Arquetipos</a></li>
+<li><a href="#_compatibilidad_con_eclipse">1.5. Compatibilidad con Eclipse</a></li>
+<li><a href="#_estructura_del_proyecto">1.6. Estructura del proyecto</a></li>
+<li><a href="#_configuración_de_un_proyecto_pom_xml">1.7. Configuración de un proyecto (pom.xml)</a></li>
+<li><a href="#_ciclo_de_vida">1.8. Ciclo de Vida</a></li>
+<li><a href="#_dependencias">1.9. Dependencias</a></li>
+<li><a href="#_herencia_del_pom">1.10. Herencia del pom</a></li>
+<li><a href="#_profiles">1.11. Profiles</a></li>
+<li><a href="#_plugins">1.12. Plugins</a></li>
+<li><a href="#_site">1.13. Site</a></li>
+<li><a href="#_plugins_reportes">1.14. Plugins Reportes</a></li>
+<li><a href="#_repositorios_de_empresa">1.15. Repositorios de empresa</a></li>
+<li><a href="#_plugin_personalizados">1.16. Plugin Personalizados</a></li>
+<li><a href="#_errores">1.17. Errores</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<table class="tableblock frame-none grid-none spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><a class="image" href="https://twitter.com/VictorHerrero1"><img src="images/Maven/twitter.png" alt="twitter"></a></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><a class="image" href="https://es.linkedin.com/in/victor-herrero-cazurro-1b3ba688"><img src="images/Maven/linkedin.png" alt="linkedin"></a></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><a class="image" href="mailto:victorherrerocazurro@gmail.com"><img src="images/Maven/google+.png" alt="google+"></a></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><a class="image" href="https://github.com/victorherrerocazurro"><img src="images/Maven/github.png" alt="github"></a></span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maven">1. Maven</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_introducción">1.1. Introducción</h3>
+<div class="paragraph">
+<p>Maven es un Project Management Framework, esto es, un framework de gestión de proyectos de software.</p>
+</div>
+<div class="paragraph">
+<p>Creada por Jason van Zyl en 2002, estuvo integrado inicialmente dentro del proyecto Jakarta, y ahora ya es un proyecto de nivel superior de la Apache Software Foundation.</p>
+</div>
+<div class="paragraph">
+<p>Cada proyecto tiene la información para su ciclo de vida en el descriptor xml (por defecto el fichero pom.xml, basado en "project object model")</p>
+</div>
+<div class="paragraph">
+<p>Con Maven vamos a poder:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Compilar</p>
+</li>
+<li>
+<p>Empaquetar</p>
+</li>
+<li>
+<p>Generar documentación</p>
+</li>
+<li>
+<p>Pasar los test</p>
+</li>
+<li>
+<p>Preparar las builds</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Maven estandariza un ciclo de vida para los proyectos, proporcionando un marco que permita la reutilización fácil de todos los componentes (artefactos) definidos bajo la estructura de Maven.</p>
+</div>
+<div class="paragraph">
+<p>Los artefactos de Maven se ubican en repositorios, desde donde los proyectos Maven pueden accederlos.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instalación">1.2. Instalación</h3>
+<div class="paragraph">
+<p>Se puede descargar la distribución desde <a href="http://maven.apache.org/download.html">aqui</a></p>
+</div>
+<div class="paragraph">
+<p>No tiene instalación, simplemente descomprimir la distribución en la ubicación deseada.</p>
+</div>
+<div class="paragraph">
+<p>Es recomendable definir la variable de entorno JAVA_HOME</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">JAVA_HOME=&quot;c:\java\jdk1.6.0_23&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Incluso incluir los ejecutables de Maven en el PATH, para que el comando <strong>mvn</strong> este accesible desde cualquier ubicación.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">PATH = %PATH%;&quot;c:\program files\maven-2.2.1\bin&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_caracteristicas">1.3. Caracteristicas</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Creación sencilla y ágil de un nuevo proyecto.</p>
+</li>
+<li>
+<p>Estandarización de la estructura de un proyecto. El proyecto se describe en su totalidad en el fichero pom.xml.</p>
+</li>
+<li>
+<p>Potente mecanismo de gestión de las dependencias, y la resolución de dependencias transitivas.</p>
+</li>
+<li>
+<p>Gestión simultánea de varios proyectos.</p>
+</li>
+<li>
+<p>Repositorio de librerías Open Source actualizado.</p>
+</li>
+<li>
+<p>Extensible, dispone de multitud de plugins y de la posibilidad de creación de otros que necesitemos.</p>
+</li>
+<li>
+<p>Acceso inmediato a nuevas funcionalidades requiriendo un mínimo esfuerzo.</p>
+</li>
+<li>
+<p>Integración con tareas ANT.</p>
+</li>
+<li>
+<p>Generación de diversos formatos de empaquetado de proyectos: WAR, EAR, JAR&#8230;&#8203;</p>
+</li>
+<li>
+<p>Generación de un portal Web del proyecto. Incluyendo documentación del proyecto, informes del estado del proyecto, calidad del código.</p>
+</li>
+<li>
+<p>Gestión de releases y publicación. Integración con sistemas de gestión de versiones (como CVS o SVN).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_arquetipos">1.4. Arquetipos</h3>
+<div class="paragraph">
+<p>El primer comando a conocer es <strong>archetype</strong>, ya que permite la creación de un proyecto (artefacto) Maven, siguiendo una plantilla, la cual habra que seleccionar, además de indicar otros parametros en una serie de pasos</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Elección del arquetipo.</p>
+</li>
+<li>
+<p>Versión del arquetipo.</p>
+</li>
+<li>
+<p>GroupId.</p>
+</li>
+<li>
+<p>ArtifactId.</p>
+</li>
+<li>
+<p>Version.</p>
+</li>
+<li>
+<p>Package.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn archetype:generate</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El listado de arquetipos, se puede consultar <a href="http://docs.codehaus.org/display/MAVENUSER/Archetypes+List">aqui</a></p>
+</div>
+<div class="paragraph">
+<p>Por ejemplo</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>El 197, que es el por defecto, crea un proyecto java con una clase de código y de test de ejemplo.</p>
+</li>
+<li>
+<p>El 200, es un proyecto web.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Se pueden crear nuevos arquetipos, ya que no son mas que la foto de n proyecto en un momento concreto, para ello, se ha de generar el proyecto Maven, con todas aquellas configuraciones y codigos deseados y se lanza el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn archetype:create-from-project</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_compatibilidad_con_eclipse">1.5. Compatibilidad con Eclipse</h3>
+<div class="paragraph">
+<p>El comando <strong>eclipse</strong>, permite generar dentro del proyecto Maven, los ficheros de configuración del IDE Eclipse, para que este reconozca el proyecto.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn eclipse:eclipse</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esta misma situación, a la inversa, se puede realizar desde e propio IDE, transformando un proyecto eclipse no Maven en un proyeco Maven, con la opcion <strong>Configure&#8594;Convert To Maven Project</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Para que aparezca esta opción, se ha de tener instalado en Eclipse, un plugin de Maven, afortunadamente desde las ultimas versiones de eclipse, este viene integrado por defecto.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_estructura_del_proyecto">1.6. Estructura del proyecto</h3>
+<div class="paragraph">
+<p>Losproyectos de Maven, tiene una estructura por defecto, que puede ser cambiada a traves del <strong>pom.xml</strong>. La estrucutra por defecto es la siguiente.</p>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/Maven/estructura_proyecto.png" alt="estructura proyecto">
+</div>
+</div>
+<div class="paragraph">
+<p>Algunas de las carpetas mas importantes que cmponente esta estructura son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>src/main/java</strong>: Código Fuente</p>
+</li>
+<li>
+<p><strong>src/main/resources</strong>: Recursos no compilables necesarios en tiempo de ejecución,</p>
+</li>
+<li>
+<p><strong>src/main/webapp</strong>: páginas, tags, etc.</p>
+</li>
+<li>
+<p><strong>src/main/webapp/WEB-INF</strong>: Contiene el web.xml y otros ficheros de configuración.</p>
+</li>
+<li>
+<p><strong>src/test/java</strong>: Código Fuente de pruebas.</p>
+</li>
+<li>
+<p><strong>src/test/resources</strong>: Recursos no compilables necesarios para las pruebas.</p>
+</li>
+<li>
+<p><strong>src/site</strong>: Carpeta con información para generar el sitio web HTML con la información del proyecto.</p>
+</li>
+<li>
+<p><strong>target</strong>: Carpeta donde se guardan los resultados.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuración_de_un_proyecto_pom_xml">1.7. Configuración de un proyecto (pom.xml)</h3>
+<div class="paragraph">
+<p>Se encuentra siempre en la raiz del proyecto y contienen toda información del proyecto.</p>
+</div>
+<div class="paragraph">
+<p>Los proyectos tiene que definir obligatoriamente tres propiedades, estas son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>artifactId</strong>: Nombre del artefacto.</p>
+</li>
+<li>
+<p><strong>groupId</strong>: texto que engloba a varios artefactos, puede ser la empresa que los genera o el proyecto en el que se enmarcan, suele adoptar forma de paquete java.</p>
+</li>
+<li>
+<p><strong>version</strong>: Normalmente se establece un numero, aunque no es obligatorio.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A traves de estas tres caracteristicas se puede hacer referencia a un artefacto Maven de forma univoca.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;project</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/POM/4.0.0</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;modelVersion&gt;</span>4.0.0<span class="tag">&lt;/modelVersion&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>com.ejemplo.maven<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>HolaMundo<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/project&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Además se puede definir otras propiedades como</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>name: Nombre del proyecto</p>
+</li>
+<li>
+<p>packaging: Formato de distribución del artefacto, por defecto es <strong>jar</strong>, aunque puede tomar como valores <strong>ejb</strong>, <strong>ear</strong>, <strong>war</strong> o <strong>pom</strong>.</p>
+</li>
+<li>
+<p>description: Una descripcón del proyecto, empleada por Maven en el Sitio.</p>
+</li>
+<li>
+<p>developers: Personas que contribuyen al proyecto</p>
+</li>
+<li>
+<p>license: Tipo de licencias que afectan al proyecto</p>
+</li>
+<li>
+<p>organization: Empresa detras del proyecto</p>
+</li>
+<li>
+<p>url: Ubicación del Sitio en internet.</p>
+</li>
+<li>
+<p>ciManagement: Permite configurar como el servidor de Integración Continua (CI), comunica el estado de las tareas.</p>
+</li>
+<li>
+<p>pluginRepositories: Permite configurar nuevos repositorios para ampliar los plugin disponibles.</p>
+</li>
+<li>
+<p>profiles: Permiten definir perfiles de uso del Pom, a traves de la inclusion de variables en la configuración.</p>
+</li>
+<li>
+<p>repositories: Permite configurar nuevos repositorios para ampliar los artefactos disponibles.</p>
+</li>
+<li>
+<p>build: Seccion en la que se configura la construccion del proyecto.</p>
+</li>
+<li>
+<p>dependencies: Seccion donde se configuran las dependencias del proyecto con otros artefactos.</p>
+</li>
+<li>
+<p>scm: Permite configurar la ubicación del getor de versiones de codigo fuente, para realizar de forma automatica el etiquetado de release.</p>
+</li>
+<li>
+<p>distributionManagement: Permite configurar la ubicación del repositorio de artefactos maven, donde se instalarán las versiones del proyecto para su distribución.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ciclo_de_vida">1.8. Ciclo de Vida</h3>
+<div class="paragraph">
+<p>Un ciclo de vida en Maven, esta compuesto por un conjunto de fases que se ejecutan de forma secuencial.</p>
+</div>
+<div class="paragraph">
+<p>Existen tres ciclos de vida en maven.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Default</p>
+</li>
+<li>
+<p>Clean</p>
+</li>
+<li>
+<p>Site</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>El ciclo de vida <strong>Clean</strong>, se compone de las siguientes fases.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>pre-clean</strong>: Se ejecutan los procesos necesarios antes de poder limpiar el proyecto.</p>
+</li>
+<li>
+<p><strong>clean</strong>: Elimina todos los fichero generados desde la anterior construccion, borra el contenido de <strong>/target</strong></p>
+</li>
+<li>
+<p><strong>post-clean</strong>: Se ejecutan los procesos necesarios para finalizar la limpieza del proyecto.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Se invoca con el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn clean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El ciclo de vida <strong>Default</strong>, se compone de las siguientes fases.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>validate</strong>: Valida que el proyecto es correcto y que esta toda la información necesaria.</p>
+</li>
+<li>
+<p><strong>initialize</strong>: Inicializa el estado de construccio, creando propiedades y directorios.</p>
+</li>
+<li>
+<p><strong>generate-sources</strong>: genera todos las fuentes de codigo a incluir en la compilación.</p>
+</li>
+<li>
+<p><strong>process-sources</strong>: procesa los fuentes de codigo, aplicando filtros si los hubiera.</p>
+</li>
+<li>
+<p><strong>generate-resources</strong>: genera recursos para incluir en el paquete.</p>
+</li>
+<li>
+<p><strong>process-resource</strong>: Copia y procesa todos los recursos en el directorio destino, listos para empaquetarlos.</p>
+</li>
+<li>
+<p><strong>compile</strong>: Compila el codigo fuente del proyecto.</p>
+</li>
+<li>
+<p><strong>process-classes</strong>: post-procesa los ficheros generados en la compilación, para mejorarlos.</p>
+</li>
+<li>
+<p><strong>generate-test-sources</strong>: 	genera los fuentes de codigo de test a incluir en la compilación.</p>
+</li>
+<li>
+<p><strong>process-test-sources</strong>: 	procesa los fuentes de codigo de test, aplicando filtros si los hubiera.</p>
+</li>
+<li>
+<p><strong>generate-test-resources</strong>: genera recursos para incluir en los test.</p>
+</li>
+<li>
+<p><strong>process-test-resources</strong>: Copia y procesa todos los recursos en el directorio destino.</p>
+</li>
+<li>
+<p><strong>test-compile</strong>: Compila el codigo fuente de los test del proyecto.</p>
+</li>
+<li>
+<p><strong>process-test-classes</strong>: post-procesa los ficheros generados en la compilación de los test, para mejorarlos.</p>
+</li>
+<li>
+<p><strong>test</strong>: ejecuta los test. El codigo de los test no se incluye en el paquete.</p>
+</li>
+<li>
+<p><strong>prepare-package</strong>: prepara todo lo necesario antes de empaquetar.</p>
+</li>
+<li>
+<p><strong>package</strong>: empaquete el codigo compilado.</p>
+</li>
+<li>
+<p><strong>pre-integration-test</strong>: realiza todo lo necesario para poder ejecutar los test de integracion.</p>
+</li>
+<li>
+<p><strong>integration-test</strong>: procesa y desliega si es necesario el pquee en el entorno de ejecución de los test de integración.</p>
+</li>
+<li>
+<p><strong>post-integration-test</strong>: realiza todo lo necesario para limpiar el entorno de ejecución de los test de integración.</p>
+</li>
+<li>
+<p><strong>verify</strong>: verifica que el paquete es valido y cumple los criterios de calidad.</p>
+</li>
+<li>
+<p><strong>install</strong>: instala el paquere en el repositorio local.</p>
+</li>
+<li>
+<p><strong>deploy</strong>: instala el paquete en el repositorio remoto.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/Maven/ciclo_vida_maven_default.png" alt="ciclo vida maven default">
+</div>
+</div>
+<div class="paragraph">
+<p>Se invoca con el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn deploy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El ciclo de vida <strong>Site</strong>, se compone de las siguientes fases.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>pre-site</strong>: execute processes needed prior to the actual project site generation</p>
+</li>
+<li>
+<p><strong>site</strong>: generate the project&#8217;s site documentation</p>
+</li>
+<li>
+<p><strong>post-site</strong>: execute processes needed to finalize the site generation, and to prepare for site deployment</p>
+</li>
+<li>
+<p><strong>site-deploy</strong>: deploy the generated site documentation to the specified web server</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Se invoca con el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn site</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden ejecutar los ciclos enteros o de forma parcial hasta la fase deseada.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dependencias">1.9. Dependencias</h3>
+<div class="paragraph">
+<p>Representan aquellas librerias (jar) que el proyecto necesita en alguna fase del ciclo de vida.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependencies&gt;</span>
+        <span class="tag">&lt;dependency&gt;</span>
+                <span class="tag">&lt;groupId&gt;</span>commons-collections<span class="tag">&lt;/groupId&gt;</span>
+                <span class="tag">&lt;artifactId&gt;</span>commons-collections<span class="tag">&lt;/artifactId&gt;</span>
+                <span class="tag">&lt;version&gt;</span>3.2.1<span class="tag">&lt;/version&gt;</span>
+        <span class="tag">&lt;/dependency&gt;</span>
+<span class="tag">&lt;/dependencies&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se obtienen las dependencias de forma automática, bien del repositorio local si ya están, se han descargado previamente o bien de un repositorio remoto.</p>
+</div>
+<div class="paragraph">
+<p>Los proyectos que estan en desarrollo, pueden indicar esta situación en la version, añadiendo el sufijo <strong>-SNAPSHOT</strong>, que hará que Maven siempre compruebe el repositorio remoto.</p>
+</div>
+<div class="paragraph">
+<p>Por efecto viene configurado un repositorio remoto unicamente, pudiendose añadir los que se quieran, por ejemplo un repositorio de empresa.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;repositories&gt;</span>
+        <span class="comment">&lt;!-- Repositorio por defecto--&gt;</span>
+        <span class="tag">&lt;repository&gt;</span>
+                <span class="tag">&lt;snapshots&gt;</span>
+                        <span class="tag">&lt;enabled&gt;</span>false<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;/snapshots&gt;</span>
+                <span class="tag">&lt;id&gt;</span>central<span class="tag">&lt;/id&gt;</span>
+                <span class="tag">&lt;name&gt;</span>Central Repository<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;url&gt;</span>http://repo.maven.apache.org/maven2<span class="tag">&lt;/url&gt;</span>
+        <span class="tag">&lt;/repository&gt;</span>
+        <span class="comment">&lt;!-- Repositorio de empresa--&gt;</span>
+        <span class="tag">&lt;repository&gt;</span>
+                <span class="tag">&lt;id&gt;</span>repository-1<span class="tag">&lt;/id&gt;</span>
+                <span class="tag">&lt;url&gt;</span>http://repo.mycompany.com:8080/archiva/repository/internal/<span class="tag">&lt;/url&gt;</span>
+                <span class="tag">&lt;releases&gt;</span>
+                        <span class="tag">&lt;enabled&gt;</span>true<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;/releases&gt;</span>
+                <span class="tag">&lt;snapshots&gt;</span>
+                        <span class="tag">&lt;enabled&gt;</span>false<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;/snapshots&gt;</span>
+    <span class="tag">&lt;/repository&gt;</span>
+<span class="tag">&lt;/repositories&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Las dependencias se resuelven de forma transitiva, esto quiere decir que si un proyecto depedende de un segundo, y este a su vez de un tercero, el primer proyecto, depende automaticamente del tercero.</p>
+</div>
+<div class="paragraph">
+<p>Tambien se pueden excluir dependencias transitivas, con motivo de la seleccion de la versión de la dependencia a emplear.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependencies&gt;</span>
+        <span class="tag">&lt;dependency&gt;</span>
+                <span class="tag">&lt;groupId&gt;</span>commons-dbcp<span class="tag">&lt;/groupId&gt;</span>
+                <span class="tag">&lt;artifactId&gt;</span>commons-dbcp<span class="tag">&lt;/artifactId&gt;</span>
+                <span class="tag">&lt;version&gt;</span>1.4<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;exclusions&gt;</span>
+                        <span class="tag">&lt;exclusion&gt;</span>
+                                <span class="tag">&lt;artifactId&gt;</span>commons-pool<span class="tag">&lt;/artifactId&gt;</span>
+                                <span class="tag">&lt;groupId&gt;</span>commons-pool<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;/exclusion&gt;</span>
+                <span class="tag">&lt;/exclusions&gt;</span>
+        <span class="tag">&lt;/dependency&gt;</span>
+<span class="tag">&lt;/dependencies&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Las dependencias pueden ser necesarias unicamente en una fase del ciclo de vida, para lo cual se permite la definicion del <strong>scope</strong> (ambito)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependencies&gt;</span>
+        <span class="tag">&lt;dependency&gt;</span>
+                <span class="tag">&lt;groupId&gt;</span>junit<span class="tag">&lt;/groupId&gt;</span>
+                <span class="tag">&lt;artifactId&gt;</span>junit<span class="tag">&lt;/artifactId&gt;</span>
+                <span class="tag">&lt;version&gt;</span>4.8.2<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;scope&gt;</span>test<span class="tag">&lt;/scope&gt;</span>
+        <span class="tag">&lt;/dependency&gt;</span>
+<span class="tag">&lt;/dependencies&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Siendo los posibles valores del <strong>scope</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>test: Solo disponible para las fases relacionadas con los test</p>
+</li>
+<li>
+<p>compile: Disponible en todo momento (es el por defecto)</p>
+</li>
+<li>
+<p>provided: O la JDK o el contendor proporcionan dicha dependencia.</p>
+</li>
+<li>
+<p>runtime: Disponible para ejecución o test, pero no para compilación.</p>
+</li>
+<li>
+<p>system</p>
+</li>
+<li>
+<p>import</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En ocasiones se pueden tener librerias no desarrolladas con Maven, que para su inclusión en otros proyectos, seria recomendable trasladar al mundo Maven, pero solo se dispone de los binarios, para ello, se puede hacer</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn install:install-file
+     –DgroupId=&lt;grupo&gt;
+     –DartifactId=&lt;artefacto&gt;
+     –Dversion=&lt;versión&gt;
+     –Dpackaging=jar
+     –Dfile=&lt;ruta al archivo&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Un ejemplo para publicar en el repo local los drivers de Oracle, seria</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">mvn install:install-file -Dfile=ojdbc6.jar -DgroupId=oracle -DartifactId=ojdbc -Dversion=<span class="float">6.0</span><span class="float">.0</span> -Dpackaging=jar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se puede indicar la version de las dependencias como rangos, siendo</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>[,] &#8594; inclusive.</p>
+</li>
+<li>
+<p>(,) &#8594; exclusivo.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Si los extremos quedan vacios, indica que es desde el minimo o hasta el maximo.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_herencia_del_pom">1.10. Herencia del pom</h3>
+<div class="paragraph">
+<p>Se trata de establecer una relación entre varios proyectos, para obtener dos ventajas</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Unificar configuraciones repetidas en el proyecto padre.</p>
+</li>
+<li>
+<p>Manejar conjuntamente todos los proyectos hijos.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La idea es generar un poryecto <strong>padre</strong>, que será de tipo <strong>pom</strong>, y asociar a el los proyectos <strong>hijos</strong> como <strong>modulos</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;packaging&gt;</span>pom<span class="tag">&lt;/packaging&gt;</span>
+<span class="tag">&lt;modules&gt;</span>
+        <span class="tag">&lt;module&gt;</span>proyecto_hijo<span class="tag">&lt;/module&gt;</span>
+<span class="tag">&lt;/modules&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y lugo indicar en los proyectos <strong>hijos</strong> que tienen un proyecto <strong>padre</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;parent&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>paquete_inicial<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>proyecto_padre<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/parent&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Maven supone que los proyectos <strong>hijos</strong> (módulos), estarán dentro de la carpeta del proyecto <strong>padre</strong>, es decir en el mismo path que el <strong>pom.xml</strong> del <strong>padre</strong>, pero puede no ser así, para establecer dicha consideración, se debe configurar el parámetro <strong>&lt;parent&gt;&lt;relativePath&gt;</strong> haciendo referencia a la ubicación del proyecto padre.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_profiles">1.11. Profiles</h3>
+<div class="paragraph">
+<p>Permiten definir conjuntos de variables a emplear en el <strong>pom.xml</strong>, selecionando en cada momento que conjunto de variables emplear, así se puede reutilizar la misma configuración de Maven (el mismo pom.xml) para distintos entornos (desarrollo, pruebas, produccion, &#8230;&#8203;).</p>
+</div>
+<div class="paragraph">
+<p>La idea es definir el perfil con una serie de configuraciones propietarias</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;profiles&gt;</span>
+    <span class="tag">&lt;profile&gt;</span>
+        <span class="tag">&lt;id&gt;</span>build-java-8<span class="tag">&lt;/id&gt;</span>
+        <span class="tag">&lt;properties&gt;</span>
+            <span class="tag">&lt;java.version&gt;</span>1.8<span class="tag">&lt;/java.version&gt;</span>
+        <span class="tag">&lt;/properties&gt;</span>
+    <span class="tag">&lt;/profile&gt;</span>
+<span class="tag">&lt;/profiles&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>De definirse propiedades (variables), estas se referenciaran desde el resto del <strong>pom.xml</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>3.1<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;source&gt;</span>${java.version}<span class="tag">&lt;/source&gt;</span>
+                                <span class="tag">&lt;target&gt;</span>${java.version}<span class="tag">&lt;/target&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y posteriormente al ejecutar el ciclo de vida, seleccionar que perfil emplear.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn install -P build-java-8</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los perfiles pueden ser definidos bien en el <strong>pom.xml</strong> o bien en el <strong>settings.xml</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plugins">1.12. Plugins</h3>
+<div class="paragraph">
+<p>Permiten extender la funcionalidad de Maven, se añaden al <strong>pom.xml</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Se puede indicar una configuración personalizada a través de la etiqueta <strong>&lt;configuration&gt;</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Se puede asociar su ejecución a alguna fase del ciclo de vida con la etiqueta <strong>&lt;executions&gt;&lt;execution&gt;&lt;phase&gt;</strong>, de no indicar la fase, pueden ocurrir dos cosas</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tenga una fase por defecto el propio plugin, con lo que se ejecuta en dicha fase.</p>
+</li>
+<li>
+<p>No tiene fase por defecto, por lo que no se ejecuta goal del plugin.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://maven.apache.org/plugins/index.html">Aquí</a> un listado de plugins.</p>
+</div>
+<div class="sect3">
+<h4 id="_maven_compiler_plugin">1.12.1. Maven Compiler Plugin</h4>
+<div class="paragraph">
+<p>Permite indicar que version de Java se va a emplear para la compilacion del codigo fuente</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>3.1<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;source&gt;</span>1.8<span class="tag">&lt;/source&gt;</span>
+                                <span class="tag">&lt;target&gt;</span>1.8<span class="tag">&lt;/target&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_war_plugin">1.12.2. Maven War Plugin</h4>
+<div class="paragraph">
+<p>Permite crear un War a partir del codigo del proyecto, se emplea siempre en Aplicaciones Web</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-war-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.2<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;warSourceDirectory&gt;</span>WebContent<span class="tag">&lt;/warSourceDirectory&gt;</span>
+                                <span class="tag">&lt;webXml&gt;</span>WebContent\WEB-INF\web.xml<span class="tag">&lt;/webXml&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_surefire_plugin">1.12.3. Maven Surefire Plugin</h4>
+<div class="paragraph">
+<p>Permite ejecutar pruebas unitarias.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-surefire-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.7.1<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;excludes&gt;</span>
+                                        <span class="tag">&lt;exclude&gt;</span>**/integracion/*.java<span class="tag">&lt;/exclude&gt;</span>
+                                <span class="tag">&lt;/excludes&gt;</span>
+                                <span class="tag">&lt;includes&gt;</span>
+                                        <span class="tag">&lt;include&gt;</span>**/unitarias/*.java<span class="tag">&lt;/include&gt;</span>
+                                <span class="tag">&lt;/includes&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_failsafe_plugin">1.12.4. Maven Failsafe Plugin</h4>
+<div class="paragraph">
+<p>Permite ejecutar pruebas de integración.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-failsafe-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.8<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;excludes&gt;</span>
+                                        <span class="tag">&lt;exclude&gt;</span>**/unitarias/*.java<span class="tag">&lt;/exclude&gt;</span>
+                                <span class="tag">&lt;/excludes&gt;</span>
+                                <span class="tag">&lt;includes&gt;</span>
+                                        <span class="tag">&lt;include&gt;</span>**/integracion/*.java<span class="tag">&lt;/include&gt;</span>
+                                <span class="tag">&lt;/includes&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                        <span class="tag">&lt;executions&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>pasar test integracion<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>integration-test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>integration-test<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>validar pruebas integracion<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>verify<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>verify<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                        <span class="tag">&lt;/executions&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selenium_maven_plugin">1.12.5. Selenium Maven Plugin</h4>
+<div class="paragraph">
+<p>Permite manejar el servidor de selenium que opera el navegador, necesario para preparar el entorno para la ejecución de las pruebas de integración.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.codehaus.mojo<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>selenium-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.3<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;executions&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>start<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>pre-integration-test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>start-server<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                        <span class="tag">&lt;configuration&gt;</span>
+                                                <span class="tag">&lt;background&gt;</span>true<span class="tag">&lt;/background&gt;</span>
+                                                <span class="tag">&lt;logOutput&gt;</span>true<span class="tag">&lt;/logOutput&gt;</span>
+                                        <span class="tag">&lt;/configuration&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>stop<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>post-integration-test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>stop-server<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                        <span class="tag">&lt;/executions&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_jetty_plugin">1.12.6. Maven Jetty Plugin</h4>
+<div class="paragraph">
+<p>Permite manejar un servidor Jetty desde Maven, permitiendo el despliegue de una aplicación web, util para desplegar la aplicación a la hora de ejecutar los test de integración.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.mortbay.jetty<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-jetty-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>6.1.10<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;scanIntervalSeconds&gt;</span>10<span class="tag">&lt;/scanIntervalSeconds&gt;</span>
+                                <span class="tag">&lt;stopKey&gt;</span>foo<span class="tag">&lt;/stopKey&gt;</span>
+                                <span class="tag">&lt;stopPort&gt;</span>9999<span class="tag">&lt;/stopPort&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                        <span class="tag">&lt;executions&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>start-jetty<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>pre-integration-test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>run<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                        <span class="tag">&lt;configuration&gt;</span>
+                                                <span class="tag">&lt;scanIntervalSeconds&gt;</span>0<span class="tag">&lt;/scanIntervalSeconds&gt;</span>
+                                                <span class="tag">&lt;daemon&gt;</span>true<span class="tag">&lt;/daemon&gt;</span>
+                                        <span class="tag">&lt;/configuration&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>stop-jetty<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>post-integration-test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>stop<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                        <span class="tag">&lt;/executions&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_release_plugin">1.12.7. Maven Release Plugin</h4>
+<div class="paragraph">
+<p>Permite publicar una Release en el sistema gestor de versiones definido, además de desplegar dicha version en un repositorio de empresa Maven.</p>
+</div>
+<div class="paragraph">
+<p>Es necesaria la configuracion de un gestor de versiones con la etiqueta SCM.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;scm&gt;</span>
+        <span class="tag">&lt;developerConnection&gt;</span>scm:svn:https://Victor-Portatil:8443/svn/EjemploReleasePlugin/trunk<span class="tag">&lt;/developerConnection&gt;</span>
+<span class="tag">&lt;/scm&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En la configuración del plugin, se han de indicar el usuario y password con permisos suficientes para realizar el commit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-release-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.5.3<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;username&gt;</span>${scm.username}<span class="tag">&lt;/username&gt;</span>
+                                <span class="tag">&lt;password&gt;</span>${scm.password}<span class="tag">&lt;/password&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los <strong>Goals</strong> disponibles son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>release:branch</strong>: Crea una nueva rama en el Sistema Gestor de versiones.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn release:branch -DbranchName=myFirstRelease</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>release:prepare</strong>: Comando que realiza las siguientes tareas:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Chequea que hay cambios pendientes de enviar al gestor de versiones.</p>
+</li>
+<li>
+<p>Se asegura que no hay dependencias en modo SNAPSHOT</p>
+</li>
+<li>
+<p>Cambia la version del proyecto, quitando SNAPSHOT</p>
+</li>
+<li>
+<p>Comita el codigo al sistema gestor de versiones y lo etiqueta.</p>
+</li>
+<li>
+<p>Incrementa la version del codigo en local y añade SNAPSHOT</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Es necesario para ejecutar este comando que el proyecto este sincronizado con el sistema gestor de versiones. No puede haber fichero modificados que no esten en un commit.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn release:prepare</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>release:clean</strong>: Comando que limpia el target, en caso de que el ultimo intento de generar un release haya fracasado</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Despues de realizar un <strong>release:prepare</strong>, siempre habra que hacer un <strong>release:clean</strong>, para eliminar los ficheros temporales generados.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn release:clean</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>release:rollback</strong>: Comando que permite deshacer los cambios, en caso de haber ejecutado un <strong>release:prepare</strong> y que algo ha ido mal, dado que se han podido cambiar las cofiguraciones del <strong>pom.xml</strong> en cuanto a la version.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Es necesario que no existan bloqueos sobre la configuracion del repositorio, por ejemplo eclipse si esta conectado con el repositorio puede provocar un bloqueo que impida que se realice correctamente el rollback.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn release:rollback</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>release:perform</strong>: Comando que despues de realizar un <strong>release:prepare</strong>, traslada al repositorio Corporativo de Maven la version generada, que anteriomente ha sido llevada al gestor de versiones.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn release:perform</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para este ultimo caso, es necesario que esté configurado el repositorio de empresa de MAven como <strong>distributionManagement</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">&lt;distributionManagement&gt;
+        &lt;repository&gt;
+                &lt;uniqueVersion&gt;false&lt;/uniqueVersion&gt;
+                &lt;id&gt;releases&lt;/id&gt;
+                &lt;name&gt;Releases&lt;/name&gt;
+                &lt;url&gt;http://Victor-Portatil:8080/repository/internal&lt;/url&gt;
+                &lt;layout&gt;default&lt;/layout&gt;
+        &lt;/repository&gt;
+        &lt;snapshotRepository&gt;
+                &lt;uniqueVersion&gt;true&lt;/uniqueVersion&gt;
+                &lt;id&gt;snapshots&lt;/id&gt;
+                &lt;name&gt;Snapshots&lt;/name&gt;
+                &lt;url&gt;http://Victor-Portatil:8080/repository/snapshots&lt;/url&gt;
+                &lt;layout&gt;default&lt;/layout&gt;
+        &lt;/snapshotRepository&gt;
+&lt;/distributionManagement&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_scm_plugin">1.12.8. Maven SCM Plugin</h4>
+<div class="paragraph">
+<p>Permite ejecutar comandos de SCM, como Goals de Maven. Obtiene la configuración de <strong>&lt;scm&gt;</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-scm-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>1.9.4<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;connectionType&gt;</span>${scm.connection}<span class="tag">&lt;/connectionType&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los <strong>Goals</strong> disponibles son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>scm:branch</strong>: Rama de un proyecto.</p>
+</li>
+<li>
+<p><strong>scm:changelog</strong>: Comandos para ver las revisiones de codigo fuente.</p>
+</li>
+<li>
+<p><strong>scm:checkin</strong>: Comando para comitar los cambios.</p>
+</li>
+<li>
+<p><strong>scm:checkout</strong>: Comando para obtener los fuentes del servidor.</p>
+</li>
+<li>
+<p><strong>scm:diff</strong>: Comando para ver las diferencias entre el espacio de trabajo y el servidor remoto.</p>
+</li>
+<li>
+<p><strong>scm:status</strong>: Comando apra mostrar el estado del espacio de trabajo.</p>
+</li>
+<li>
+<p><strong>scm:tag</strong>: Comando para crear una etiqueta sobre una revisión.</p>
+</li>
+<li>
+<p><strong>scm:update</strong>: Actualiza el espacio de trabajo con los ultimos cambios.</p>
+</li>
+<li>
+<p><strong>scm:validate</strong>: Valida la información del SCM en el pom.xml</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_javadoc_plugin">1.12.9. Maven Javadoc Plugin</h4>
+<div class="paragraph">
+<p>Plugin que permite generar los Javadoc</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                        <span class="tag">&lt;plugin&gt;</span>
+                                <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                                <span class="tag">&lt;artifactId&gt;</span>maven-javadoc-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;/plugin&gt;</span>
+                <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El Goal que proporciona es</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn javadoc:javadoc</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_scm_integración_de_maven_y_sistema_gestor_de_cambio">1.12.10. SCM (Integración de Maven y Sistema Gestor de Cambio)</h4>
+<div class="paragraph">
+<p>Permite configurar el acceso al servidor de control de versiones, se han de configurar los siguientes parametros</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>connection: URL que permite el acceso en modo lectura, para que Maven pueda descargar el codigo del SCM.</p>
+</li>
+<li>
+<p>developerConnection: URL que permite el acceso en modo escritura, para que Maven pueda realizar commits al SCM.</p>
+</li>
+<li>
+<p>tag:</p>
+</li>
+<li>
+<p>url: URL con cliente Web que permite navegar el repositorio SCM.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;scm&gt;</span>
+        <span class="tag">&lt;connection&gt;</span>scm:svn:http://127.0.0.1/svn/proyecto/trunk<span class="tag">&lt;/connection&gt;</span>
+        <span class="tag">&lt;developerConnection&gt;</span>scm:svn:https://127.0.0.1/svn/proyecto/trunk<span class="tag">&lt;/developerConnection&gt;</span>
+        <span class="tag">&lt;tag&gt;</span>HEAD<span class="tag">&lt;/tag&gt;</span>
+        <span class="tag">&lt;url&gt;</span>http://127.0.0.1/websvn/proyecto<span class="tag">&lt;/url&gt;</span>
+<span class="tag">&lt;/scm&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_site">1.13. Site</h3>
+<div class="paragraph">
+<p>Desde Maven, se puede generar de forma automatica un sitio HTML, con información sobre el proyecto, donde se puede encontrar información como</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dependencias referenciadas</p>
+</li>
+<li>
+<p>Como hacer referencia desde distintas tecnologias a artefacto generado</p>
+</li>
+<li>
+<p>Plugins empleados</p>
+</li>
+<li>
+<p>Configuracion de los plugins</p>
+</li>
+<li>
+<p>Reportes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Javadoc</p>
+</li>
+<li>
+<p>Test</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para generar este sitio, unicamente habrá que lanzar el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn site:site</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La generación del sitio puede internacionalizarse, basta con añadir el siguiente plugin en la construccion, donde se establecerá el idioma por defecto siguiendo el Locale definido, y se incluira en la carpeta <strong>site/&lt;codigo idiomatico&gt;/</strong> una copia del sitio, pero con los textos traducidos para cada uno de los idiomas indicados.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-site-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>3.4<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;locales&gt;</span>en,es<span class="tag">&lt;/locales&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El sitio puede ser preconfigurado añadiendo un fichero <strong>site.xml</strong> dentro de la carpeta <strong>src/site/</strong>. Este fichero tendra como <a href="https://maven.apache.org/xsd/decoration-1.7.0.xsd">xml schema</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="tag">&lt;project</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/DECORATION/1.7.0</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/DECORATION/1.7.0 https://maven.apache.org/xsd/decoration-1.7.0.xsd </span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+
+<span class="tag">&lt;/project&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este fichero, se pueden configurar elementos como</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Que logos se quieren incluir en la cabecera</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;bannerLeft&gt;</span>
+        <span class="tag">&lt;name&gt;</span>Project Name<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;src&gt;</span>http://maven.apache.org/images/apache-maven-project-2.png<span class="tag">&lt;/src&gt;</span>
+        <span class="tag">&lt;href&gt;</span>http://maven.apache.org/<span class="tag">&lt;/href&gt;</span>
+<span class="tag">&lt;/bannerLeft&gt;</span>
+
+<span class="tag">&lt;bannerRight&gt;</span>
+        <span class="tag">&lt;src&gt;</span>http://maven.apache.org/images/maven-logo-2.gif<span class="tag">&lt;/src&gt;</span>
+<span class="tag">&lt;/bannerRight&gt;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>En que posición de la pagina se quieren poner la fecha de generación y la versión</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;publishDate</span> <span class="attribute-name">position</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">right</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;version</span> <span class="attribute-name">position</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">right</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Con que herramienta se ha construido</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;poweredBy&gt;</span>
+<span class="tag">&lt;logo</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Maven</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/</span><span class="delimiter">&quot;</span></span>
+      <span class="attribute-name">img</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/images/logos/maven-feather.png</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/poweredBy&gt;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enlaces de interes a incluir en la barra superior de menu</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;body&gt;</span>
+        <span class="tag">&lt;links&gt;</span>
+                <span class="tag">&lt;item</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Apache</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.apache.org</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+                <span class="tag">&lt;item</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Maven</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/links&gt;</span>
+<span class="tag">&lt;/body&gt;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Divison de los menus de la parte izquierda de la pagina, pudiendo incluir a mayores enlaces a otros recursos, ademas de los enlaces a las paginas autogeneradas</p>
+<div class="ulist">
+<ul>
+<li>
+<p>reports: Reportes generados</p>
+</li>
+<li>
+<p>parent: Datos del proyecto padre, si lo hubiera</p>
+</li>
+<li>
+<p>modules: Información de los subproyectos, en caso de ser este un proyecto padre.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;body&gt;</span>
+        <span class="comment">&lt;!-- otros enlaces --&gt;</span>
+        <span class="tag">&lt;menu</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Overview</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;item</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Foo</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">foo.html</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+                <span class="tag">&lt;item</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">FAQ</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">faq.html</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;/menu&gt;</span>
+
+        <span class="comment">&lt;!-- Documentacion generada de forma automatica--&gt;</span>
+        <span class="tag">&lt;menu</span> <span class="attribute-name">ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">modules</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;menu</span> <span class="attribute-name">ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">parent</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;menu</span> <span class="attribute-name">ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">reports</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;/body&gt;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enlaces extras, para componer una miga de pan que permita la ubicación de este sitio dentro de otro sitio con mas información</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;body&gt;</span>
+        <span class="tag">&lt;breadcrumbs&gt;</span>
+                <span class="tag">&lt;item</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Doxia</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/doxia/index.html</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+                <span class="tag">&lt;item</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Trunk</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/doxia/doxia/index.html</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/breadcrumbs&gt;</span>
+<span class="tag">&lt;/body&gt;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Configuración del tema a emplear</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;skin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.skins<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-fluido-skin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>1.5<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/skin&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para mas información, consultar con la documentación oficial <a href="http://maven.apache.org/plugins/maven-site-plugin/examples/sitedescriptor.html">aqui</a></p>
+</div>
+<div class="paragraph">
+<p>Además de la configuración, se se pueden añadir otros recursos en la carpeta <strong>src/site/</strong> que seran copiados en el sitio generado.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plugins_reportes">1.14. Plugins Reportes</h3>
+<div class="paragraph">
+<p>Se pueden generar reportes y añadirlos al sitio, para lo cual, hay que configurar la seccion de reporting del <strong>pom.xml</strong></p>
+</div>
+<div class="sect3">
+<h4 id="_maven_project_info_reports_plugin">1.14.1. Maven Project Info Reports Plugin</h4>
+<div class="paragraph">
+<p>El primer plugin a configurar será <strong>maven-project-info-reports-plugin</strong> que el plugin que permite generar los reports.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-project-info-reports-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.9<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_javadoc_plugin_2">1.14.2. Maven Javadoc Plugin</h4>
+<div class="paragraph">
+<p>Para generar los <strong>javadoc</strong> y añadirlos al site, se ha de añadir</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-javadoc-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_surefire_report_plugin">1.14.3. Maven Surefire Report Plugin</h4>
+<div class="paragraph">
+<p>Permite generar un report de los resultados de los plugins <strong>surefire</strong> y <strong>failsafe</strong>. Dispone de dos <strong>goals</strong>, cada uno de los cuales se encarga de crear el report de cada plugin.</p>
+</div>
+<div class="paragraph">
+<p>Este plugin no lanza los <strong>test</strong> por lo que deberan de estar previamente generados.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-surefire-report-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.12.4<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;reportSets&gt;</span>
+                                <span class="tag">&lt;reportSet&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>integration-tests<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;reports&gt;</span>
+                                                <span class="comment">&lt;!-- Genera los reportes para Failsafe --&gt;</span>
+                                                <span class="tag">&lt;report&gt;</span>failsafe-report-only<span class="tag">&lt;/report&gt;</span>
+                                                <span class="comment">&lt;!-- Genera los reportes para surefire --&gt;</span>
+                                                <span class="tag">&lt;report&gt;</span>report-only<span class="tag">&lt;/report&gt;</span>
+                                        <span class="tag">&lt;/reports&gt;</span>
+                                <span class="tag">&lt;/reportSet&gt;</span>
+                        <span class="tag">&lt;/reportSets&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_jxr_plugin">1.14.4. Maven JXR Plugin</h4>
+<div class="paragraph">
+<p>Plugin que genera un reporte con el contenido del codigo fuente, esto permite a otros plugin de reportes, enlazar con el codigo fuente.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-jxr-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.5<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_findbugs_maven_plugin">1.14.5. Findbugs Maven Plugin</h4>
+<div class="paragraph">
+<p>Plugin que permite lanzar la evaluación estatica sobre el codigo definida por las reglas de <a href="http://findbugs.sourceforge.net/">findbugs</a>, <a href="http://findbugs.sourceforge.net/manual/index.html">aquí</a> el manual.</p>
+</div>
+<div class="paragraph">
+<p>Es un plugin que precisa de bastantes recursos para realizar el analisis.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.codehaus.mojo<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>findbugs-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.5.2<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_checkstyle_plugin">1.14.6. Maven Checkstyle Plugin</h4>
+<div class="paragraph">
+<p>Plugin que permite lanzar la evaluación estatica sobre el codigo definida por las reglas de <a href="http://checkstyle.sourceforge.net/">checkstyle</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-checkstyle-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.9.1<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_pmd_plugin">1.14.7. Maven PMD Plugin</h4>
+<div class="paragraph">
+<p>Plugin que permite lanzar la evaluación estatica sobre el codigo definida por las reglas de <a href="https://pmd.github.io/">PMD</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-pmd-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>3.6<span class="tag">&lt;/version&gt;</span>
+        <span class="tag">&lt;configuration&gt;</span>
+                <span class="tag">&lt;linkXref&gt;</span>true<span class="tag">&lt;/linkXref&gt;</span>
+        <span class="tag">&lt;/configuration&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cobertura_maven_plugin">1.14.8. Cobertura Maven Plugin</h4>
+<div class="paragraph">
+<p>Plugin que permite realizar la medición de la cobertura, presentando el resultado en informes <strong>html</strong> y <strong>xml</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.codehaus.mojo<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>cobertura-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.5.2<span class="tag">&lt;/version&gt;</span>
+        <span class="tag">&lt;configuration&gt;</span>
+                <span class="tag">&lt;formats&gt;</span>
+                        <span class="tag">&lt;format&gt;</span>xml<span class="tag">&lt;/format&gt;</span>
+                        <span class="tag">&lt;format&gt;</span>html<span class="tag">&lt;/format&gt;</span>
+                <span class="tag">&lt;/formats&gt;</span>
+        <span class="tag">&lt;/configuration&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_jococo_maven_plugin">1.14.9. Jococo Maven Plugin</h4>
+<div class="paragraph">
+<p>Formado por las primeras silabas de <strong>Java Code Coverage</strong>, es otro plugin de cobertura.</p>
+</div>
+<div class="paragraph">
+<p>Tendra dos partes difenciadas, la de <strong>reporting</strong> que hará accesibles los reportes desde el <strong>site</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.jacoco<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>jacoco-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>0.7.5.201505241946<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y la generación de los reportes, que se dividirá en otras dos fases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La preparación de los datos por el <strong>agente</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.jacoco<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>jacoco-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>0.7.5.201505241946<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;executions&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>pre-unit-test<span class="tag">&lt;/id&gt;</span>
+                                        <span class="comment">&lt;!-- No define una fase en la que ejecutarse, ya que tiene una fase por defecto --&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>prepare-agent<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                        <span class="tag">&lt;configuration&gt;</span>
+                                                <span class="tag">&lt;dataFile&gt;</span>${project.build.directory}/jacoco-ut.exec<span class="tag">&lt;/dataFile&gt;</span>
+                                                <span class="tag">&lt;propertyName&gt;</span>surefireArgLine<span class="tag">&lt;/propertyName&gt;</span>
+                                        <span class="tag">&lt;/configuration&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                        <span class="tag">&lt;/executions&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La generación de los reportes con dichos datos.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.jacoco<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>jacoco-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>0.7.5.201505241946<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;executions&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>post-unit-test<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>report<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                        <span class="tag">&lt;configuration&gt;</span>
+                                                <span class="tag">&lt;dataFile&gt;</span>${project.build.directory}/jacoco-ut.exec<span class="tag">&lt;/dataFile&gt;</span>
+                                                <span class="tag">&lt;outputDirectory&gt;</span>${project.reporting.outputDirectory}/jacoco-ut<span class="tag">&lt;/outputDirectory&gt;</span>
+                                        <span class="tag">&lt;/configuration&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                        <span class="tag">&lt;/executions&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se puede aplicar el analisis tanto a los test <strong>unitarios</strong>, como a los de <strong>integracion</strong>, unicamente indicando en el plugin con <strong>argLine</strong> la ubicacion del agente de <strong>jacoco</strong> que debera generar los datos del analisis.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-surefire-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.12.4<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;argLine&gt;</span>${surefireArgLine}<span class="tag">&lt;/argLine&gt;</span>
+                                <span class="tag">&lt;excludes&gt;</span>
+                                        <span class="tag">&lt;exclude&gt;</span>**/integracion/*.java<span class="tag">&lt;/exclude&gt;</span>
+                                <span class="tag">&lt;/excludes&gt;</span>
+                                <span class="tag">&lt;includes&gt;</span>
+                                        <span class="tag">&lt;include&gt;</span>**/unitarias/*.java<span class="tag">&lt;/include&gt;</span>
+                                <span class="tag">&lt;/includes&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maven_changelog_plugin">1.14.10. Maven Changelog Plugin</h4>
+<div class="paragraph">
+<p>Plugin que permite obtener reportes de los cambios que se han ido produciendo en el proyecto, a traves de los commit del SCM.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-changelog-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.2<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Es necesario indicar la ubicacion del SCM, para que pueda conectarse el plugin y extraer los commit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;scm&gt;</span>
+        <span class="tag">&lt;developerConnection&gt;</span>scm:git:https://github.com/victorherrerocazurro/CalidadEstatica<span class="tag">&lt;/developerConnection&gt;</span>
+        <span class="tag">&lt;connection&gt;</span>scm:git:https://github.com/victorherrerocazurro/CalidadEstatica<span class="tag">&lt;/connection&gt;</span>
+        <span class="tag">&lt;url&gt;</span>scm:git:https://github.com/victorherrerocazurro/CalidadEstatica<span class="tag">&lt;/url&gt;</span>
+        <span class="tag">&lt;tag&gt;</span>HEAD<span class="tag">&lt;/tag&gt;</span>
+<span class="tag">&lt;/scm&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_repositorios_de_empresa">1.15. Repositorios de empresa</h3>
+<div class="paragraph">
+<p>Un repositorio de empresa de Maven, es un repositorio de artefactos Maven privado, es decir con securización, que habitualmente se emplea en un entorno empresarial para compartir dentro de la empresa y no con todo el mundo los artefactos que se van generando.</p>
+</div>
+<div class="paragraph">
+<p>Existen varios repositorios</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Archiva. (Gratuito)</p>
+</li>
+<li>
+<p>Nexus. (De pago)</p>
+</li>
+<li>
+<p>Artifactory. (De pago barato)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para la explicación vamos a emplear Archiva, para ello descargamos la versión stand-alone de <a href="http://archiva.apache.org/">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Se descarga un zip, en cuyo interior encontramos un fichero <strong>bin/archiva.bat</strong>. Para arrancar se ejecuta el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">archiva console</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este comando arranca un jetty en el puerto 8080, publicando la interaface sobre el repositorio, para acceder a la consola de administración</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="WEB">http://localhost:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tanto el puerto (8080), como la base de datos, que por defecto es derby, se pueden modificar directamente en el fichero <strong>conf/jetty.xml</strong></p>
+</div>
+<div class="paragraph">
+<p>Una vez se accede a Archiva, se ha de dar de alta un administrador.</p>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/Maven/alta_administrador_archiva.png" alt="alta administrador archiva">
+</div>
+</div>
+<div class="paragraph">
+<p>Con este usuario habrá que generar los usuarios con permisos de despliegue, es decir los que tengan un rol <strong>Repository Manager</strong>.</p>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/Maven/alta_usuario_archiva.png" alt="alta usuario archiva">
+</div>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/Maven/permisos_usuario_archiva.png" alt="permisos usuario archiva">
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez definidos los repositorios y los usuarios, se ha de configurar el proyecto para que emple el repositorio de empresa.</p>
+</div>
+<div class="paragraph">
+<p>Lo primero será definir el repositorio como nuevo repositorio para las descargas, para ello</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;repositories&gt;</span>
+        <span class="tag">&lt;repository&gt;</span>
+                <span class="tag">&lt;id&gt;</span>archiva.internal<span class="tag">&lt;/id&gt;</span>
+                <span class="tag">&lt;url&gt;</span>http://localhost:8080/repository/internal/<span class="tag">&lt;/url&gt;</span>
+                <span class="tag">&lt;releases&gt;</span>
+                        <span class="tag">&lt;enabled&gt;</span>true<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;/releases&gt;</span>
+                <span class="tag">&lt;snapshots&gt;</span>
+                        <span class="tag">&lt;enabled&gt;</span>false<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;/snapshots&gt;</span>
+        <span class="tag">&lt;/repository&gt;</span>
+        <span class="tag">&lt;repository&gt;</span>
+                <span class="tag">&lt;id&gt;</span>archiva.snapshots<span class="tag">&lt;/id&gt;</span>
+                <span class="tag">&lt;url&gt;</span>http://localhost:8080/repository/snapshots/<span class="tag">&lt;/url&gt;</span>
+                <span class="tag">&lt;releases&gt;</span>
+                        <span class="tag">&lt;enabled&gt;</span>false<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;/releases&gt;</span>
+                <span class="tag">&lt;snapshots&gt;</span>
+                        <span class="tag">&lt;enabled&gt;</span>true<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;/snapshots&gt;</span>
+        <span class="tag">&lt;/repository&gt;</span>
+<span class="tag">&lt;/repositories&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La anterior configuracion, no es necesaria si se desea que sea el repositorio de empresa el unico repositorio accesible, es decir deshabilitar el acceso al repositorio <strong>Maven Central</strong>, para conseguirlo se ha de incluir el siguiente <strong>Mirror</strong> en el fichero <strong>/.m2/settings.xml</strong>, en lugar de la configuración anterior.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;mirror&gt;</span>
+        <span class="tag">&lt;id&gt;</span>archiva.internal<span class="tag">&lt;/id&gt;</span>
+        <span class="tag">&lt;name&gt;</span>archiva.internal<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;url&gt;</span>http://Victor-Portatil:8080/repository/internal<span class="tag">&lt;/url&gt;</span>
+        <span class="tag">&lt;mirrorOf&gt;</span>*<span class="tag">&lt;/mirrorOf&gt;</span>
+<span class="tag">&lt;/mirror&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El siguiente paso será definir los repositorios, como receptores de nuevas versiones, para ello a traves de la etiqueta <strong>&lt;distributionManagement&gt;</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;distributionManagement&gt;</span>
+        <span class="tag">&lt;repository&gt;</span>
+                <span class="tag">&lt;uniqueVersion&gt;</span>false<span class="tag">&lt;/uniqueVersion&gt;</span>
+                <span class="tag">&lt;id&gt;</span>releases<span class="tag">&lt;/id&gt;</span>
+                <span class="tag">&lt;name&gt;</span>Releases<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;url&gt;</span>http://Victor-Portatil:8080/repository/internal<span class="tag">&lt;/url&gt;</span>
+                <span class="tag">&lt;layout&gt;</span>default<span class="tag">&lt;/layout&gt;</span>
+        <span class="tag">&lt;/repository&gt;</span>
+        <span class="tag">&lt;snapshotRepository&gt;</span>
+                <span class="tag">&lt;uniqueVersion&gt;</span>true<span class="tag">&lt;/uniqueVersion&gt;</span>
+                <span class="tag">&lt;id&gt;</span>snapshots<span class="tag">&lt;/id&gt;</span>
+                <span class="tag">&lt;name&gt;</span>Snapshots<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;url&gt;</span>http://Victor-Portatil:8080/repository/snapshots<span class="tag">&lt;/url&gt;</span>
+                <span class="tag">&lt;layout&gt;</span>default<span class="tag">&lt;/layout&gt;</span>
+        <span class="tag">&lt;/snapshotRepository&gt;</span>
+<span class="tag">&lt;/distributionManagement&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A tener en cuenta que en ambos dos casos anteriores, el identificador empleado para los repositorios es el mismo, esto es debido a la necesidad de identificación en el repostiorio de empresa para subidas y descargas, dado que el acceso al servidor será restringido, con lo que se ha de configurar el <strong>usuario/password</strong> a emplear con dicho servidor, el lugar mas adecuado para configurar esto, dado que no va asociado al proycto sino a usuario que maneja el proyecto, es el fichero <strong>.m2\settings.xml</strong>, aquí a través de un identificador del servidor, se asociará a dicho servidor el <strong>usuario/password</strong> a emplear.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;servers&gt;</span>
+        <span class="tag">&lt;server&gt;</span>
+                <span class="tag">&lt;id&gt;</span>archiva.internal<span class="tag">&lt;/id&gt;</span>
+                <span class="tag">&lt;username&gt;</span>despliegue<span class="tag">&lt;/username&gt;</span>
+                <span class="tag">&lt;password&gt;</span>despliegue1<span class="tag">&lt;/password&gt;</span>
+        <span class="tag">&lt;/server&gt;</span>
+        <span class="tag">&lt;server&gt;</span>
+                <span class="tag">&lt;id&gt;</span>archiva.snapshots<span class="tag">&lt;/id&gt;</span>
+                <span class="tag">&lt;username&gt;</span>despliegue<span class="tag">&lt;/username&gt;</span>
+                <span class="tag">&lt;password&gt;</span>despliegue1<span class="tag">&lt;/password&gt;</span>
+        <span class="tag">&lt;/server&gt;</span>
+<span class="tag">&lt;/servers&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plugin_personalizados">1.16. Plugin Personalizados</h3>
+<div class="paragraph">
+<p>Los Plugin personalizados, permiten definir funcionalidades propias para manipular los proyectos e incluirlos dentro del ciclo de vida Maven.</p>
+</div>
+<div class="paragraph">
+<p>A los Plugin en Maven se les llama <strong>Mojo</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Los Plugin pueden tener uno o mas Goals, que pueden ser lanzados de forma independiente o asociados a alguna Fase del ciclo de vida.</p>
+</div>
+<div class="paragraph">
+<p>Existe un arquetipo para generar plugins <strong>maven-archetype-mojo</strong>, que crea un nuevo plugin</p>
+</div>
+<div class="sect3">
+<h4 id="_creación_de_un_plugin">1.16.1. Creación de un Plugin</h4>
+<div class="paragraph">
+<p>El proyecto de tipo plugin, ha de tener como packagin <strong>maven-plugin</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;packaging&gt;</span>maven-plugin<span class="tag">&lt;/packaging&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Es conveniente seguir la nomenclatura para el <strong>artifactId</strong> del plugin <strong>maven-{plugin_name}-plugin</strong>, ya que permite definir comandos para la ejecución de los Goals reducidos.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;artifactId&gt;</span>maven-HolaMundo-plugin<span class="tag">&lt;/artifactId&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los Plugin de Maven, estarán compuestos por clases que implementan la interface <strong>org.apache.maven.plugin.Mojo</strong>. Cada una de estas clases será un <strong>Goal</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Se proporciona una clase abstracta <strong>org.apache.maven.plugin.AbstractMojo</strong>, que implementa todos los métodos de las interfaces <strong>Mojo</strong> y <strong>ContextEnabled</strong> menos <strong>execute</strong>, que es el que ha de contener el codigo que define el Plugin.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">HolaMundoPlugin</span> <span class="directive">extends</span> AbstractMojo {
+        <span class="directive">public</span> <span class="type">void</span> execute() <span class="directive">throws</span> MojoExecutionException, MojoFailureException {
+                getLog().info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hola Mundo!!!</span><span class="delimiter">&quot;</span></span>);
+        }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para poder emplear este API, habrá que añadir la dependencia</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;dependency&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.maven<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-plugin-api<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Será necesario indicar en la clase <strong>Mojo</strong>, el <strong>Goal</strong> al cual responde la ejecución, para ello se ha de indicar con una anotacion de comentario a nivel de clase</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+ * @goal holamundo
+ */</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">HolaMundoPlugin</span> <span class="directive">extends</span> AbstractMojo {
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para poder ejecutar el Goal del Plugin, se ha de resitrar el Plugin en el proyecto</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>com.curso.ecosistema<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-HolaMundo-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y se ha de invocar el comando Maven, con la estructura <strong>&lt;groupId&gt;:&lt;artifactId&gt;:&lt;version&gt;:&lt;goal&gt;</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn com.curso.ecosistema:maven-HolaMundo-plugin:0.0.1-SNAPSHOT:holamundo</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_los_plugin_parametrizables">1.16.2. Los Plugin Parametrizables</h4>
+<div class="paragraph">
+<p>La estructura de los Plugin, permiten parametrizarlos, para ello, se ha de definir un atributo de clase de algunos de los siguientes tipos: String, Boolean, Integer, Double, Date, File o URI, anotado con la anotacion de comentatio <strong>@parameter</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+* @parameter
+*/</span>
+<span class="directive">private</span> <span class="predefined-type">String</span> nombre;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los formatos de las fechas aceptados son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>yyyy-MM-dd HH:mm:ss.S a &#8594; Un ejemplo seria "2005-10-06 2:22:55.1 PM"</p>
+</li>
+<li>
+<p>yyyy-MM-dd HH:mm:ssa &#8594; Un ejemplo seria "2005-10-06 2:22:55PM"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Se puede definir una expresion que haga referencia a un parametro del proyecto, para obtener el valor de la propiedad</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+* @parameter expression=&quot;${holamundo.nombre}&quot;
+*/</span>
+<span class="directive">private</span> <span class="predefined-type">String</span> nombre;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Además se puede definir un valor por defecto</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+* @parameter default-value=&quot;Administrador&quot;
+*/</span>
+<span class="directive">private</span> <span class="predefined-type">String</span> nombre;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para establcer los valores a estos parametros, se ha de indicar en la declaración del Plugin, en la etiqueta <strong>&lt;configuration&gt;</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        ...
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;nombre&gt;</span>Victor<span class="tag">&lt;/nombre&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tabmien se pueden emplear tipos como Arrays, List, Maps y Properties, en estos casos, habrá que inicializar el atributo de clase.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+* @parameter
+*/</span>
+<span class="directive">private</span> <span class="predefined-type">Map</span> parametros = <span class="keyword">new</span> <span class="predefined-type">HashMap</span>();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Siendo la forma de establecer los valores</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        ...
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;parametros&gt;</span>
+                                        <span class="tag">&lt;nombre&gt;</span>Victor<span class="tag">&lt;/nombre&gt;</span>
+                                <span class="tag">&lt;/parametros&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Donde <strong>nombre</strong> es la clave y <strong>Victor</strong> el valor.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_documentacion">1.16.3. Documentacion</h4>
+<div class="paragraph">
+<p>Se puede configurar un plugin para que genere la documentación como un reporte.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-plugin-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.5.1<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y generar la documentación dentro del sitio con</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn site</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_errores">1.17. Errores</h3>
+<div class="paragraph">
+<p>Para habilitar las trazas de error, se pueden añadir los modificadores -e o -X al comando <strong>mvn</strong> correspondiente.</p>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/Maven/configuración_trazas_error_eclipse.png" alt="configuración trazas error eclipse">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2016-05-09 00:09:41 Hora de verano romance
+</div>
+</div>
+</body>
+</html>
