@@ -596,14 +596,14 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_parametros_por_defecto_2">Parametros por defecto</a></li>
 <li><a href="#_paso_de_parametros_por_nombre">Paso de parametros por nombre</a></li>
 <li><a href="#_numero_indeterminado_de_patametros">Numero indeterminado de patametros</a></li>
-<li><a href="#_invocacion_parcial">Invocacion Parcial</a></li>
+<li><a href="#_invocacion_parcial_fp">Invocacion Parcial (FP)</a></li>
 <li><a href="#_estilo_fluido_de_programación">Estilo Fluido de programación</a></li>
-<li><a href="#_funciones_de_orden_superior">Funciones de Orden superior</a></li>
+<li><a href="#_funciones_de_orden_superior_fp">Funciones de Orden superior (FP)</a></li>
 <li><a href="#_retorno_de_una_funcion">Retorno de una funcion</a></li>
 <li><a href="#_funcion_predicado">Funcion Predicado</a></li>
 </ul>
 </li>
-<li><a href="#_closures">Closures</a></li>
+<li><a href="#_closures_fp">Closures (FP)</a></li>
 <li><a href="#_herencia">Herencia</a>
 <ul class="sectlevel2">
 <li><a href="#_herencia_de_campos">Herencia de campos</a></li>
@@ -617,7 +617,33 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_mixins">Mixins</a></li>
 </ul>
 </li>
-<li><a href="#_clases_case">Clases Case</a>
+<li><a href="#_paquetes">Paquetes</a></li>
+<li><a href="#_imports">Imports</a></li>
+<li><a href="#_sbt">SBT</a>
+<ul class="sectlevel2">
+<li><a href="#_comandos">Comandos</a></li>
+<li><a href="#_key">Key</a>
+<ul class="sectlevel3">
+<li><a href="#_custom_key">Custom Key</a></li>
+</ul>
+</li>
+<li><a href="#_plugins">Plugins</a></li>
+<li><a href="#_dependencias">Dependencias</a></li>
+<li><a href="#_ambitos_2">Ambitos</a></li>
+</ul>
+</li>
+<li><a href="#_testing">Testing</a>
+<ul class="sectlevel2">
+<li><a href="#_funsuite">FunSuite</a></li>
+<li><a href="#_flatspec">FlatSpec</a></li>
+<li><a href="#_funspec">FunSpec</a></li>
+<li><a href="#_wordspec">WordSpec</a></li>
+<li><a href="#_freespec">FreeSpec</a></li>
+<li><a href="#_matchers">Matchers</a></li>
+<li><a href="#_ejecucion">Ejecucion</a></li>
+</ul>
+</li>
+<li><a href="#_clases_case_fp">Clases Case (FP)</a>
 <ul class="sectlevel2">
 <li><a href="#_constructores_auxiliares_2">Constructores Auxiliares</a></li>
 <li><a href="#_sentencias_case_condicionales_guards">Sentencias Case condicionales (Guards)</a></li>
@@ -1529,7 +1555,7 @@ package object modelo {
 <div class="ulist">
 <ul>
 <li>
-<p>Se aprecia como <strong>*, *** o */* son funciones de la tipologia *int*, no existe el concepto del operador y se pueden nombrar funciones con caracteres especiales como *</strong>, <strong>-</strong>, &#8230;&#8203; que en otros lenguajes estan reservados como operadores, podemos decir que los operadores se pueden sobreescribir.</p>
+<p>Se aprecia como +, * o / son funciones de la tipologia <strong>Int</strong>, no existe el concepto del operador y se pueden nombrar funciones con caracteres especiales como +, -, &#8230;&#8203; que en otros lenguajes estan reservados como operadores, podemos decir que los operadores se pueden sobreescribir.</p>
 </li>
 </ul>
 </div>
@@ -1541,7 +1567,7 @@ package object modelo {
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Cuidado con el uso del operador <strong>.</strong> con los numeros, ya que <strong>1.</strong> se interpreta como <strong>1.0</strong>, será necesaria la sintaxis (1). para acceder a los métodos de <strong>int</strong></p>
+<p>Cuidado con el uso del operador <strong>.</strong> con los numeros, ya que <strong>1.</strong> se interpreta como <strong>1.0</strong>, será necesaria la sintaxis (1). para acceder a los métodos de <strong>Int</strong></p>
 </div>
 </td>
 </tr>
@@ -2315,49 +2341,6 @@ while( a &lt; 20 ){
 <pre class="CodeRay highlight"><code data-lang="scala">xs.filter(pivote &gt;)</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Ojo! No es lo mismo un método con 0 argumentos</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">def re() = real</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>que un método sin argumentos</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">def re = real</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Habrá diferencia a la hora de invocarlo, pasando de</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">c.re()</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>a</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">c.re</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="sect2">
 <h3 id="_funcion_anonima">Funcion anonima</h3>
 <div class="paragraph">
@@ -2509,7 +2492,7 @@ printAll(fruits: _*)</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_invocacion_parcial">Invocacion Parcial</h3>
+<h3 id="_invocacion_parcial_fp">Invocacion Parcial (FP)</h3>
 <div class="paragraph">
 <p>En Scala se puede preparar la invocación de un método indicando solo algunos de sus parametros, pudiendo realizar la invocación de dicho método mas adelante, ya si, indicando los parametros restantes.</p>
 </div>
@@ -2566,7 +2549,7 @@ class Person {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_funciones_de_orden_superior">Funciones de Orden superior</h3>
+<h3 id="_funciones_de_orden_superior_fp">Funciones de Orden superior (FP)</h3>
 <div class="paragraph">
 <p>Son funciones que reciben por paramtro otras funciones</p>
 </div>
@@ -2582,6 +2565,9 @@ class Person {
 </div>
 <div class="paragraph">
 <p>Normalmente si la funcion recibida recibe parametros, estos tambien llegan como parametros.</p>
+</div>
+<div class="paragraph">
+<p>Es uno de los ejes de la <strong>Programación Funcional</strong></p>
 </div>
 <div class="paragraph">
 <p>Esta definicion da paso a las <strong>Closures</strong>.</p>
@@ -2673,7 +2659,7 @@ def isEven (i: Int) = (i % 2 == 0)</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_closures">Closures</h2>
+<h2 id="_closures_fp">Closures (FP)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Es una función que puede interaccionar no solo con las variables de su ambito, sino con las de otro ambito.</p>
@@ -2960,7 +2946,710 @@ class Dog (name: String) extends Pet (name) with Tail {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_clases_case">Clases Case</h2>
+<h2 id="_paquetes">Paquetes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Es la primera linea no comentada del fichero.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">package com.ejemplo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden definir empleando bloques de <strong>{}</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">package com.ejemplo {
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Con esta sintaxis, se pueden definir varios paquetes en un mismo fichero, o incluso el mismo partido</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">package com.ejemplo.modelo {
+
+}
+package com.ejemplo.logica {
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden anidar</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">package com {
+        package ejemplo {
+                package modelo {
+                }
+        }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_imports">Imports</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En Scala se pueden crear expresiones con las sentencias de import, pudiendo hacer</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Agrupación de import de un paquete</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import java.util.{Date, Locale}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Importación de todas las clase de un paquete</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import java.text.DateFormat._</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Renombrado de un import</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import scala.collection.{Vector =&gt; Vec28}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exclusión de una clase de una importación masiva</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import java.util.{Date =&gt; _, _}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los imports se pueden poner donde se quieran, siendo locales a su ubicación, pueden estar dentro del cuerpo de una clase u objeto.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class Bar {
+        def doBar = {
+                import scala.util.Random
+                println(&quot;&quot;)
+        }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden renombrar los imports</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import java.util.{ArrayList =&gt; JavaList}
+
+val list = new JavaList[String]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez que se renombra el nombre original ya no puede ser empleado, solo sera empleable el alias.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sbt">SBT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Emplea la estructura de directorio de <strong>Maven</strong></p>
+</div>
+<div class="paragraph">
+<p>Emplea el paradigma de <strong>convention over configuration</strong></p>
+</div>
+<div class="sect2">
+<h3 id="_comandos">Comandos</h3>
+<div class="paragraph">
+<p>clean &#8594; Limpia la carpeta <strong>target</strong></p>
+</div>
+<div class="paragraph">
+<p>compile &#8594; Compila los ficheros del proyecto y los coloca en la carpeta target</p>
+</div>
+<div class="paragraph">
+<p>package &#8594; Crea un jar con la aplicación.</p>
+</div>
+<div class="paragraph">
+<p>run &#8594; Ejecuta la aplicación</p>
+</div>
+<div class="paragraph">
+<p>reload &#8594; Recarga la configuracion de SBT</p>
+</div>
+<div class="paragraph">
+<p>plugins &#8594; Lista los plugins definidos</p>
+</div>
+<div class="paragraph">
+<p>test &#8594; Ejecuta los test</p>
+</div>
+<div class="paragraph">
+<p>test-only &#8594; Ejecuta solo los test que se le pasan separados por espacios</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_key">Key</h3>
+<div class="paragraph">
+<p>Todas las definiciones son <strong>Keys</strong>, pueden ser:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>SettingKey[T] &#8594; una key para un valor que se calcula una sola vez (el valor es calculado cuando se carga el proyecto, y se mantiene).</p>
+</li>
+<li>
+<p>TaskKey[T] &#8594; una key para un valor, llamado una task (tarea), que tiene que ser recalculada cada vez, potencialmente con efectos laterales.</p>
+</li>
+<li>
+<p>InputKey[T] &#8594; una key para una task que tiene argumentos para la línea de comandos como entrada.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La definición de una key se escribe</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">name := &quot;hello&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La sentencia se puede interpretar como</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">name.:=(&quot;hello&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Es necesario que exista entre medias de cada definicion una linea en blanco.</p>
+</div>
+<div class="sect3">
+<h4 id="_custom_key">Custom Key</h4>
+<div class="paragraph">
+<p>Se pueden declarar nuevas <strong>Task</strong> empleando los metodos de creación: settingKey, taskKey e inputKey</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">lazy val hello = taskKey[Unit](&quot;An example task&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y definir su valor de forma analoga a las proporcionadas por la herramienta</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">hello := { println(&quot;Hello!&quot;) }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plugins">Plugins</h3>
+<div class="paragraph">
+<p>Los plugins añaden nuevas <strong>Key</strong>, tipicamente <strong>TaskKey</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Se definen en el fichero <strong>/project/plugins.sbt</strong></p>
+</div>
+<div class="paragraph">
+<p>Por ejemplo se puede añadir un Plugin para tranformar un proyecto <strong>SBT</strong> a <strong>Eclipse</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">addSbtPlugin(&quot;com.typesafe.sbteclipse&quot; % &quot;sbteclipse-plugin&quot; % &quot;4.0.0&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este plugin da un nuevo <strong>TaskKey</strong> llamado <strong>eclipse</strong> que interpreta la configuracion <strong>SBT</strong> y genera los ficheros de <strong>eclipse</strong>, si se hace alguna modificación en la condfguracion de <strong>SBT</strong>, habra que volver a lanzar el comando para que eclipse la tenga en cuenta.</p>
+</div>
+<div class="paragraph">
+<p>Si el plugin no esta en los repositorios por defecto, se pueden definir nuevos</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">resolvers += Resolver.sonatypeRepo(&quot;public&quot;)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dependencias">Dependencias</h3>
+<div class="paragraph">
+<p>Las dependencias se añaden sobre la <strong>Key</strong> <strong>libraryDependencies</strong>, en este caso es una <strong>Key</strong> que no tiene un unico valor, por lo que se emplea es el operador <strong>+=</strong> para concatenar las distitnas dependencias</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">libraryDependencies += &quot;org.apache.derby&quot; % &quot;derby&quot; % &quot;10.4.1.3&quot;
+libraryDependencies += &quot;org.scalatest&quot; % &quot;scalatest_2.11&quot; % &quot;2.2.4&quot; % &quot;test&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El valor se obtiene empleando el método <strong>%</strong> que permite construir un ID para un módulo de <strong>Ivy</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Se puede obtener la referencia de la dependencia de <a href="https://mvnrepository.com">aqui</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ambitos_2">Ambitos</h3>
+<div class="paragraph">
+<p>Se pueden definir los valores de los <strong>key</strong> para los distintos ambitos definidos</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Test</p>
+</li>
+<li>
+<p>Compile</p>
+</li>
+<li>
+<p>Runtime</p>
+</li>
+<li>
+<p>Global</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Siguiendo la sintaxis</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">name in Test := &quot;HolaMundoSBTest&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Desde la linea de comando se puede inspeccionar los valores que tienen las distintas <strong>key</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">sbt&gt; inspect test:name</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testing">Testing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>El la Programación funcional, el testing de las funcionalidades, ofrece mayor garantia que en la programacion imperativa, dado que en la funcional el resultado de la ejecución de una función, solo dependen de los parametros de entrada, y no del ambito de ejecución.</p>
+</div>
+<div class="paragraph">
+<p>El Framework para la realizacion de test en <strong>Scala</strong> se llama <strong>scalatest</strong>, se puede encontrar su documentacion <a href="http://doc.scalatest.org/3.0.1">aqui</a></p>
+</div>
+<div class="paragraph">
+<p>Se necesitará añadir al classpath el jar de <strong>scalatest</strong></p>
+</div>
+<div class="paragraph">
+<p>Para añadirlo con <strong>SBT</strong> se ha de añadir al fichero <strong>/build.sbt</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">libraryDependencies += &quot;org.scalatest&quot; %% &quot;scalatest&quot; % &quot;3.0.1&quot; % &quot;test&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para añadirlo con <strong>Maven</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+  <span class="tag">&lt;groupId&gt;</span>org.scalatest<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>scalatest_2.11<span class="tag">&lt;/artifactId&gt;</span>
+  <span class="tag">&lt;version&gt;</span>3.0.1<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;scope&gt;</span>test<span class="tag">&lt;/scope&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Existen varios tipos de Estilos de definir los Test</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>FunSuite</p>
+</li>
+<li>
+<p>FlatSpec</p>
+</li>
+<li>
+<p>FunSpec</p>
+</li>
+<li>
+<p>WordSpec</p>
+</li>
+<li>
+<p>FreeSpec</p>
+</li>
+<li>
+<p>PropSpec</p>
+</li>
+<li>
+<p>FeatureSpec</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_funsuite">FunSuite</h3>
+<div class="paragraph">
+<p>Se define una clase que extienda <strong>FunSuite</strong>, donde se definirá la logica del <strong>Test</strong> y se incluiran tantos <strong>test</strong> como sean necesarios</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import org.scalatest.FunSuite
+
+class SetSuite extends FunSuite {
+
+  test(&quot;An empty Set should have size 0&quot;) {
+    assert(Set.empty.size == 0)
+  }
+
+  test(&quot;Invoking head on an empty Set should produce NoSuchElementException&quot;) {
+    assertThrows[NoSuchElementException] {
+      Set.empty.head
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los <strong>test</strong> siguen definen un texto descripivo del test y un cuerpo con las aserciones necesarias.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_flatspec">FlatSpec</h3>
+<div class="paragraph">
+<p>Se define una clase que extienda <strong>FlatSpec</strong>, definiendose una serie de enunciados donde se emplean <strong>should</strong>, <strong>can</strong>, <strong>must</strong>, &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import org.scalatest.FlatSpec
+
+class SetSpec extends FlatSpec {
+
+  &quot;An empty Set&quot; should &quot;have size 0&quot; in {
+    assert(Set.empty.size == 0)
+  }
+
+  it should &quot;produce NoSuchElementException when head is invoked&quot; in {
+    assertThrows[NoSuchElementException] {
+      Set.empty.head
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si se necesitan mas de un test sobre el mismo elemento, se puede emplear <strong>it</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_funspec">FunSpec</h3>
+<div class="paragraph">
+<p>Se define una clase que extienda <strong>FunSpec</strong>, definiendose una serie de enunciados empleando la anidacion de <strong>describe</strong>, para la reutilizacion de dichos enunciados, definiendo la asercion dentro de un <strong>it</strong></p>
+</div>
+<div class="paragraph">
+<p>Familiar para desarrolladores de <strong>Ruby RSpec</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import org.scalatest.FunSpec
+
+class SetSpec extends FunSpec {
+
+  describe(&quot;A Set&quot;) {
+    describe(&quot;when empty&quot;) {
+      it(&quot;should have size 0&quot;) {
+        assert(Set.empty.size == 0)
+      }
+
+      it(&quot;should produce NoSuchElementException when head is invoked&quot;) {
+        assertThrows[NoSuchElementException] {
+          Set.empty.head
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wordspec">WordSpec</h3>
+<div class="paragraph">
+<p>Se define una clase que extienda <strong>WordSpec</strong>, definiendose una serie de enunciados empleando los verbos: <strong>should</strong>, <strong>must</strong>, o <strong>can</strong> asociados a un <strong>SUT</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Si hay varias situaciones que se dean contemplar del mismo <strong>SUT</strong>, se puede emplear <strong>when</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Una vez descrito el enunciado, se finaliza con un bloque <strong>in</strong> y dentro la asercion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import org.scalatest.WordSpec
+
+class SetSpec extends WordSpec {
+
+  &quot;A Set&quot; when {
+    &quot;empty&quot; should {
+      &quot;have size 0&quot; in {
+        assert(Set.empty.size == 0)
+      }
+
+      &quot;produce NoSuchElementException when head is invoked&quot; in {
+        assertThrows[NoSuchElementException] {
+          Set.empty.head
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_freespec">FreeSpec</h3>
+<div class="paragraph">
+<p>Se define una clase que extienda <strong>FreeSpec</strong>, definiendose una serie de enunciados terminado por <strong>in</strong>, estos enunciados, se pueden partir para su reutilizacion empleando <strong>-</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import org.scalatest.FreeSpec
+
+class SetSpec extends FreeSpec {
+
+  &quot;A Set&quot; - {
+    &quot;when empty&quot; - {
+      &quot;should have size 0&quot; in {
+        assert(Set.empty.size == 0)
+      }
+
+      &quot;should produce NoSuchElementException when head is invoked&quot; in {
+        assertThrows[NoSuchElementException] {
+          Set.empty.head
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_matchers">Matchers</h3>
+<div class="paragraph">
+<p>El API proporciona un <strong>Trait</strong> que proporciona numerosas funciones para poder realizar los asertos de forma mas semantica <strong>org.scalatest.Matchers</strong>, este emplea el verbo <strong>should</strong>, de forma paralela existe otro <strong>Trait</strong> <strong>org.scalatest.MustMatchers</strong> que emplea el verbo <strong>must</strong> son iguales, simplemente se emplea el segundo de forma mas formal.</p>
+</div>
+<div class="paragraph">
+<p>La idea será sustituir los asertos por estas sentencias mas legibles</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class ConMatchers extends FunSuite with Matchers {
+
+  val nimoy = new Person(&quot;Leonard Nimoy&quot;, 82)
+  val nimoy2 = new Person(&quot;Leonard Nimoy&quot;, 82)
+  val shatner = new Person(&quot;William Shatner&quot;, 82)
+  val ed = new Person(&quot;Ed Chigliak&quot;, 20)
+
+  test(&quot;nimoy == nimoy&quot;) { nimoy shouldBe nimoy }
+  test(&quot;nimoy == nimoy2&quot;) { nimoy shouldBe nimoy2 }
+  test(&quot;nimoy2 == nimoy&quot;) { nimoy2 shouldEqual nimoy }
+  test(&quot;nimoy != shatner&quot;) { nimoy should not be shatner }
+  test(&quot;shatner != nimoy&quot;) { shatner should not equals nimoy }
+  test(&quot;nimoy != null&quot;) { nimoy should not equals null }
+  test(&quot;nimoy != String&quot;) { nimoy should not equals &quot;Leonard Nimoy&quot; }
+  test(&quot;nimoy != ed&quot;) { nimoy should not equals ed }
+  test(&quot;nimoy es Person&quot;) {nimoy shouldBe a [String]}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Existen muchos <strong>Matcher</strong>, cubriendo aspectos como</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La igualdad</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">result shouldEqual 3</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>EL tamaño</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">result should have length 3</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tratamiento de Strings</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">string should startWith (&quot;Hello&quot;)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mayor o menor que</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">one should be &lt; 7</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tipologias</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">result1 shouldBe a [Tiger]</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rangos</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">sevenDotOh should equal (6.9 +- 0.2)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Vacio</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">traversable shouldBe empty</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contenido</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">List(1, 2, 3) should contain (2)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Agregaciones</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">List(1, 2, 3, 1) should contain only (1, 2, 3)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ejecucion">Ejecucion</h3>
+<div class="paragraph">
+<p>Existen varias formas de ejecutar los test</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Con la consola de <strong>Scala</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">scala&gt; run(new Test)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Por linea de comandos haciendo referencia al <strong>Runner</strong> de Scalatest</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ scala -cp scalatest-RELEASE.jar org.scalatest.run ExampleSpec</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>O con <strong>sbt</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">sbt&gt; test</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clases_case_fp">Clases Case (FP)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Un ejemplo de definición</p>
@@ -3181,7 +3870,7 @@ class Perro (nombre: String) extends Mascota (nombre) {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-04-03 03:49:05 PDT
+Last updated 2017-04-04 04:10:56 PDT
 </div>
 </div>
 </body>
