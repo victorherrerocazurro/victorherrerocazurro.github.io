@@ -610,7 +610,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_sobreescritura">Sobreescritura</a></li>
 </ul>
 </li>
-<li><a href="#_traits">Traits</a>
+<li><a href="#_traits_fp">Traits (FP)</a>
 <ul class="sectlevel2">
 <li><a href="#_herencia_2">Herencia</a></li>
 <li><a href="#_atributos">Atributos</a></li>
@@ -624,6 +624,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_comandos">Comandos</a></li>
 <li><a href="#_key">Key</a>
 <ul class="sectlevel3">
+<li><a href="#_keys_predefenidas">Keys predefenidas</a></li>
 <li><a href="#_custom_key">Custom Key</a></li>
 </ul>
 </li>
@@ -647,6 +648,32 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#_constructores_auxiliares_2">Constructores Auxiliares</a></li>
 <li><a href="#_sentencias_case_condicionales_guards">Sentencias Case condicionales (Guards)</a></li>
+</ul>
+</li>
+<li><a href="#_colecciones">Colecciones</a>
+<ul class="sectlevel2">
+<li><a href="#_secuencias_seq">Secuencias (Seq)</a>
+<ul class="sectlevel3">
+<li><a href="#_indexedseq">IndexedSeq</a></li>
+<li><a href="#_linearseq">LinearSeq</a></li>
+</ul>
+</li>
+<li><a href="#_mapas">Mapas</a></li>
+<li><a href="#_sets">Sets</a></li>
+<li><a href="#_procesamiento_paralelo">Procesamiento Paralelo</a></li>
+<li><a href="#_métodos">Métodos</a></li>
+<li><a href="#_operaciones_mutables_sobre_colecciones_inmutables">Operaciones mutables sobre colecciones inmutables</a></li>
+<li><a href="#_iterators">Iterators</a></li>
+<li><a href="#_arrays">Arrays</a>
+<ul class="sectlevel3">
+<li><a href="#_arrays_multidimensionales">Arrays Multidimensionales</a></li>
+</ul>
+</li>
+<li><a href="#_listas">Listas</a></li>
+<li><a href="#_tupla">Tupla</a></li>
+<li><a href="#_clase_pair">Clase Pair</a></li>
+<li><a href="#_map">Map</a></li>
+<li><a href="#_filter">Filter</a></li>
 </ul>
 </li>
 <li><a href="#_clases_abstractas">Clases Abstractas</a>
@@ -2779,7 +2806,7 @@ class Perro extends Animal {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_traits">Traits</h2>
+<h2 id="_traits_fp">Traits (FP)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>La palabra <strong>trait</strong> en inglés puede traducirse literalmente como rasgo o caracteristica.</p>
@@ -3085,6 +3112,9 @@ val list = new JavaList[String]</code></pre>
 <div class="paragraph">
 <p>Emplea el paradigma de <strong>convention over configuration</strong></p>
 </div>
+<div class="paragraph">
+<p>MAs informacion en la documentacion <a href="http://www.scala-sbt.org/0.13/docs/index.html">aquí</a></p>
+</div>
 <div class="sect2">
 <h3 id="_comandos">Comandos</h3>
 <div class="paragraph">
@@ -3150,6 +3180,21 @@ val list = new JavaList[String]</code></pre>
 <p>Es necesario que exista entre medias de cada definicion una linea en blanco.</p>
 </div>
 <div class="sect3">
+<h4 id="_keys_predefenidas">Keys predefenidas</h4>
+<div class="paragraph">
+<p>Las principales Keys que deben aparecer en un proyecto <strong>SBT</strong> son</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">name := &quot;Simple Project&quot;
+
+version := &quot;1.0&quot;
+
+scalaVersion := &quot;2.10.4&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_custom_key">Custom Key</h4>
 <div class="paragraph">
 <p>Se pueden declarar nuevas <strong>Task</strong> empleando los metodos de creación: settingKey, taskKey e inputKey</p>
@@ -3195,6 +3240,9 @@ val list = new JavaList[String]</code></pre>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="scala">resolvers += Resolver.sonatypeRepo(&quot;public&quot;)</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>El listado de plugins disponible se puede consultar <a href="http://www.scala-sbt.org/0.13/docs/Community-Plugins.html">aquí</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -3603,6 +3651,18 @@ class SetSpec extends FreeSpec {
 <pre class="CodeRay highlight"><code data-lang="scala">List(1, 2, 3, 1) should contain only (1, 2, 3)</code></pre>
 </div>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Secuencias</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">List(1, 2, 2, 3, 3, 1) should contain inOrderOnly (1, 2, 3)</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_ejecucion">Ejecucion</h3>
@@ -3801,6 +3861,1208 @@ object Persona {
 </div>
 </div>
 <div class="sect1">
+<h2 id="_colecciones">Colecciones</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Los conceptos mas importantes da la hora de trabajar con <strong>Colecciones</strong> en <strong>Scala</strong> son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Las hay mutables e inmutables, aunque de las inmutables hay alias y no se necesita añadir <strong>imports</strong></p>
+</li>
+<li>
+<p>Predicado</p>
+</li>
+<li>
+<p>Funcion anonima</p>
+</li>
+<li>
+<p>Bucles implicitos</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Veamos un ejemplo de uso de una <strong>funcion predicado</strong>, definida como <strong>funcion anonima</strong> y aplicada a un método de una coleccion como es <strong>filter</strong>, que internamente recorre los elementos de la colecion con un <strong>bucle implicito</strong> para generar una nueva coleccion.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val numeros = List.range(1, 10)
+
+//numeros = List(1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+val pares = numeros.filter(_ % 2 == 0)
+
+//pares = List(2, 4, 6, 8)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El bucle inplicito en <strong>filter</strong> seria algo como</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">for {
+        item &lt;- list
+        if item % 2 == 0
+} yield item</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Las colecciones son parametrizables en cuanto al tipo de datos que contienen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">List[Number](1, 2.0, 33D, 400L)
+// List[java.lang.Number] = List(1, 2.0, 33.0, 400)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El API es extenso, una vsision general, no lleva a los principales <strong>Traits</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Scala_collections_api.png" alt="Scala collections api">
+</div>
+</div>
+<div class="paragraph">
+<p>Como se ve el elemento de mayor jerarquia es <strong>Transversable</strong>, siendo la implementacion por defecto <strong>List</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val fruits = Traversable(&quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;)
+// fruits = Traversable[String] = List(apple, banana, orange)</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_secuencias_seq">Secuencias (Seq)</h3>
+<div class="paragraph">
+<p>Empezemos por las secuencias</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Scala_sequence_api.png" alt="Scala sequence api">
+</div>
+</div>
+<div class="paragraph">
+<p>Este API se divide principalmente en dos secciones</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>IndexedSeq</strong> &#8594; Colecciones que permiten el acceso aleatorio a los elemento de forma eficiente, por ejemplo los <strong>Array</strong>, por defecto emplea <strong>Vector</strong> como implementacion</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val x = IndexedSeq(1,2,3)
+
+//x = Vector(1, 2, 3)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>LinearSeq</strong> &#8594; Colecciones que son eficientes a la hora de dividir en <strong>head</strong> y <strong>tail</strong>. Por defecto implementa <strong>List</strong> que es una lista enlaza.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val seq = scala.collection.immutable.LinearSeq(1,2,3)
+// seq = List(1, 2, 3)</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_indexedseq">IndexedSeq</h4>
+<div class="paragraph">
+<p>Colecciones que permiten el acceso aleatorio a los elemento de forma eficiente, por ejemplo los <strong>Array</strong>, por defecto emplea <strong>Vector</strong> como implementacion.</p>
+</div>
+<div class="paragraph">
+<p>Las implementaciones de referencia son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Vector &#8594; Inmutable</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val a = Vector(1, 2, 3)
+// a = Vector(1, 2, 3)
+val c = a.updated(0, 7)
+// a = Vector(1, 2, 3)
+// c = Vector(7, 2, 3)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ArrayBuffer &#8594; Mutable</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">var nums = ArrayBuffer(1, 2, 3)
+//nums = scala.collection.mutable.ArrayBuffer[Int] = ArrayBuffer(1, 2, 3)
+nums += 4
+//nums =  scala.collection.mutable.ArrayBuffer[Int] = ArrayBuffer(1, 2, 3, 4)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Además de <strong>Vector</strong> y <strong>ArrayBuffer</strong>, el API ofrece otras implementaciones como</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Range &#8594; Rango de valores enteros (inmutable)</p>
+</li>
+<li>
+<p>String &#8594; secuencia de caracteres indexada (inmutable)</p>
+</li>
+<li>
+<p>Arrray &#8594; Array de Java, que puede cambiar sus elementos, pero no de tamaño (mutable)</p>
+</li>
+<li>
+<p>ArrayStack &#8594; Estructura LIFO que mejora el rendimineto de <strong>Stack</strong> (mutable)</p>
+</li>
+<li>
+<p>StringBuilder &#8594; Permite construir <strong>Strings</strong> (mutable)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_linearseq">LinearSeq</h4>
+<div class="paragraph">
+<p>Colecciones que son eficientes a la hora de dividir en <strong>head</strong> y <strong>tail</strong> o en <strong>init</strong> y <strong>last</strong>, por ello estan pensadas para la recursividad.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Scala_linear_seq.png" alt="Scala linear seq">
+</div>
+</div>
+<div class="paragraph">
+<p>Por defecto implementa <strong>List</strong> que es una lista enlaza.</p>
+</div>
+<div class="paragraph">
+<p>Las implementaciones de referencia son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>List &#8594; Inmutable</p>
+</li>
+<li>
+<p>ListBuffer &#8594; Mutable</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Además de <strong>List</strong> y <strong>ListBuffer</strong>, el API ofrece otras implementaciones como</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Queue &#8594; Estructura de datos FIFO (mutable / inmutable)</p>
+</li>
+<li>
+<p>Stack &#8594; Estructura de datos LIFO (mutable / inmutable)</p>
+</li>
+<li>
+<p>Stream &#8594; Similar a <strong>List</strong>, pero es perezosa y persistente. Su método <strong>tail</strong> es <strong>lazy</strong>. Es ideal para sequencias muy largas. (inmutable)</p>
+</li>
+<li>
+<p>DoubleLinkedList &#8594; Como <strong>LinkedList</strong> pero bidireccional (mutable)</p>
+</li>
+<li>
+<p>LinkedList &#8594; Como <strong>List</strong> pero mutable.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mapas">Mapas</h3>
+<div class="paragraph">
+<p>Colecciones <strong>clave/valor</strong> donde las <strong>claves</strong> son unicas.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Scala_maps_api.png" alt="Scala maps api">
+</div>
+</div>
+<div class="paragraph">
+<p>Tambien los hay mutables e inmutables</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val m = Map(1 -&gt; &quot;a&quot;, 2 -&gt; &quot;b&quot;)
+
+//scala.collection.immutable.Map(1 -&gt; a, 2 -&gt; b)
+
+val m = collection.mutable.Map(1 -&gt; &quot;a&quot;, 2 -&gt; &quot;b&quot;)
+
+//scala.collection.mutable.Map(2 -&gt; b, 1 -&gt; a)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El API ofrece las siguientes implementaciones</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>HashMap &#8594; Emplea <strong>HashTree</strong> y <strong>HashTable</strong> para su implementacion (mutable / inmutable)</p>
+</li>
+<li>
+<p>LinkedHasMap &#8594; Retorna los elementos en orden de insercion (mutable)</p>
+</li>
+<li>
+<p>ListMap &#8594; Internamente emplea un LinearSeq. Los elementos son insertados en la cabecera de la coleccion, por lo que los retorna en orden inverso a la insercion (mutable / inmutable)</p>
+</li>
+<li>
+<p>SortedMap &#8594; Igual que <strong>TreeMap</strong></p>
+</li>
+<li>
+<p>TreeMap &#8594;  Implementacion de arbolo rojo-negro (inmutable)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>WeakHashMap &#8594; Implementa <strong>WeakHashMap</strong> de java, que no guarda referencias directas a los objetos que se le pasan como claves, cuando las claves no se referencian desde fuera, los elementos del <strong>WeakHashMap</strong> se pierden.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sets">Sets</h3>
+<div class="paragraph">
+<p>Colecciones que no admiten repetidos.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Scala_set_api.png" alt="Scala set api">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val set = Set(1, 2, 3)
+
+//scala.collection.immutable.Set(1, 2, 3)
+
+val s = collection.mutable.Set(1, 2, 3)
+
+//scala.collection.mutable.Set(1, 2, 3)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El API ofrece las siguientes implementaciones</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>BitSet &#8594; Set de enteros positivos. Permite optimizar el uso de la memoria para los Set de enteros. (mutable / inmutable)</p>
+</li>
+<li>
+<p>HashSet &#8594; Emplea <strong>HashTree</strong> y <strong>HashTable</strong> para su implementacion (mutable / inmutable)</p>
+</li>
+<li>
+<p>LinkedHasSet &#8594; Retorna los elementos en orden de insercion (mutable)</p>
+</li>
+<li>
+<p>ListSet &#8594; implementado con un List (inmutable)</p>
+</li>
+<li>
+<p>TreeSet &#8594; Emplea un SortedSet</p>
+</li>
+<li>
+<p>SortedSet &#8594;</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_procesamiento_paralelo">Procesamiento Paralelo</h3>
+<div class="paragraph">
+<p>El API proporciona las siguientes implementaciones de colecciones que procesan los datos de forma paralela</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ParHashMap</p>
+</li>
+<li>
+<p>ParHashSet</p>
+</li>
+<li>
+<p>ParIterable</p>
+</li>
+<li>
+<p>ParMap</p>
+</li>
+<li>
+<p>ParRange</p>
+</li>
+<li>
+<p>ParSeq</p>
+</li>
+<li>
+<p>ParSet</p>
+</li>
+<li>
+<p>ParVector</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>El procesamiento en paralelo, divide los elementos de la coleccion para el procesamiento, al concluir todos los precesos, los recombina para obtener la solucion.</p>
+</div>
+<div class="paragraph">
+<p>No se recomienda su uso para casos en los que el orden del procesamiento de los elementos es importante</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val v = Vector.range(0, 10)
+v.foreach(print)
+//0123456789
+v.par.foreach(print)
+//0231564789</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y si se recomienda, en aquellos en los que el orden no es importante, sino el resultado final</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val v = Vector.range(0, 10)
+v.sum
+//45
+v.par.sum
+//45</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_métodos">Métodos</h3>
+<div class="paragraph">
+<p>Para trabajar con las colecciones, se dispone de un gran abanico de métodos, que se pueden dividir en grupos segun la funcionalidad que proporcionan</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Métodos de filtrado:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>collect f&#8594; Aplica <strong>pattern matching</strong> a los elementos de la coleccion, generando una nueva coleccion con los resultados.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">scala&gt; List(&quot;hello&quot;, 1, true, &quot;world&quot;) collect { case s: String =&gt; s }
+// List[String] = List(hello, world)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>diff c&#8594; Retorna la direfencia entre la coleccion desde la que se invoca y la coleccion que se pasa por parametro.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val low = (1 to 5) toSet
+
+val medium = (3 to 7) toSet
+
+val min = low.diff(medium)
+// Set(1, 2)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>distinct &#8594; Retorna una coleccion en la que se han quitado los duplicados</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">List(1,2,3,2,1).distinct
+// List(1, 2, 3)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>drop n&#8594; Retorna un nueva coleccion donde se ha eliminado los primeros n elementos, donde n es un numero que se pasa por parametro.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+numbers.drop(5)
+// List[Int] = List(6, 7, 8, 9, 10)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>dropWhile p&#8594; Retorna una collecion en la que se ha borrado el primer elemento que satisface el predicado.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+numbers.dropWhile(_ % 2 != 0)
+// List[Int] = List(2, 3, 4, 5, 6, 7, 8, 9, 10)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>filter p&#8594; Retorna nacoleccion con todos los elementos que cumplen el predicado.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+numbers.filter(_ % 2 == 0)
+//numbers.filter((i: Int) =&gt; i % 2 == 0)
+// List[Int] = List(2, 4)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Un ejemplo de uso con mapas</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val extensions = Map(&quot;steve&quot; -&gt; 100, &quot;bob&quot; -&gt; 101, &quot;joe&quot; -&gt; 201)
+extensions.filter((namePhone: (String, Int)) =&gt; namePhone._2 &lt; 200)
+// scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))
+
+//Empleando patter matching
+extensions.filter({case (name, extension) =&gt; extension &lt; 200})
+res0: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>filterNot p&#8594; Retorna nacoleccion con todos los elementos que no cumplen el predicado.</p>
+</li>
+<li>
+<p>find p&#8594; Retorna un <strong>Option</strong> (Some[T]) del primer elemento que encuentra que cumpla el predicado, y <strong>None</strong> si no lo encuentra.</p>
+</li>
+<li>
+<p>foldLeft(n)(op) &#8594; Aplica una operacion a los elementos, comenzando por uno concreto y recorriendo la coleccion de izquierda a derecha</p>
+</li>
+<li>
+<p>foldRight(n)(op) &#8594; Aplica una operacion a los elementos, comenzando por uno concreto y recorriendo la coleccion de derecha a izquierda</p>
+</li>
+<li>
+<p>head &#8594; Retorna el primer elemento de la coleccion o <strong>NoSuchElementException</strong> si esta vacia.</p>
+</li>
+<li>
+<p>headOption &#8594; Retorna el primer elemento de la coleccion como un Option (Some[T]) o <strong>None</strong> si esta vacia.</p>
+</li>
+<li>
+<p>init &#8594; Retorna los primeros elementos de la coleccion, exceptuando el ultimo. Retorna un <strong>UnsupportedOperationException</strong> si esta vacia.</p>
+</li>
+<li>
+<p>intersect c&#8594; Retorna una coleccion con los elementos comunes a dos colecciones.</p>
+</li>
+<li>
+<p>last &#8594; Retorna el ultimo elemento de la coleccion o <strong>NoSuchElementException</strong> si esta vacia</p>
+</li>
+<li>
+<p>lastOption &#8594; Retorna el ultimo elemento de la coleccion como un Option (Some[T]) o <strong>None</strong> si esta vacia.</p>
+</li>
+<li>
+<p>reduceLeft op&#8594; Aplica una operacion a los elementos comenzando por el primero</p>
+</li>
+<li>
+<p>reduceRight op&#8594; Aplica una operacion a los elementos, comenzando por el ultimo</p>
+</li>
+<li>
+<p>slice (from, to) &#8594; Retorna el trozo de coleccion desde (from) hasta (to)</p>
+</li>
+<li>
+<p>tail &#8594; Retorna todos los elementos de la coleccion excepto el primero</p>
+</li>
+<li>
+<p>take n &#8594; Retorna los primeros n elementos de la coleccion</p>
+</li>
+<li>
+<p>takeWhile p &#8594; Retorna elementos mientras el predicado se cumpla parando en el momento que no se cumpla.</p>
+</li>
+<li>
+<p>union c &#8594; Retorna la coleccion resultante de unir dos colecciones.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Métodos de tranformación:</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>+= x &#8594; Añade un elemento a la coleccion</p>
+</li>
+<li>
+<p>+= (x,y,z) &#8594; Añade todos los elementos a la coleccion</p>
+</li>
+<li>
+<p>++= c &#8594; Añade todos los elementos de la coleccion a la coleccion inicial</p>
+</li>
+<li>
+<p>-= x &#8594; Borra un elemento de la coleccion</p>
+</li>
+<li>
+<p>-= (x,y,z) &#8594; Borra todos los elementos de la coleccion</p>
+</li>
+<li>
+<p>--= c &#8594; Borra todos los elementos de la coleccion en la coleccion inicial</p>
+</li>
+<li>
+<p>c(n) = x &#8594; Asigna un valor al elemento x de la coleccion</p>
+</li>
+<li>
+<p>++ c &#8594; Crea una nueva coleccion con los elementos de ambas colecciones.</p>
+</li>
+<li>
+<p>:+ e &#8594; Crea una nueva coleccion en la que ha añadido el elemento e</p>
+</li>
+<li>
+<p>+: e &#8594; Crea una nueva coleccion en la que ha añadido el elemento e al comienzo</p>
+</li>
+<li>
+<p>e :: list &#8594; Retorna una List a la que al cominezo ha añadido e (solo con List)</p>
+</li>
+<li>
+<p>append(e1, e2) &#8594; Añade al final de la coleccion los elementos indicados</p>
+</li>
+<li>
+<p>appendAll c &#8594; Añade al final de la coleccion los elementos de la nueva coleccion</p>
+</li>
+<li>
+<p>insert (n, e1, e2) &#8594; Inserta los elementos a partir de la posicion n</p>
+</li>
+<li>
+<p>insertAll(n, c) &#8594; Añade los elementos de la nueva coleccion a la coleccion existente a partir de la posicion n</p>
+</li>
+<li>
+<p>prepend(e1, e2) &#8594; Añade al principio de la coleccion los elementos indicados</p>
+</li>
+<li>
+<p>prependAll c &#8594; Añade al principio de la coleccion los elementos de la nueva coleccion</p>
+</li>
+<li>
+<p>updated(e1, e2) &#8594; Retorna una nueva coleccion con los elementos indicados añadidos</p>
+</li>
+<li>
+<p>clear &#8594; Borra todos los elementos de la coleccion</p>
+</li>
+<li>
+<p>remove n &#8594; Borra el elemento en la posicion n</p>
+</li>
+<li>
+<p>remove(n, len) &#8594; Borra el numero de elementos indicado con len desde la posición n</p>
+</li>
+<li>
+<p>flatMap &#8594; Aplica a cada elemento de la coleccion un funcion (como map), retornado la coleccion aplanada de la transformacion realizada. Se emplea sonbre colecciones que contienen colecciones, para transformar y aplanar a la vez.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val nestedNumbers = List(List(1, 2), List(3, 4))
+// nestedNumbers: List[List[Int]] = List(List(1, 2), List(3, 4))
+
+nestedNumbers.flatMap(x =&gt; x.map(_ * 2))
+//res0: List[Int] = List(2, 4, 6, 8)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>map f&#8594; Retorna un nueva coleccion aplicando una funcion a todos los elementos de la coleccion</p>
+</li>
+<li>
+<p>reverse &#8594; Retorna la coleccion en orden inverso al actual.</p>
+</li>
+<li>
+<p>sort &#8594; Retorna una coleccion estableciendo el orden por defecto, de menor a mayor</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val xs = Seq(1, 5, 3, 4, 6, 2)
+
+xs.sorted //1,2,3,4,5,6</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>sortWith &#8594; Retorna una coleccion con los elementos ordenados segun la funcion definida, esta funcion, tendra dos parametros de entrada, el elemento actual y el elemento siguiente</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val xs = Seq(1, 5, 3, 4, 6, 2)
+
+xs.sortWith(_&lt;_) //1,2,3,4,5,6</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>sortBy f &#8594; Ordena por un campo descrito por la función, valido para objetos complejos</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">case class Person(val name:String, val age:Int)
+
+val ps = Seq(Person(&quot;John&quot;, 32), Person(&quot;Bruce&quot;, 24), Person(&quot;Cindy&quot;, 33), Person(&quot;Sandra&quot;, 18))
+
+ps.sortBy(_.age)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>zip c &#8594; Crea una coleccion formada por <strong>Pair</strong> o <strong>Tuple2</strong> compuestos con los elementos de las dos colecciones</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">List(1, 2, 3).zip(List(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))
+// List[(Int, String)] = List((1,a), (2,b), (3,c))</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>unzip &#8594; Crea dos colecciones partiendo de una coleccion de elementos de tipo <strong>Tuple2</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">List((1,&quot;a&quot;), (3, &quot;b&quot;), (4, &quot;d&quot;)).unzip
+// (List[Int], List[String]) = (List(1, 3, 4),List(a, b, d))</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>zipWithIndex &#8594; Como <strong>zip</strong>, pero trabaja con el indice de la coleccion, creando las tuplas como (elemento, posicion)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">List(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;).zipWithIndex
+// List[(Int, String)] = List((a,0), (b,1), (c,2))</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Métodos de agrupación:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>groupBy p &#8594; Retorna un mapa con dos colecciones, donde una coleccion contiene los elementos que no lo cumplen el predicado y la otra los que si lo cumplen.</p>
+</li>
+<li>
+<p>partition p &#8594; Retorna dos colecciones acorde al predicado, una que cumple y otra que no cumple.</p>
+</li>
+<li>
+<p>sliding</p>
+</li>
+<li>
+<p>span p &#8594; Retorna una coleccion de dos colecciones, la primera es la que cumple con <strong>takeWhile p</strong>, y la segunda la que cumple con <strong>dropWhile p</strong></p>
+</li>
+<li>
+<p>splitAt n &#8594; Retorna una coleccion con dos colecciones, que son el resultado de partir por el elemento n.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Métodos informativos:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>canEqual</p>
+</li>
+<li>
+<p>contains</p>
+</li>
+<li>
+<p>containsSlice</p>
+</li>
+<li>
+<p>count &#8594; cuenta todos los elementos que cumplen una determinada funcion predicado</p>
+</li>
+<li>
+<p>endsWith</p>
+</li>
+<li>
+<p>exists &#8594; retorna True si el predicado se cumple para algun elemento</p>
+</li>
+<li>
+<p>forAll p &#8594; retorna True si el predicado se cumple para todos los elementos</p>
+</li>
+<li>
+<p>hasDefiniteSize &#8594; Retorna true si la coleccion tiene un tamaño definido, retorna false para los <strong>Stream</strong></p>
+</li>
+<li>
+<p>indexOf &#8594;</p>
+</li>
+<li>
+<p>indexOfSlice</p>
+</li>
+<li>
+<p>indexWhere</p>
+</li>
+<li>
+<p>isDefinedAt</p>
+</li>
+<li>
+<p>isEmpty &#8594; Retorna true si la coleccion esta vacia.</p>
+</li>
+<li>
+<p>lastIndexOf</p>
+</li>
+<li>
+<p>lastIndexOfSlice</p>
+</li>
+<li>
+<p>lastIndexWhere</p>
+</li>
+<li>
+<p>max &#8594; Retorna el mayor elemento de la coleccion</p>
+</li>
+<li>
+<p>min &#8594; Retorna el menor elemento de la coleccion</p>
+</li>
+<li>
+<p>nonEmpty &#8594; Retorna true si la coleccion no esta vacia</p>
+</li>
+<li>
+<p>product &#8594; Retorna la multiplicacion de todos los elementos de la coleccion</p>
+</li>
+<li>
+<p>segmentLength</p>
+</li>
+<li>
+<p>size &#8594; retorna el tamaño de la coleccion</p>
+</li>
+<li>
+<p>startsWith</p>
+</li>
+<li>
+<p>sum &#8594; Retorna la suma de todos los elementos de la coleccion</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Otros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>par &#8594; Crea una coleccion de procesamineto paralelo de la coleccion.</p>
+</li>
+<li>
+<p>view &#8594; Crea una coleccion perezosa de la coleccion. Ideal para procesamiento de grandes cantidades de datos</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">(1 to 1000000000).view.filter(_ % 2 == 0).take(10).toList
+//List[Int] = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>flatten &#8594; Convierte una lista de listas, en un unica lista.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">List(List(1, 2), List(3, 4)).flatten
+// List[Int] = List(1, 2, 3, 4)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>foreach f &#8594; Itera sobre los elementos de la coleccion, aplicando una funcion a cada uno</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val x = Vector(1, 2, 3)
+x.foreach(i =&gt; println(i))
+x.foreach(println(_))</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>mkString &#8594; Crea un String de la coleccion.</p>
+</li>
+<li>
+<p>range(n, m) &#8594; Permite popular una coleccion con un rango de valores numerico, indicando un paso</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">Array.range(1, 5)
+// Array[Int] = Array(1, 2, 3, 4)
+Vector.range(0, 10, 2)
+// collection.immutable.Vector[Int] = Vector(0, 2, 4, 6, 8)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Solo para Maps</p>
+<div class="ulist">
+<ul>
+<li>
+<p>- k &#8594; Retorna un nuevo mapa, donde se ha elminado el elemento con clave k</p>
+</li>
+<li>
+<p>- (k1, k2, k3) &#8594; Retorna un nuevo mapa, donde se han elminado los elementos con claves k1, k2 y k3</p>
+</li>
+<li>
+<p>&#8201;&#8212;&#8201;c &#8594; Retorna un nuevo mapa, donde se han borrado los elementos cuyas claves estan definidas en la coleccion</p>
+</li>
+<li>
+<p>+= (k &#8594; v) &#8594; Añade un nuevo elemento al mapa</p>
+</li>
+<li>
+<p>+= (k1 &#8594; v1, k2 &#8594; v2) &#8594; Añade dos nuevos elementos al mapa</p>
+</li>
+<li>
+<p>++= c &#8594; Añade los elementos de la coleccion al mapa</p>
+</li>
+<li>
+<p>++= List(3 &#8594; "c")</p>
+</li>
+<li>
+<p>-= k &#8594; Borra el elemento del mapa con clave k</p>
+</li>
+<li>
+<p>-= (k1, k2, k3) &#8594; Borra los elementos del mapa con claves k1, k2 y k3</p>
+</li>
+<li>
+<p>--= c &#8594; Borra los elementos del mapa tomando como claves los elementos de la coleccion</p>
+</li>
+<li>
+<p>m(k) &#8594; Retorna el valor asociado a la clave k</p>
+</li>
+<li>
+<p>get k &#8594; Retorna el valor asociado a la clave K como Option (Some[T])</p>
+</li>
+<li>
+<p>isDefinedAt k &#8594; Retorna tru si el mapa contiene la clave k</p>
+</li>
+<li>
+<p>keys &#8594; Retorna las claves como Iterable</p>
+</li>
+<li>
+<p>KeySet &#8594; Retorna la claves con Set</p>
+</li>
+<li>
+<p>mapValues f &#8594; Retorna un nuevo map aplicando f a todos los valores</p>
+</li>
+<li>
+<p>values &#8594; Retorna os valores del map como Iterable.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Es facil con un bucle <strong>for</strong> iterar sobre un <strong>Map</strong>, dado que lo unico que hay que indicar es que las variables que apuntan a cada elemento, son una <strong>Tupla</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val names = Map(&quot;fname&quot; -&gt; &quot;Robert&quot;, &quot;lname&quot; -&gt; &quot;Goren&quot;)
+for ((k,v) &lt;- names) {
+        println(s&quot;key: $k, value: $v&quot;)
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operaciones_mutables_sobre_colecciones_inmutables">Operaciones mutables sobre colecciones inmutables</h3>
+<div class="paragraph">
+<p>Se puede producir la siguiente situacion, añadir elementos sobre una coleccion inmutable, porque se referencia con <strong>var</strong>, en vez de con <strong>val</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">var sisters = Vector(&quot;Melinda&quot;)
+// sisters: collection.immutable.Vector[String] = Vector(Melinda)
+sisters = sisters :+ &quot;Melissa&quot;
+//sisters: collection.immutable.Vector[String] = Vector(Melinda, Melissa)
+sisters = sisters :+ &quot;Marisa&quot;
+//sisters: collection.immutable.Vector[String] = Vector(Melinda, Melissa, Marisa)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>No es que la coleccion sea inmutable, sino que se estan creando nuevas coleccion cada vez que se añade un elemento, es decir lo anterior es similar a</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">var sisters = Vector(&quot;Melinda&quot;)
+sisters = Vector(&quot;Melinda&quot;, &quot;Melissa&quot;)
+sisters = Vector(&quot;Melinda&quot;, &quot;Melissa&quot;, &quot;Marisa&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lo que no se podria realizar es</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">var sisters = Vector(&quot;Melinda&quot;)
+sisters(0) = &quot;Molly&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_iterators">Iterators</h3>
+<div class="paragraph">
+<p>Son un tipo de coleccion, no se emplean como en java con un bucle while y el método hasNext, sino que tienen métodos como el resto.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val it = Iterator(1,2,3)
+it.foreach(println)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una de los grandes usos que se le da, es la transformacion a otro tipo de coleccion con los métodos: toArray, toBuffer, toIndexedSeq, toIterable, toIterator, toList, toMap, toSeq, toSet, toStream, toString y toTraversable.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_arrays">Arrays</h3>
+<div class="paragraph">
+<p>Los arrays se define con la sintaxis <strong>Array[T]</strong> en lugar de <strong>T[]</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">def sort(xs: Array[Int]) {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los accesos a los elementos del array, se escriben <strong>a(i)</strong> en lugar de <strong>a[i]</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">xs(0);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los Arrays, son instancias de tipo <strong>Seq[T]</strong>, por lo que se dispone de todas las funciones de esta tipologia.</p>
+</div>
+<div class="sect3">
+<h4 id="_arrays_multidimensionales">Arrays Multidimensionales</h4>
+<div class="paragraph">
+<p>Se definen con el método <strong>ofDim</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val array = Array.ofDim[Int](2,2)
+array(0)(0) = 0
+array(0)(1) = 1
+array(1)(0) = 2
+array(1)(1) = 3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden recorrer con un bucle for y tantos contadores como dimensiones.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">for {
+        i &lt;- 0 to 1
+        j &lt;- 0 to 1
+} println(s&quot;($i)($j) = ${array(i)(j)}&quot;)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_listas">Listas</h3>
+<div class="paragraph">
+<p>Son un tipo de coleccion especial, que esta compuesto por celdas contiguas y que finalizan con el valor <strong>Nil</strong></p>
+</div>
+<div class="paragraph">
+<p>Se pueden definir de dos formas, la primera con <strong>List</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val x = List(1, 2, 3)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La segunda mas primitiva</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val y = 1 :: 2 :: 3 :: Nil</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tupla">Tupla</h3>
+<div class="paragraph">
+<p>Tipo de dato que permite manejar objetos de distinta tipologia.</p>
+</div>
+<div class="paragraph">
+<p>Permite por ejemplo manejar mas de un objeto sin tener que definir una tipologia particular, muy útil a la hora de retornar datos en un método.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">def sumaRestaMultiplicacion(x: Int, y: Int): (Int, Int, Int) = {
+        return (x + y, x - y, x * y)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden definir unicamente con <strong>(,)</strong> o empleando <strong>Tuple</strong> seguido del numero de elementos de la Tupla</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">Tuple3(1,2,3)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se han definido hasta <strong>Tuple22</strong></p>
+</div>
+<div class="paragraph">
+<p>Para acceder a los elementos de la tupla se emplea la sintaxis <strong>_num</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val t = (3, &quot;Three&quot;, new Person(&quot;Al&quot;))
+// t = (Int, java.lang.String, Person) = (3,Three,Person(Al))
+t._1
+// Int = 3</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clase_pair">Clase Pair</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val (myVar1: Int, myVar2: String) = Pair(40, &quot;Foo&quot;)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_map">Map</h3>
+<div class="paragraph">
+<p>Método que retorna una Secuencia del mismo tipo que la que se procesa, pero a la que aplica a cada elemento la transformación definida, en este caso se emplea el caracter reservado <strong>_</strong> para referenciar a cada elemento de la Secuencia.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val arrayResultado = Array(1,2,3).map(_ * 2)
+
+//Donde arrayResultado será un Array[Int] = Array(2, 4, 6)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filter">Filter</h3>
+<div class="paragraph">
+<p>Método que retorna una Secuencia del mismo tipo que la que se procesa, pero a la que aplica a cada elemento la condicion definida, incluyendo slo aquellos elementos de la Secuencia inicial que cumplan la condicion.</p>
+</div>
+<div class="paragraph">
+<p>Firma del método</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">def filter(p: T =&gt; Boolean): Array[T]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ejemplo de uso</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val nums = List(1,2,3,4,5).filter(_ &lt; 4)
+
+//Donde nums será un List[Int] = List(1, 2, 3)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para recorrer colleciones con un blucle for, el API ofrece el método <strong>zipWithIndex</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">for ((e, count) &lt;- a.zipWithIndex) {
+        println(s&quot;$count is $e&quot;)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>De forma analoga a la sentencia de control <strong>for</strong>, las colecciones ofrecen métodos para procesarse como <strong>foreach()</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">a.foreach(println)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esta expresión cuando el procesado es mas complejo que una unica sentencia, se puede realizar con <strong>clojures</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">a.foreach { e =&gt;
+        val s = e.toUpperCase
+        println(s)
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_clases_abstractas">Clases Abstractas</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -3870,7 +5132,7 @@ class Perro (nombre: String) extends Mascota (nombre) {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-04-04 04:10:56 PDT
+Last updated 2017-04-05 04:53:12 PDT
 </div>
 </div>
 </body>
