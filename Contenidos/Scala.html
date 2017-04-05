@@ -671,9 +671,6 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_listas">Listas</a></li>
 <li><a href="#_tupla">Tupla</a></li>
-<li><a href="#_clase_pair">Clase Pair</a></li>
-<li><a href="#_map">Map</a></li>
-<li><a href="#_filter">Filter</a></li>
 </ul>
 </li>
 <li><a href="#_clases_abstractas">Clases Abstractas</a>
@@ -4983,80 +4980,6 @@ array(1)(1) = 3</code></pre>
 // t = (Int, java.lang.String, Person) = (3,Three,Person(Al))
 t._1
 // Int = 3</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clase_pair">Clase Pair</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">val (myVar1: Int, myVar2: String) = Pair(40, &quot;Foo&quot;)</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_map">Map</h3>
-<div class="paragraph">
-<p>Método que retorna una Secuencia del mismo tipo que la que se procesa, pero a la que aplica a cada elemento la transformación definida, en este caso se emplea el caracter reservado <strong>_</strong> para referenciar a cada elemento de la Secuencia.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">val arrayResultado = Array(1,2,3).map(_ * 2)
-
-//Donde arrayResultado será un Array[Int] = Array(2, 4, 6)</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_filter">Filter</h3>
-<div class="paragraph">
-<p>Método que retorna una Secuencia del mismo tipo que la que se procesa, pero a la que aplica a cada elemento la condicion definida, incluyendo slo aquellos elementos de la Secuencia inicial que cumplan la condicion.</p>
-</div>
-<div class="paragraph">
-<p>Firma del método</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">def filter(p: T =&gt; Boolean): Array[T]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Ejemplo de uso</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">val nums = List(1,2,3,4,5).filter(_ &lt; 4)
-
-//Donde nums será un List[Int] = List(1, 2, 3)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Para recorrer colleciones con un blucle for, el API ofrece el método <strong>zipWithIndex</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">for ((e, count) &lt;- a.zipWithIndex) {
-        println(s&quot;$count is $e&quot;)
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>De forma analoga a la sentencia de control <strong>for</strong>, las colecciones ofrecen métodos para procesarse como <strong>foreach()</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">a.foreach(println)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Esta expresión cuando el procesado es mas complejo que una unica sentencia, se puede realizar con <strong>clojures</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">a.foreach { e =&gt;
-        val s = e.toUpperCase
-        println(s)
-}</code></pre>
 </div>
 </div>
 </div>
