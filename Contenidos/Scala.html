@@ -617,6 +617,12 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_mixins">Mixins</a></li>
 </ul>
 </li>
+<li><a href="#_clases_abstractas">Clases Abstractas</a>
+<ul class="sectlevel2">
+<li><a href="#_campos_abstractos">Campos Abstractos</a></li>
+<li><a href="#_métodos_abstractos">Métodos Abstractos</a></li>
+</ul>
+</li>
 <li><a href="#_paquetes">Paquetes</a></li>
 <li><a href="#_imports">Imports</a></li>
 <li><a href="#_sbt">SBT</a>
@@ -673,12 +679,32 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_tupla">Tupla</a></li>
 </ul>
 </li>
-<li><a href="#_clases_abstractas">Clases Abstractas</a>
+<li><a href="#_futuros">Futuros</a></li>
+<li><a href="#_actores">Actores</a>
 <ul class="sectlevel2">
-<li><a href="#_campos_abstractos">Campos Abstractos</a></li>
-<li><a href="#_métodos_abstractos">Métodos Abstractos</a></li>
+<li><a href="#_respuestas">Respuestas</a></li>
 </ul>
 </li>
+<li><a href="#_tipos_parametricos_generics">Tipos Parametricos (Generics)</a>
+<ul class="sectlevel2">
+<li><a href="#_covarianza_contravarianza">Covarianza/Contravarianza</a></li>
+</ul>
+</li>
+<li><a href="#_conversiones">Conversiones</a></li>
+<li><a href="#_implicitos">Implicitos</a>
+<ul class="sectlevel2">
+<li><a href="#_valores_implicitos">Valores Implicitos</a></li>
+<li><a href="#_métodos_implicitos">Métodos Implicitos</a></li>
+<li><a href="#_clases_implicitas">Clases Implicitas</a></li>
+</ul>
+</li>
+<li><a href="#_string">String</a>
+<ul class="sectlevel2">
+<li><a href="#_interpolacion">Interpolacion</a></li>
+</ul>
+</li>
+<li><a href="#_extractores">Extractores</a></li>
+<li><a href="#_resumen_programacion_funcional">Resumen Programacion Funcional</a></li>
 </ul>
 </div>
 </div>
@@ -2970,6 +2996,73 @@ class Dog (name: String) extends Pet (name) with Tail {
 </div>
 </div>
 <div class="sect1">
+<h2 id="_clases_abstractas">Clases Abstractas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dado que en <strong>Scala</strong> existen los <strong>Traits</strong> que son mas potentes que las clases abstractas, estan quedan relegadas a</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Cuando quieras crear una clase con parametros de construcción.</p>
+</li>
+<li>
+<p>El codigo tenga quer invocado desde Java.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Se definen con la palabra reservada <strong>abstract</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">abstract class Persona (name: String) {
+
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_campos_abstractos">Campos Abstractos</h3>
+<div class="paragraph">
+<p>Las clases abstractas pueden tener campos no inicializados</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">abstract class Persona (nombre: String) {
+        var edad : Int
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cuando en las clases hijas se implementen estos campos, se debera volver a indicar <strong>val</strong> o <strong>var</strong>, ya que el campo no se crea en la clase abstracta, solo se crean el <strong>accesor</strong> y el <strong>mutator</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class Trabajador (nombre: String) extends Persona(nombre) {
+        var edad = 12
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_métodos_abstractos">Métodos Abstractos</h3>
+<div class="paragraph">
+<p>Las definiciones de métodos abstractos que no aceptan parametros, se puede reconvertir en un campo en la definición de la clase hija.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">abstract class Mascota (nombre: String) {
+        def sonido: String
+}
+class Perro (nombre: String) extends Mascota (nombre) {
+        val sonido = &quot;Guau&quot;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_paquetes">Paquetes</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -4986,68 +5079,818 @@ t._1
 </div>
 </div>
 <div class="sect1">
-<h2 id="_clases_abstractas">Clases Abstractas</h2>
+<h2 id="_futuros">Futuros</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Dado que en <strong>Scala</strong> existen los <strong>Traits</strong> que son mas potentes que las clases abstractas, estan quedan relegadas a</p>
+<p>Se emplean para realizar operaciones costosas en segundo plano sin que se bloquee el hilo de ejecución principal.</p>
+</div>
+<div class="paragraph">
+<p>Se basan en la clase <strong>scala.concurrent.Future</strong>, que permite encapsular la tarea de larga duracion, para que se ejecute en otro hilo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val f: Future[List[Int]] = Future {
+        tareaDeLargaDuracion
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La clase <strong>Furute</strong> es generica, teniendo que indicar el tipo de dato retornado por la tarea de larga duracion, en este caso <strong>List[Int]</strong></p>
+</div>
+<div class="paragraph">
+<p>Necesitan de un contexto de ejecucion, donde se definan las caracteristicas del <strong>pool de thread</strong> a emplear por los <strong>Futuros</strong>, el API define uno por defecto, que habra que declarar</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import scala.concurrent.ExecutionContext.Implicits.global</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este <strong>pool de thread</strong>, basado en <strong>ForkJoinPool</strong> de Java, define un numero de threads igual al numero de procesadores disponibles para la ejecucion, lo cual se define con la caracteristica <strong>Runtime.availableProcessors</strong>, esta propiedad puede ser modificada con el atributo de la maquina virtual <strong>scala.concurrent.context.minThreads</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Hay dos formas de ejecución de los Futuros:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Cuando quieras crear una clase con parametros de construcción.</p>
+<p>Una <strong>sincrona</strong>, que parará la ejecución del hilo desde donde se lance, hasta que termine la ejecución de la tarea envuelta por el <strong>Futuro</strong>, cosa poco interesante a priorí, ya que sino no empleariamos los futuros.</p>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">Await.result(f,Duration(2.0, TimeUnit.SECONDS))</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>El codigo tenga quer invocado desde Java.</p>
+<p>Otra <strong>asincrona</strong>, que se basará en <strong>callbacks</strong> que se ejecutará de forma paralela. Los posibles <strong>callbacks</strong> a definir son:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>onComplete</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">f onComplete {
+        case Success(list) =&gt; print(list)
+        case Failure(e)    =&gt; println(e.getMessage)
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>onSuccess</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">f onSuccess {
+        case list =&gt; for (item &lt;- list) println(item)
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>onFailiure</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">f onFailure {
+        case e =&gt; println(e.getMessage)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se puede definir en un formato reducido</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val f = Future {
+        tareaDeLargaDuracion
+} andThen {
+        case Success(list) =&gt; println(list)
+        case Failure(e) =&gt; println(e.getMessage)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se puede simular una tarea de larga duracion durmiendo el hilo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">def tareaDeLargaDuracion: List[Int] = {
+    Thread.sleep(4000)
+    List(1, 2, 3)
+    //throw new Exception(&quot;Error al procesar la tarea de larga duracion&quot;)
+  }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_actores">Actores</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Son otra forma de gestionar la concurrencia en <strong>Scala</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Los <strong>Actores</strong> son componentes con estado que procesan en un hilo distinto, pero de manera <strong>secuencial</strong> una cola de mensajes, asociando (o no) a cada uno de estos mensajes un cierto algoritmo.</p>
+</div>
+<div class="paragraph">
+<p>Actualmente se esta incluyendo el API de <strong>Akka Actors</strong> dentro de <strong>Scala</strong>, pero de momento hay que incluirlo como dependencia, la documentacion <a href="http://doc.akka.io/docs/akka/2.0/scala/actors.html">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Para incluir el API de <strong>Akka Actors</strong> con <strong>SBT</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">libraryDependencies += &quot;com.typesafe.akka&quot; % &quot;akka-actor_2.11&quot; % &quot;2.4.17&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para definir un <strong>Actor</strong> con este API hay que heredar del Trait <strong>akka.actor.Actor</strong>, que obliga a implementar el método <strong>receive</strong>, donde se procesan los mensajes</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class HelloActor extends Actor {
+        def receive = {
+                case &quot;hello&quot; =&gt; println(&quot;hello back at you&quot;)
+                case _ =&gt; println(&quot;huh?&quot;)
+        }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para instanciarlo, se hace a traves de una instancia de la clase <strong>ActorSystem</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val system = ActorSystem(&quot;HelloSystem&quot;)
+
+val helloActor = system.actorOf(Props[HelloActor], name = &quot;helloactor&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El método <strong>actorOf</strong> retorna una referencia a un objeto <strong>ActorRef</strong></p>
+</div>
+<div class="paragraph">
+<p>El segundo parametro del método <strong>actorOf</strong> es opcional, permite dar un nombre al actor de cara a monitorizar su estado.</p>
+</div>
+<div class="paragraph">
+<p>Een el anterior ejemplo, se esta creando un <strong>Actor</strong> que no define propiedades de construcción, si el actor las definiese, la sintaxis sería</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val myActor = system.actorOf(Props(new HelloActor(&quot;...&quot;)), name = &quot;myactor&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para enviar mensajes, se emplea el método <strong>!</strong> del objeto <strong>ActorRef</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">helloActor ! &quot;hello&quot;
+helloActor ! &quot;buenos dias&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para parar el sistema de Actores, se ha delanzar el comando <strong>terminate</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">system.terminate()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si se desea parar algun actor en concreto dentro del sistema</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">system.stop(helloResponseActor)</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_respuestas">Respuestas</h3>
+<div class="paragraph">
+<p>Los <strong>Actores</strong> pueden responder al cliente que lanzo la ejecución, pero dado que no realizarán la ejecución en el mismo hilo, se precisarán de <strong>Futuros</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Para realizar la petición y definir un callback que procese la respuesta, la petición se ha de hacer con <strong>akka.pattern.ask</strong>, la cual tiene un parametro implicito de tipo <strong>Timeout</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val system = ActorSystem(&quot;HelloResponseSystem&quot;)
+val helloResponseActor = system.actorOf(Props[HelloResponseActor], name = &quot;helloResponseActor&quot;)
+implicit val timeout = Timeout.apply(2, TimeUnit.SECONDS)
+val future = ask(helloResponseActor, &quot;hello&quot;)
+future onComplete {
+        case Success(mensaje) =&gt; println(mensaje)
+        case Failure(e)    =&gt; println(e.getMessage)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La respuesta desde el <strong>Actor</strong>, se realizará a través del objeto <strong>sender</strong>, definido por el API en todos los <strong>Actor</strong>, que es un <strong>ActorRef</strong> y por tanto tiene el método <strong>!</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class HelloResponseActor extends Actor {
+        def receive = {
+                case &quot;hello&quot; =&gt; { println(&quot;hello back at you&quot;); sender ! &quot;continue&quot; }
+                case _       =&gt; println(&quot;huh?&quot;)
+        }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tipos_parametricos_generics">Tipos Parametricos (Generics)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Permiten definir clases que emplean variables de tipos sin especificar.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class Stack[T] {
+  var elems: List[T] = Nil
+  def push(x: T) { elems = x :: elems }
+  def top: T = elems.head
+  def pop() { elems = elems.tail }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Estas variables de los tipos, deben ser especificadas en el momento de la instanciación</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val stack = new Stack[Int]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden aplicar reglas sobre los tipos que afecten a su jerarquia, así se puede indicar que</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Un tipo debe pertener a una jerarquia con el operador <strong>&lt;:</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class Animal {}
+class Perro extends Animal {}
+
+//El &lt;: indica que T debe ser un subtipo de Animal
+class Lista[T &lt;: Animal] {}
+
+var listaPerro = new Lista[Perro]
+
+var listaAnimal = new Lista[Animal]
+
+//No esta permitido por ejemplo
+//var listaAny = new Lista[Any]</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Un tipo debe ser supertipo de otro con el operador <strong>&gt;:</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class Animal {}
+
+class Lista[T &gt;: Animal] {}
+
+var listaAny = new Lista[Any]
+
+var listaAnimal = new Lista[Animal]
+
+//No esta permitido por ejemplo
+//var listaPerro = new Lista[Perro]</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_covarianza_contravarianza">Covarianza/Contravarianza</h3>
+<div class="paragraph">
+<p>Además el API permite definir varianza y contravarianza aplicada a los tipos, de tal forma que se cumpla que</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Covarianza</strong> &#8594; Si un tipo A (Perro), es subtipo de otro B (Animal), otro tipo parametrizado con A (List[Perro]), será subtipo de ese mismo tipo parametrizado con B (List[Animal]), puediendo por tanto referenciar con variables del tipo parametrizado con B (List[Animal]) a objetos del tipo parametrizado con A (List[Perro]).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Se definen con la palabra reservada <strong>abstract</strong></p>
+<p>Para definir la covarianza se emplea el prefijo <strong>+</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">abstract class Persona (name: String) {
+<pre class="CodeRay highlight"><code data-lang="scala">class Animal {}
+class Perro extends Animal {}
 
-}</code></pre>
+class Lista[+T] {}
+
+var listaPerro = new Lista[Perro]
+
+var listaAnimal = new Lista[Animal]
+
+listaAnimal = listaPerro</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Contravarianza</strong> &#8594; Si un tipo A (Animal), es subtipo de otro B (Any), otro tipo parametrizado con B (List[Any]), será subtipo de ese mismo tipo parametrizado con A (List[Animal]), puediendo por tanto referenciar con variables del tipo parametrizado con A (List[Animal]) a objetos del tipo parametrizado con B (List[Any]).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para definir la contravarianza se emplea el prefijo <strong>-</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class Animal {}
+
+class Lista[-T] {}
+
+var listaAny = new Lista[Any]
+
+var listaAnimal = new Lista[Animal]
+
+listaAnimal = listaAny</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conversiones">Conversiones</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Se proporciona el método <strong>asInstanceOf[T]</strong> que permite realizar la conversion de tipos</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">var p = new Persona
+
+var p1 = p.asInstanceOf[Persona]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>De no pertenecer a la jerarquia la clase a la que se quiere convertir, dará un <strong>ClassCastException</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Por supuesto, se puede aplicar tambien para los tipos numericos, dado que no existen los primitivos</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val a = 10 //a: Int = 10
+
+val b = a.asInstanceOf[Long] //b: Long = 10
+
+val c = a.asInstanceOf[Byte] //c: Byte = 10</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Todos los tipos numericos tienen métodos para convertir el objeto actual a otro tipo numerico, incluido <strong>char</strong>: toByte, toChar, toDouble, toFloat, toInt, toLong y toShort</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implicitos">Implicitos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>El API de Scala define la palabra reservada <strong>implicit</strong>, la cual se puede aplicar a:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>valores</p>
+</li>
+<li>
+<p>métodos</p>
+</li>
+<li>
+<p>clases</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_valores_implicitos">Valores Implicitos</h3>
+<div class="paragraph">
+<p>Permiten extraer de la definición de un método el valor por defecto que tomará alguno de sus parametros.</p>
+</div>
+<div class="paragraph">
+<p>Por un lado se define en el contexto (ámbito) del método el valor implicito</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">implicit val valorParametroImplicito: Int = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y por otro se define el método que haga uso de dicho valor implicito</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">def metodo(parametroNormal: Int)(implicit parametroImplicito: Int): Int =
+  println (parametroNormal + &quot;-&quot; + parametroImplicito)</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Ojo!!! que el valor implicito se resuelve por tipo, luego si hubiese dos valores implicitos de tipo Int en este caso, se produciria un error de compilación de ambiguedad</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_campos_abstractos">Campos Abstractos</h3>
+<h3 id="_métodos_implicitos">Métodos Implicitos</h3>
 <div class="paragraph">
-<p>Las clases abstractas pueden tener campos no inicializados</p>
+<p>Son métodos que se definen en un determinado ambito que se ofrecen al compilador, como capaces de solventar referencias no especificadas</p>
+</div>
+<div class="paragraph">
+<p>Entre otras cosas, permiten realizar conversiones entre tipos</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">abstract class Persona (nombre: String) {
-        var edad : Int
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Cuando en las clases hijas se implementen estos campos, se debera volver a indicar <strong>val</strong> o <strong>var</strong>, ya que el campo no se crea en la clase abstracta, solo se crean el <strong>accesor</strong> y el <strong>mutator</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">class Trabajador (nombre: String) extends Persona(nombre) {
-        var edad = 12
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_métodos_abstractos">Métodos Abstractos</h3>
-<div class="paragraph">
-<p>Las definiciones de métodos abstractos que no aceptan parametros, se puede reconvertir en un campo en la definición de la clase hija.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">abstract class Mascota (nombre: String) {
-        def sonido: String
+<pre class="CodeRay highlight"><code data-lang="scala">//Tipologia que pretende extender las caracteristicas del tipo *Int* de Scala
+class MyInteger(i: Int) {
+        def myNewMethod = println(&quot;hello from myNewMethod&quot;)
 }
-class Perro (nombre: String) extends Mascota (nombre) {
-        val sonido = &quot;Guau&quot;
+
+//Wrapper implicito, que permite convertir un Int en un MyInteger, para permitir que se puedan invocar funcionalidades de MyInteger desde un Int
+implicit def int2MyInt(i: Int) = new MyInteger(i)
+
+//Se esta empleando de forma implicita la conversion a MyInteger
+1.myNewMethod</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clases_implicitas">Clases Implicitas</h3>
+<div class="paragraph">
+<p>Permiten extender funcionalidades de clases ya definidas, envolviendolas de forma implicita</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class ClaseExistente {
+  def method1(): Int = 1
+  def method2(n:Int): Boolean = true
+}
+implicit class ClaseImplicitaConMetodosExtra(claseExistente: ClaseExistente){
+  def method3(n: Int): Boolean = false
+  def method4(): Int = 0
+  def method5(): Int = claseExistente.method1() * 2
+}
+
+val instanciaDeClaseExistenteImplicitamenteDotadaDeMasMetodos = new ClaseExistente
+
+instanciaDeClaseExistenteImplicitamenteDotadaDeMasMetodos.method1()
+instanciaDeClaseExistenteImplicitamenteDotadaDeMasMetodos.method2(5)
+instanciaDeClaseExistenteImplicitamenteDotadaDeMasMetodos.method3(2)
+instanciaDeClaseExistenteImplicitamenteDotadaDeMasMetodos.method4()
+instanciaDeClaseExistenteImplicitamenteDotadaDeMasMetodos.method5()</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Ojo!!! No se pueden sobrescribir implementaciones de la clase que se esta vitaminando</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_string">String</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_interpolacion">Interpolacion</h3>
+<div class="paragraph">
+<p>El prefijo <strong>s</strong> aplicado a los <strong>String</strong>, permite parametrizar dicho <strong>String</strong> con variables del ambito de Scala.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val nombre = &quot;Victor&quot;
+println(s&quot;Hola, $nombre&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tambien permite procesar expresiones escritas en Scala</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val nombre = &quot;Victor&quot;
+val apellido = &quot;Herrero&quot;
+println(s&quot;Hola ${nombre concat &quot; &quot; concat apellido}&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tambien se proporciona el pefijo <strong>f</strong> que además de lo que hace <strong>s</strong>, permite formatear como se representa la información, las expresiones de formateo, son las misma que en java, se pueden consultar <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Formatter.html#detail">aquí</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val nombre = &quot;Victor&quot;
+val altura = 1.85d
+println(f&quot;$nombre%s mide $altura%2.2f metros&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tambien se propoprciona <strong>raw</strong>, que no interpreta las secuencias de escape como <strong>\n</strong> o <strong>\t</strong> ni reglas de formateo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val nombre = &quot;Victor&quot;
+val apellido = &quot;Herrero&quot;
+val altura = 1.85d
+println(f&quot;La persona con nombre:\t$nombre%s y apellidos:\t$apellido%s\nmide $altura%2.2f metros de altura&quot;)
+println(raw&quot;La persona con nombre:\t$nombre%s y apellidos:\t$apellido%s\nmide $altura%2.2f metros de altura&quot;)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extractores">Extractores</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Son <strong>Objectos</strong> de Scala que implementan los métodos <strong>apply</strong> y <strong>unapply</strong>, de forma analoga a como lo hacen las clases case, pero sin serlo.</p>
+</div>
+<div class="paragraph">
+<p>Son empleados junto con el <strong>Pattern Mattching</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">object Twice {
+  def apply(x: Int): Int = x * 2
+  def unapply(z: Int): Option[Int] = if (z%2 == 0) Some(z/2) else None
+}
+object TwiceTest extends App {
+        val x = Twice(21) //Aplica apply
+        println(x) //x = 42
+        x match {
+                case Twice(n) =&gt; { //Aplica unapply
+                        println(n) //n = 21
+                }
+        }
 }</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resumen_programacion_funcional">Resumen Programacion Funcional</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En programacion funcional</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>lambda</strong> es equivalente a <strong>funcion</strong>.</p>
+</li>
+<li>
+<p>Las variables son inmutables (final)</p>
+</li>
+<li>
+<p>Las funciones no pueden modificar o verse afectadas por un estado global, por lo que se puede paralelizar la ejecución de las sentencias.</p>
+</li>
+<li>
+<p><strong>currying</strong>, patrón basado en el patrón adaptador. Permite definir una nueva función que adapta el uso de otra funcion existente, es decir dada un funcion que presenta una interface (datos de entrada y datos de salida), la adapta a los requerimientos representados por otra funcion con una nueva interface(datos de entrada y datos de salida)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En muchos casos el <strong>curriying</strong> lleva a que en una determinada funcion que acepta <strong>n</strong> parametros de entrada algunos de ellos son constantes, y al adaptarla, se define una nueva funcion que absorbe dichas constantes</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">def elCuadradoDe(i : Int) : Int = {
+        scala.math.pow(i,3)
+}
+
+elCuadradoDe 1;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si aplicamos la caracteristica de <strong>Scala</strong> de <strong>Invocacion Parcial</strong>, simplificariamos la anterior expresion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">var elCuadradoDe = scala.math.pow(_: Double, 2.toDouble)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Donde estamos dejando abierto el valor del primer parametro, pero cerrando el del segundo a <strong>2</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Scala</strong> permite la definicion <strong>currying</strong> de otra forma</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">def exponencial(x: Double) = (y: Double) =&gt; scala.math.pow(x, y)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este caso lo que vemos es que la primera funcion, que acepta un parametro <strong>x</strong>, retorna otra funcion que acepta un parametro <strong>y</strong>, la cual no se podra invocar hasta que se proporcione dicho parametro.</p>
+</div>
+<div class="paragraph">
+<p>La invocacion se puede hacer por pasos</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">var funcionParcial = exponencial(7)
+funcionParcial(2)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O directamente, que quedaria mas legible</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">exponencial(7)(2)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Funcion De Orden Superior</strong> &#8594; Aquellas funciones que reciben por parametros otras funciones para invocarlas internamente</p>
+</li>
+<li>
+<p><strong>Closures</strong> &#8594; Función que puede interaccionar no solo con las variables de su ambito, sino con las de otro ambito, sucede al emplear <strong>funciones de orden superior</strong>, donde la funcion recibida, que es ejecutada desde la <strong>funcion de orden superior</strong>, puede tener acceso a variables de un ambito distinto a la <strong>funcion de orden superior</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">object Aplicacion extends App {
+  Ambito2.funcionDeOrdenSuperior(Ambito1.sayHello, &quot;Pedro&quot;)
+}
+
+object Ambito1 {
+  //Se define una variable
+  private var hello = &quot;Hello&quot;
+
+  //Se define un metodo, que usa la anterior variable
+  def sayHello(name: String) { println(s&quot;$hello, $name&quot;) }
+}
+
+object Ambito2 {
+  def funcionDeOrdenSuperior(f: (String) =&gt; Unit, name: String) {
+    f(name)
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pattern Matching</strong> &#8594; Reconocimiento de patrones, que permite identificar un dato por el cumplimiento de una condicion. Se basa en los <strong>Case</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">x match {
+        // constantes
+        case 0 =&gt; &quot;zero&quot;
+        case true =&gt; &quot;true&quot;
+        case &quot;hello&quot; =&gt; &quot;you said 'hello'&quot;
+        case Nil =&gt; &quot;an empty List&quot;
+
+        // secuencias
+        case List(0, _, _) =&gt; &quot;a three-element list with 0 as the first element&quot;
+        case List(1, _*) =&gt; &quot;a list beginning with 1, having any number of elements&quot;
+        case Vector(1, _*) =&gt; &quot;a vector starting with 1, having any number of elements&quot;
+
+        // tuplas
+        case (a, b) =&gt; s&quot;got $a and $b&quot;
+        case (a, b, c) =&gt; s&quot;got $a, $b, and $c&quot;
+
+        // patrones de construccion
+        case Person(first, &quot;Alexander&quot;) =&gt; s&quot;found an Alexander, first name = $first&quot;
+        case Dog(&quot;Suka&quot;) =&gt; &quot;found a dog named Suka&quot;
+
+        // patrones tipados
+        case s: String =&gt; s&quot;you gave me this string: $s&quot;
+        case i: Int =&gt; s&quot;thanks for the int: $i&quot;
+        case f: Float =&gt; s&quot;thanks for the float: $f&quot;
+        case a: Array[Int] =&gt; s&quot;an array of int: ${a.mkString(&quot;,&quot;)}&quot;
+        case as: Array[String] =&gt; s&quot;an array of strings: ${as.mkString(&quot;,&quot;)}&quot;
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Evaluación tardia</strong> &#8594; ejecucion del codigo solo cuando es necesario, no hay garatia del orden, e incluso alguna sentencia puede que nunca se llegue a ejecutar, porque su ejecución dependia del empleo de la variable asociada, que no fue empleada por que no se cumplio una condición.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Se traduce en variables <strong>lazy</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">lazy val perezosa = &quot;perezosa&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O en colecciones perezosas <strong>Stream</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>concurrencia</strong> &#8594; Dado que el resultado de la ejecucion de una funcion no depende del entorno, se pueden emplear las funciones de forma concurrente, dado que ninguna operacion que haga un hilo, dejara rastro que afecte a otro hilo.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Se traduce en <strong>Futuros</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val f: Future[List[Int]] = Future {
+        tareaDeLargaDuracion
+}
+
+f onComplete {
+        case Success(list) =&gt; print(list)
+        case Failure(e)    =&gt; println(e.getMessage)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y <strong>Actores</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class HelloActor extends Actor {
+  def receive = {
+    case &quot;hello&quot; =&gt; println(&quot;hello back at you&quot;)
+    case &quot;exception&quot; =&gt; throw new Exception
+    case _       =&gt; println(&quot;huh?&quot;)
+  }
+}
+
+object Simple extends App {
+  val system = ActorSystem(&quot;HelloSystem&quot;)
+  val helloActor = system.actorOf(Props[HelloActor], name = &quot;helloactor&quot;)
+  helloActor ! &quot;hello&quot;
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Recursividad</strong> &#8594; Invocacion de una funcion desde ella misma, camiando los parametros de entrada para evitar bucles infinitos.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">def sum(xs: List[Int]): Int = {
+        if (xs.isEmpty) 0
+        else xs.head + sum(xs.tail)
+}</code></pre>
 </div>
 </div>
 </div>
@@ -5055,7 +5898,7 @@ class Perro (nombre: String) extends Mascota (nombre) {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-04-05 04:53:12 PDT
+Last updated 2017-04-06 04:40:02 PDT
 </div>
 </div>
 </body>
