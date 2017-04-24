@@ -513,7 +513,7 @@ table.CodeRay td.code>pre{padding:0}
 <h1>Scala</h1>
 <div class="details">
 <span id="author" class="author">Victor Herrero Cazurro</span><br>
-<span id="email" class="email">&lt;<a href="https://github.com/victorherrerocazurro">@vherrero11</a>&gt;</span><br>
+<span id="email" class="email">&lt;<a href="mailto:vherrero@pronoide.es">vherrero@pronoide.es</a>[Victor Herrero Cazurro]&gt;</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contenidos</div>
@@ -538,11 +538,11 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#_constructor_primario">Constructor Primario</a></li>
 <li><a href="#_constructores_auxiliares">Constructores Auxiliares</a></li>
+<li><a href="#_invocacion_del_contructor_del_padre">Invocacion del contructor del Padre</a></li>
 <li><a href="#_parametros_por_defecto">Parametros por defecto</a></li>
 <li><a href="#_campos">Campos</a></li>
 <li><a href="#_sobreescritura_de_get_accesor_y_set_mutator">Sobreescritura de Get (Accesor) y Set (Mutator)</a></li>
 <li><a href="#_inicializacion_de_campos_con_bloques_de_codigo">Inicializacion de Campos con Bloques de Codigo</a></li>
-<li><a href="#_tipo_option">Tipo Option</a></li>
 <li><a href="#_equals_y_hashcode">Equals y HashCode</a></li>
 <li><a href="#_clases_internas">Clases Internas</a></li>
 <li><a href="#_objeto_class">Objeto Class</a></li>
@@ -553,13 +553,13 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_objeto_compañia">Objeto Compañia</a></li>
 <li><a href="#_patrón_singleton">Patrón Singleton</a></li>
 <li><a href="#_clase_de_un_objeto">Clase de un Objeto</a></li>
-<li><a href="#_objetos_paquete">Objetos Paquete</a></li>
 </ul>
 </li>
 <li><a href="#_tipos">Tipos</a>
 <ul class="sectlevel2">
 <li><a href="#_tipos_basicos">Tipos Basicos</a></li>
 <li><a href="#_literales">Literales</a></li>
+<li><a href="#_tipo_option">Tipo Option</a></li>
 </ul>
 </li>
 <li><a href="#_variables">Variables</a></li>
@@ -623,7 +623,11 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_métodos_abstractos">Métodos Abstractos</a></li>
 </ul>
 </li>
-<li><a href="#_paquetes">Paquetes</a></li>
+<li><a href="#_paquetes">Paquetes</a>
+<ul class="sectlevel2">
+<li><a href="#_objetos_paquete">Objetos Paquete</a></li>
+</ul>
+</li>
 <li><a href="#_imports">Imports</a></li>
 <li><a href="#_sbt">SBT</a>
 <ul class="sectlevel2">
@@ -713,21 +717,21 @@ table.CodeRay td.code>pre{padding:0}
 <h2 id="_introduccion">Introduccion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Scala es</p>
+<p>Scala es un lenguaje de programacion</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Un lenguaje de programacion moderno creado por <strong>Martin Odersky</strong>, influenciado por Java, Ruby, Smalltalk, ML, Haskell, Erlang y otros.</p>
+<p>moderno creado por <strong>Martin Odersky</strong>, influenciado por Java, Ruby, Smalltalk, ML, Haskell, Erlang y otros.</p>
 </li>
 <li>
-<p>Un lenguaje de programacion orientado a objetos puro, donde toda variable apunta a un objeto, no existen primitivos y todas las operaciones son métodos.</p>
+<p>orientado a objetos puro, donde toda variable apunta a un objeto, no existen primitivos y todas las operaciones son métodos.</p>
 </li>
 <li>
-<p>Un lenguaje de programación funcional, donde las funciones son referenciables por variables y se pueden pasar por parametros.</p>
+<p>funcional, donde las funciones son referenciables por variables y se pueden pasar por parametros.</p>
 </li>
 <li>
-<p>Un lenguaje que corre en la JVM, por lo que se puede emplear todas las librerias que esta incluye.</p>
+<p>que corre en la JVM, por lo que se puede emplear todas las librerias que esta incluye.</p>
 </li>
 </ul>
 </div>
@@ -739,38 +743,26 @@ table.CodeRay td.code>pre{padding:0}
 <p>No se necesita terminar las sentencias con <strong>;</strong>, solo se empleará cuando haya que seperar sentencias en la misma linea, dado que el salto de linea es tambien identificar de fin de sentencia.</p>
 </li>
 <li>
-<p>Se puede prescindir de as {} en bloques de codigo mono-sentencia.</p>
+<p>Se puede prescindir de las llaves <strong>{}</strong> en bloques de codigo mono-sentencia.</p>
 </li>
 <li>
-<p>En la ejecución de funciones se puede prescindir de los () si solo se pasa un parametro.</p>
+<p>En la ejecución de funciones se puede prescindir de los () si solo se pasa un parametro y el método no está sobrecargado.</p>
 </li>
 <li>
 <p>Se puede prescindir del operador <strong>.</strong> para acceder a los miembros de una instancia.</p>
 </li>
 <li>
-<p>Es <strong>Case Sensitivity</strong>, los identificadores <strong>Hello</strong> y <strong>hello</strong> son diferentes..</p>
+<p>Es <strong>Case Sensitivity</strong>, los identificadores <strong>Hello</strong> y <strong>hello</strong> son diferentes.</p>
 </li>
 <li>
-<p>El nombrado de las clases debe empezar en mayusculas y si el nombre es compuesto, cada una de las palabras que lo forme, tambien debe empezar en mayusculas.</p>
+<p>Por convenio el nombre de las clases debe empezar en mayusculas y si es compuesto, cada una de las palabras que lo forme, tambien debe empezar en mayusculas.</p>
 </li>
 <li>
-<p>El nombrado de los métodos debe empezar en minusculas y si el nombre es compuesto, cada una de las siguientes palabras que lo forme, tambien debe empezar en mayusculas.</p>
+<p>Por convenio el nombre de los métodos debe empezar en minúsculas y si es compuesto, cada una de las siguientes palabras que lo forme, tambien debe empezar en mayúsculas.</p>
 </li>
 <li>
-<p>El nombre del fichero debe ser exactamente igual al Objeto que se define dentro.</p>
+<p>No tiene porque existir una <strong>Class</strong> u <strong>Object</strong> definido dentro de un fichero con el mismo nombre del fichero.</p>
 </li>
-<li>
-<p>El método de entrada a la ejecución es</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">def main(args: Array[String])</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
 <li>
 <p>El resultado de la ejecución de un método, será el resultado de la ejecución de la última sentencia, no se emplea <strong>return</strong>.</p>
 </li>
@@ -782,18 +774,15 @@ table.CodeRay td.code>pre{padding:0}
 <div class="ulist">
 <ul>
 <li>
-<p>Conciso</p>
+<p>Legible (siempre que se conozca la sintaxis)</p>
 </li>
 <li>
-<p>Legible</p>
-</li>
-<li>
-<p>Expresivo (no verboso)</p>
+<p>Conciso (no verboso)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Veamos un ejemplo donde se puede observar la diferencia entre Scala y Java, se trata de un ejemplo de como se puede aplicar un filtrado de elementos sobre una coleccion.</p>
+<p>Veamos un ejemplo donde se puede observar la diferencia entre Scala y Java, se trata de un algortimo que partiendo de un listado de numeros, obtiene un nuevo listado formado por el subconjunto de elementos que cumplen la condición de ser menores que 4.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -821,13 +810,13 @@ table.CodeRay td.code>pre{padding:0}
 <p>La referencia del API se puede consultar <a href="http://www.scala-lang.org/api/current/">aquí</a>, así como una amplia bibliografía <a href="https://www.scala-lang.org/documentation/books.html">aquí</a></p>
 </div>
 <div class="paragraph">
-<p>Algunas pagínas donde ejecutar codigo Scala online, como <a href="https://scalafiddle.io/sf/gKgxQY0/1">scalafiddle</a>, <a href="http://www.scalakata.com/">scalakata</a> o <a href="http://scastie.org/">scastie</a></p>
+<p>Algunas páginas donde ejecutar codigo Scala online, como <a href="https://scalafiddle.io/sf/gKgxQY0/1">scalafiddle</a>, <a href="http://www.scalakata.com/">scalakata</a> o <a href="http://scastie.org/">scastie</a></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_compilación">Compilación</h3>
 <div class="paragraph">
-<p>Con el SDK, se proporciona el compilador <strong>scalac</strong></p>
+<p>Con el SDK, se proporciona el compilador <strong>scalac</strong>, cuyo funcionamiento es similar al compilador de java.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -925,7 +914,7 @@ myvar_=</code></pre>
 <h2 id="_primer_programa">Primer programa</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>De forma analoga a <strong>Java</strong>, en <strong>Scala</strong> el punto de entrada de ejecución es un método <strong>main</strong>, en este caso no de una clase, sino de un <strong>object</strong> (<strong>Singleton</strong>)</p>
+<p>De forma analoga a <strong>Java</strong>, en <strong>Scala</strong> el punto de entrada de ejecución es un método <strong>main</strong>, en este caso no de una clase, sino de un <strong>Object</strong> (<strong>Singleton</strong>)</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -937,21 +926,7 @@ myvar_=</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Esto se explica dado que el <strong>main</strong> de java es estatico, pero en Scala, no existen los método estaticos, solo existen los metodos unicos asociados a un Singleton.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>La definición de este <strong>object</strong> debe estar en un fichero con el nombre del <strong>object</strong>, en este caso <strong>Programa.scala</strong>, aunque tambien se definan otras clases o <strong>object</strong> dentro</p>
-</div>
-</td>
-</tr>
-</table>
+<p>Esto se explica dado que el <strong>main</strong> de Java es estatico, pero en Scala no existen los método estaticos, solo existen los metodos únicos asociados a un <strong>Singleton</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Otra alternativa a la definición del método <strong>main</strong>, es extender el <strong>object</strong> que representa la aplicación de la clase <strong>App</strong>, definiendo como miembros de la clase las sentencias a ejecutar.</p>
@@ -1023,6 +998,25 @@ myvar_=</code></pre>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_invocacion_del_contructor_del_padre">Invocacion del contructor del Padre</h3>
+<div class="paragraph">
+<p>Para la invocación de un constructor del padre, no se emplea la palabra reservada <strong>super</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Solo se puede invocar al constructor del padre desde el constructor <strong>Primario</strong>, definiendolo en la sentencia de <strong>extends</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">class Animal (var nombre: String) {
+  // ...
+}
+class Perro (nombre: String) extends Animal (nombre) {
+  // ...
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_parametros_por_defecto">Parametros por defecto</h3>
 <div class="paragraph">
 <p>Se pueden definir valores por defecto de los parametros del constructor en el constructor primario.</p>
@@ -1067,7 +1061,7 @@ new Persona(edad=35, nombre= &quot;Juan&quot;)</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>A partir de los parametros de construcción.</p>
+<p>A partir de los parametros de construcción, acopañandolos de <strong>var</strong> o <strong>val</strong>.</p>
 </li>
 </ul>
 </div>
@@ -1138,10 +1132,12 @@ class Point(x: Int, y: Int) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">def x() : String = {
+<pre class="CodeRay highlight"><code data-lang="scala">//Getter o Accesor
+def x() : String = {
         return this.x
 }
 
+//Setter o Mutator
 def x_$eq(x : String) : Unit = {
         this.x = x;
 }</code></pre>
@@ -1204,113 +1200,6 @@ def x_$eq(x : String) : Unit = {
 </td>
 </tr>
 </table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_tipo_option">Tipo Option</h3>
-<div class="paragraph">
-<p>Es un tipo de dato parametrizado, <strong>Option[T]</strong>, que puede tener dos valores</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>None</strong> permite indicar en escala nada.</p>
-</li>
-<li>
-<p><strong>Some(T)</strong> permite encapsular cualquier tipo de para diferenciarlos de <strong>None</strong></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>El <strong>Option</strong> permite:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Declarar un campo sin concretar la inicializacion.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">case class Persona (var nombre: String, var edad: Int) {
-        var genero = None: Option[String]
-}</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Encapsular el uso de <strong>null</strong>, evitando tener que hacer los procesados de ese valor <strong>null</strong>. Por ejemplo si se define el siguiente objeto</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">val p = new Persona(&quot;&quot;,0)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Se puede acceder al valor de <strong>genero</strong>, como <strong>Option</strong>, estando protegidos de los <strong>null</strong> para lo que se ofrecen los métodos</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>get</strong> &#8594; Retorna un <strong>Some(T)</strong> si existe el dato pedido y <strong>None</strong> sino existe.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">val g = p.genero</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>En este caso el valor de la variable <strong>g</strong> será <strong>None</strong>, si obtuviesemos el valor real, tendriamos un error</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">p.genero.get //Produce un error si genero vale *None*</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>En cambio con el siguiente método nos protegemos del error</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>getOrElse(&lt;default value&gt;)</strong> &#8594; Permite obtener un dato si existe, <strong>Some(T)</strong> o el valor por defecto que hemos definido en caso de ser <strong>None</strong>.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">p.genero.getOrElse(&quot;Sin genero definido&quot;)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Además como los valores de los <strong>Option</strong>, <strong>None</strong> y <strong>Some(T)</strong>, son tipos case, se puede aplicar <strong>Pattern Matching</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">m.get(1) match {
-  case Some(danceStep) =&gt;
-    println(&quot;Soy el amo de la pista bailando: &quot; + danceStep)
-  case None =&gt;
-    println(&quot;Soy de los que me quedo mirando en la barra&quot;)
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>O de una forma más adaptada a los <strong>Option</strong> con el método <strong>fold</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">m.get(1).fold(
-  ifEmpty = println(&quot;A mi lo de bailar no me va mucho&quot;)){
-  step =&gt; println(s&quot;Me rompí la cadera bailando $step&quot;)
-}</code></pre>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -1538,38 +1427,6 @@ object Dios {
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_objetos_paquete">Objetos Paquete</h3>
-<div class="paragraph">
-<p>Permiten definir métodos, campos y otro código para que este disponible a nivel de paquete, sin tener que definir una <strong>Clase</strong> u <strong>Objeto</strong></p>
-</div>
-<div class="paragraph">
-<p>Para su definición, la convencion, es definir un fichero dentro de un directorio llamado <strong>package.scala</strong>, por ejemplo, si el paquete a definir es <strong>com.ejemplo.modelo</strong>, se ha de crear el fichero <strong>com/ejemplo/modelo/package.scala</strong>.</p>
-</div>
-<div class="paragraph">
-<p>Dentro del fichero se ha de definir como <strong>package</strong>, el nivel anterior al definido, es decir para el ejemplo seria</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">package com.ejemplo</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Usando el ultimo nivel, para dar nombre al <strong>Objeto Paquete</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">package com.ejemplo
-
-package object modelo {
-
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Dentro se pueden definir los métodos y clases que se quieran, a los que se tendrá acceso directo desde otras <strong>Clases</strong> y <strong>Object</strong> del mismo paquete.</p>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1684,16 +1541,27 @@ package object modelo {
 <p>Unit &#8594; Sin valor (equivalente a <strong>void</strong> en java).</p>
 </div>
 <div class="paragraph">
-<p>Null &#8594; Referencia vacia o null.</p>
+<p>Null &#8594; Trait, de la cual null es una instancia.</p>
 </div>
 <div class="paragraph">
-<p>Nothing &#8594; Subtipo de todos los demas incluidos los Null.</p>
+<p>Nil &#8594; Lista vacia.</p>
 </div>
 <div class="paragraph">
-<p>Any &#8594; Supertipo de todos los tipos (equivalente a <strong>Objetc</strong> en java).</p>
+<p>Nothing &#8594; Trait subtipo de todos los demas, y no es supertipo de nada.</p>
 </div>
 <div class="paragraph">
-<p>AnyRef &#8594; Superttipo de los tipos referencia (variables).</p>
+<p>Any &#8594; Supertipo de todos los tipos tanto los referencia como los primitivos.</p>
+</div>
+<div class="paragraph">
+<p>AnyVal &#8594; Supertipo de todos los tipos Scala cuyo equivalente en Java es primitivo.</p>
+</div>
+<div class="paragraph">
+<p>AnyRef &#8594; Superttipo de los tipos referencia (equivalente a <strong>Object</strong> en java).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Scala_class_hierarchy.png" alt="Scala class hierarchy">
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1798,6 +1666,113 @@ vivia el ilustre hidalgo Don Quijote...&quot;&quot;&quot;</code></pre>
 <p>null &#8594; Es un objeto especial de tipo <strong>scala.Null</strong>, para representar que la referncia no está establecida.</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tipo_option">Tipo Option</h3>
+<div class="paragraph">
+<p>Es un tipo de dato parametrizado, <strong>Option[T]</strong>, que puede tener dos valores</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>None</strong> permite indicar en escala nada.</p>
+</li>
+<li>
+<p><strong>Some(T)</strong> permite encapsular cualquier tipo de para diferenciarlos de <strong>None</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>El <strong>Option</strong> permite:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Declarar un campo sin concretar la inicializacion.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">case class Persona (var nombre: String, var edad: Int) {
+        var genero = None: Option[String]
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Encapsular el uso de <strong>null</strong>, evitando tener que hacer los procesados de ese valor <strong>null</strong>. Por ejemplo si se define el siguiente objeto</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val p = new Persona(&quot;&quot;,0)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se puede acceder al valor de <strong>genero</strong>, como <strong>Option</strong>, estando protegidos de los <strong>null</strong> para lo que se ofrecen los métodos</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>get</strong> &#8594; Retorna un <strong>Some(T)</strong> si existe el dato pedido y <strong>None</strong> sino existe.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">val g = p.genero</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este caso el valor de la variable <strong>g</strong> será <strong>None</strong>, si obtuviesemos el valor real, tendriamos un error</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">p.genero.get //Produce un error si genero vale *None*</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En cambio con el siguiente método nos protegemos del error</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>getOrElse(&lt;default value&gt;)</strong> &#8594; Permite obtener un dato si existe, <strong>Some(T)</strong> o el valor por defecto que hemos definido en caso de ser <strong>None</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">p.genero.getOrElse(&quot;Sin genero definido&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Además como los valores de los <strong>Option</strong>, <strong>None</strong> y <strong>Some(T)</strong>, son tipos case, se puede aplicar <strong>Pattern Matching</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">m.get(1) match {
+  case Some(danceStep) =&gt;
+    println(&quot;Soy el amo de la pista bailando: &quot; + danceStep)
+  case None =&gt;
+    println(&quot;Soy de los que me quedo mirando en la barra&quot;)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O de una forma más adaptada a los <strong>Option</strong> con el método <strong>fold</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">m.get(1).fold(
+  ifEmpty = println(&quot;A mi lo de bailar no me va mucho&quot;)){
+  step =&gt; println(s&quot;Me rompí la cadera bailando $step&quot;)
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -3107,6 +3082,38 @@ package com.ejemplo.logica {
                 }
         }
 }</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_objetos_paquete">Objetos Paquete</h3>
+<div class="paragraph">
+<p>Permiten definir métodos, campos y otro código para que este disponible a nivel de paquete, sin tener que definir una <strong>Clase</strong> u <strong>Objeto</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Para su definición, la convencion, es definir un fichero dentro de un directorio llamado <strong>package.scala</strong>, por ejemplo, si el paquete a definir es <strong>com.ejemplo.modelo</strong>, se ha de crear el fichero <strong>com/ejemplo/modelo/package.scala</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Dentro del fichero se ha de definir como <strong>package</strong>, el nivel anterior al definido, es decir para el ejemplo seria</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">package com.ejemplo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usando el ultimo nivel, para dar nombre al <strong>Objeto Paquete</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">package com.ejemplo
+
+package object modelo {
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dentro se pueden definir los métodos y clases que se quieran, a los que se tendrá acceso directo desde otras <strong>Clases</strong> y <strong>Object</strong> del mismo paquete.</p>
 </div>
 </div>
 </div>
@@ -5898,7 +5905,7 @@ object Simple extends App {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-04-06 04:40:02 PDT
+Last updated 2017-04-24 04:28:25 PDT
 </div>
 </div>
 </body>
