@@ -1,0 +1,3227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.4">
+<meta name="description" content="Curso sobre las herramientas a emplear para establecer un ecosistema de desarrollo Java, que asegure la calidad del Software.">
+<meta name="keywords" content="Ecosistemas de proyectos Java, Test, Pruebas, Unitarias, Aceptacion, Integracion, Maven, SVN, Incidencias">
+<meta name="author" content="Victor Herrero Cazurro">
+<title>Herramientas de Pruebas y Calidad Estática</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="css/asciidoctor.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/coderay-asciidoctor.css">
+</head>
+<body class="article toc2 toc-right">
+<div id="header">
+<h1>Herramientas de Pruebas y Calidad Estática</h1>
+<div class="details">
+<span id="author" class="author">Victor Herrero Cazurro</span><br>
+<span id="email" class="email">&lt;<a href="https://github.com/victorherrerocazurro">@vherrero11</a>&gt;</span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_pruebas_de_software">1. Pruebas de Software</a>
+<ul class="sectlevel2">
+<li><a href="#_introducción">1.1. Introducción</a></li>
+<li><a href="#_pruebas_unitarias">1.2. Pruebas Unitarias</a></li>
+<li><a href="#_junit">1.3. JUnit</a></li>
+<li><a href="#_hamcrest">1.4. Hamcrest</a></li>
+<li><a href="#_mockito">1.5. Mockito</a></li>
+<li><a href="#_dbunit">1.6. DBUnit</a></li>
+<li><a href="#_pruebas_de_integración">1.7. Pruebas de Integración</a></li>
+<li><a href="#_httpunit">1.8. HttpUnit</a></li>
+<li><a href="#_selenium">1.9. Selenium</a></li>
+<li><a href="#_pruebas_aceptación">1.10. Pruebas aceptación</a></li>
+<li><a href="#_concordion">1.11. Concordion</a></li>
+</ul>
+</li>
+<li><a href="#_soa">2. SOA</a>
+<ul class="sectlevel2">
+<li><a href="#_conceptos">2.1. Conceptos</a></li>
+<li><a href="#_estandares">2.2. Estandares</a></li>
+</ul>
+</li>
+<li><a href="#_soap">3. SOAP</a></li>
+<li><a href="#_soapui">4. SoapUI</a>
+<ul class="sectlevel2">
+<li><a href="#_caracteristicas">4.1. Caracteristicas</a></li>
+<li><a href="#_instalación">4.2. Instalación</a></li>
+<li><a href="#_pruebas_de_servicios_web_soap">4.3. Pruebas de servicios web SOAP</a></li>
+<li><a href="#_soapui_maven_plugin">4.4. SoapUI Maven Plugin</a></li>
+</ul>
+</li>
+<li><a href="#_jmeter">5. JMeter</a>
+<ul class="sectlevel2">
+<li><a href="#_que_puede_hacer">5.1. Que puede hacer</a></li>
+<li><a href="#_que_no_puede_hacer">5.2. Que no puede hacer</a></li>
+<li><a href="#_estructura">5.3. Estructura</a></li>
+<li><a href="#_instalación_2">5.4. Instalación</a></li>
+<li><a href="#_plan_de_pruebas">5.5. Plan de Pruebas</a></li>
+<li><a href="#_banco_de_trabajo">5.6. Banco de trabajo</a></li>
+<li><a href="#_jmeter_maven_plugin">5.7. Jmeter Maven Plugin</a></li>
+<li><a href="#_jenkins_performance_plugin">5.8. Jenkins Performance Plugin</a></li>
+</ul>
+</li>
+<li><a href="#_calidad_estática_del_código">6. Calidad estática del código</a>
+<ul class="sectlevel2">
+<li><a href="#_calidad_del_código">6.1. Calidad del Código</a></li>
+<li><a href="#_análisis_estático_del_código">6.2. Análisis Estático del Código</a></li>
+<li><a href="#_pmd">6.3. PMD</a></li>
+<li><a href="#_checkstyle">6.4. Checkstyle</a></li>
+<li><a href="#_findbugs">6.5. Findbugs</a></li>
+<li><a href="#_cobertura">6.6. Cobertura</a></li>
+<li><a href="#_jacoco">6.7. Jacoco</a></li>
+</ul>
+</li>
+<li><a href="#_sonarqube">7. Sonarqube</a>
+<ul class="sectlevel2">
+<li><a href="#_introducción_2">7.1. Introducción</a></li>
+<li><a href="#_instalación_3">7.2. Instalación</a></li>
+<li><a href="#_conceptos_2">7.3. Conceptos</a></li>
+<li><a href="#_organizacion">7.4. Organizacion</a></li>
+<li><a href="#_carga_de_datos">7.5. Carga de datos</a></li>
+<li><a href="#_gestion_de_usuarios_y_seguridad">7.6. Gestion de Usuarios y Seguridad</a></li>
+<li><a href="#_cuadro_de_mando">7.7. Cuadro de mando</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<table class="tableblock frame-none grid-none spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><a class="image" href="https://twitter.com/VictorHerrero1"><img src="images/twitter.png" alt="twitter"></a></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><a class="image" href="https://es.linkedin.com/in/victor-herrero-cazurro-1b3ba688"><img src="images/linkedin.png" alt="linkedin"></a></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><a class="image" href="mailto:victorherrerocazurro@gmail.com"><img src="images/google+.png" alt="google+"></a></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><a class="image" href="https://github.com/victorherrerocazurro"><img src="images/github.png" alt="github"></a></span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pruebas_de_software">1. Pruebas de Software</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_introducción">1.1. Introducción</h3>
+<div class="paragraph">
+<p>Son la parte del desarrollo, que persigue corroborar que el Software generado cumple con los requisitos planteados, son un extra en el desarrollo, no forman parte de la aplicación desarrollada.</p>
+</div>
+<div class="paragraph">
+<p>Existen dos grandes grupos de pruebas</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pruebas de caja blanca</p>
+</li>
+<li>
+<p>Pruebas de caja negra</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Hay muchas formas de realizar las pruebas, algunas de ellas exigen la validacion visual de una persona que sepa que se esta probando y con que información, y que pueda estimar el resultado esperado, esta aproximación no es muy conveniente, dado que no permite automatizar el proceso de las pruebas.</p>
+</div>
+<div class="paragraph">
+<p>Lo ideal será que la prueba contenga no solo el algoritmo de prueba, sino tambien las comprobaciones (asertos) del resultado, para ello existen en el mercado numerosos frameworks que permiten realizar una aproximación *Validación Rojo-Verde.</p>
+</div>
+<div class="sect3">
+<h4 id="_pruebas_de_caja_blanca">1.1.1. Pruebas de caja blanca</h4>
+<div class="paragraph">
+<p>Tipo de pruebas de software que se realiza sobre las funciones internas de un módulo, buscan recorrer todos los caminos posibles del modulo, cerciorándose de que no fallen.</p>
+</div>
+<div class="paragraph">
+<p>Dado que probar todo es inviable en la mayor parte de los casos, se define <strong>Cobertura</strong> como una medida porcentual de cuánto código se ha cubierto.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Las pruebas de caja blanca nos convencen de que un programa hace bien lo que hace, pero no de que haga lo que necesitamos.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_pruebas_de_caja_negra">1.1.2. Pruebas de caja negra</h4>
+<div class="paragraph">
+<p>Se dice que una prueba es de caja negra cuando prescinde de los detalles del código y se limita a lo que se ve desde el exterior. Intenta descubrir casos y circunstancias en los que el módulo no hace lo que se espera de él, ejercitan los requisitos funcionales.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Las pruebas de caja negra están especialmente indicadas en aquellos módulos que van a ser interfaz con el usuario.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cualidades_deseables_del_software">1.1.3. Cualidades deseables del Software</h4>
+<div class="paragraph">
+<p>Existen un conjunto de cualidades, que se pueden evaluar de forma automatizada</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Correcto</strong>. Se comporta según los requisitos.</p>
+</li>
+<li>
+<p><strong>Robusto</strong>. Se comporta de forma razonable, aun en situaciones inesperadas.</p>
+</li>
+<li>
+<p><strong>Confiable</strong>. Se comporta según las expectativas del usuario (Correcto + Robusto).</p>
+</li>
+<li>
+<p><strong>Eficiente</strong>. Emplea los recursos justos.</p>
+</li>
+<li>
+<p><strong>Verificable</strong>. Sus características pueden ser comprobadas.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Y otras que no, que a lo maximo que se puede aspirar es a acotarlas, con arquitectura, buenas practicas, &#8230;&#8203;</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Amigable</strong>. Fácil de utilizar.</p>
+</li>
+<li>
+<p><strong>Mantenible</strong>. Se puede modificar fácilmente.</p>
+</li>
+<li>
+<p><strong>Reusable</strong>. La misma pieza de software se puede usar sin cambios en otro proyecto.</p>
+</li>
+<li>
+<p><strong>Portable</strong>. Es ejecutable en distintos ambientes (SO, …).</p>
+</li>
+<li>
+<p><strong>Legible</strong>. El código es fácilmente interpretable.</p>
+</li>
+<li>
+<p><strong>Interoperable</strong>. Puede interaccionar con otros software.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_most_important_test">1.1.4. Most Important Test</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Unitario</strong>. Prueba un modulo lógico.</p>
+</li>
+<li>
+<p><strong>Integración</strong>. Prueba un conjunto de módulos trabajando juntos.</p>
+</li>
+<li>
+<p><strong>Regresión</strong>. Determina si los cambios recientes en un módulo afectan a otros módulos.</p>
+</li>
+<li>
+<p><strong>Humo</strong>. Pruebas de integración completa, ejecutadas de forma periódica, que buscan encontrar errores en releases de forma temprana.</p>
+</li>
+<li>
+<p><strong>Sistema</strong>. Verificación de que el ingreso, procesado y recuperación de datos se hace de forma correcta.</p>
+</li>
+<li>
+<p><strong>Aceptación</strong>. Determinación por parte del cliente de si acepta el modulo.</p>
+</li>
+<li>
+<p><strong>Stress</strong>. Comprobación del funcionamiento del sistema ates condiciones adversas, como memoria baja, gran cantidad de accesos y concurrencia en transacciones.</p>
+</li>
+<li>
+<p><strong>Carga</strong>. Tiempo de respuesta para las transaciones del sistema, para diferentes supuestos de carga.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_most_important_metrics">1.1.5. Most Important Metrics</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Complejidad ciclomática</strong>. Numero de caminos independientes en el código.</p>
+</li>
+<li>
+<p><strong>Cobertura</strong>. Cantidad de código fuente cubierto por test.</p>
+</li>
+<li>
+<p><strong>Código duplicado</strong>. Mide las veces que aparecen un numero de líneas repetidas (&gt; 10 líneas).</p>
+</li>
+<li>
+<p><strong>Comentarios</strong>. Cantidad de código que tiene documentación.</p>
+</li>
+<li>
+<p><strong>Diseño del software</strong>. Indica el grado de acoplamiento de los módulos entre si.</p>
+</li>
+<li>
+<p><strong>Líneas</strong>. Cantidad de líneas del código.</p>
+</li>
+<li>
+<p><strong>Malas practicas de codificación</strong>. Aparición de numero mágicos, bloques de try sin procesar, …</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pruebas_unitarias">1.2. Pruebas Unitarias</h3>
+<div class="paragraph">
+<p>Una prueba unitaria es una forma de probar el correcto funcionamiento de un módulo de código. Esto sirve para asegurar que cada uno de los módulos funcione correctamente por separado.</p>
+</div>
+<div class="paragraph">
+<p>En las pruebas unitarias se prueban clases concretas, no conjuntos de clases, es decir una prueba unitaria prueba la funcionalidad de un método de una clase suponiendo que los objetos que emplea realizan sus tareas de forma correcta.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_junit">1.3. JUnit</h3>
+<div class="paragraph">
+<p>Framework para pruebas.</p>
+</div>
+<div class="paragraph">
+<p>Paquetes junit.* (JUnit 3) y org.junit.* (JUnit 4)
+Embedido en Eclipse (JUnit 3 y 4), eclipse proporciona la creación de Junit Test Case (caso de prueba) y Junit Test Suite (conjunto de casos de pueba).</p>
+</div>
+<div class="paragraph">
+<p>JUnit 4 admite timeout, excepciones esperadas, tests ignorables, test parametrizados, &#8230;&#8203;</p>
+</div>
+<div class="sect3">
+<h4 id="_test_suites">1.3.1. Test Suites</h4>
+<div class="paragraph">
+<p>Conjunto de pruebas a ejecutar de forma conjunta.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@RunWith</span>(Suite.class)
+<span class="annotation">@SuiteClasses</span>({C1Test.class, C2Test.class})
+<span class="directive">public</span> <span class="type">class</span> <span class="class">TestSuite</span>{
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ciclo_de_vida_de_los_test">1.3.2. Ciclo de vida de los Test</h4>
+<div class="paragraph">
+<p>Se proporcionan anotaciones que permiten actuar en las distintas fases del ciclo de vida</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>@Before: El método de instancia anotado con esta anotación, se ejecutara antes de cada Test de la clase, por tanto tantas veces como métodos de instancia anotados con @Test existan.</p>
+</li>
+<li>
+<p>@After: El método de instancia anotado con esta anotación, se ejecutara despues de cada Test de la clase, por tanto tantas veces como métodos de instancia anotados con @Test existan.</p>
+</li>
+<li>
+<p>@BeforeClass: El método estatico anotado con esta anotación, se ejecutara antes de cualquier otro de la clase y solo una vez.</p>
+</li>
+<li>
+<p>@AfterClass: El método estatico anotado con esta anotación, se ejecutara despues de todos los otros métodos de instancia de la clase y solo una vez.</p>
+</li>
+<li>
+<p>@Test: El método anotado con esta anotación, representa un Test.</p>
+</li>
+<li>
+<p>@Ignore: Permite ignorar un método de Test.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_probando_el_lanzamiento_de_excepciones">1.3.3. Probando el lanzamiento de excepciones</h4>
+<div class="paragraph">
+<p>La anotacion @Test, permite realizar pruebas, donde el resultado esperado sea una <strong>Excepcion</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Test</span>(expected=InvalidIngresoException.class)
+<span class="directive">public</span> <span class="type">void</span> comprobamosQueLanzamosException() <span class="directive">throws</span> InvalidIngresoException{
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_probando_restricciones_temporales">1.3.4. Probando restricciones temporales</h4>
+<div class="paragraph">
+<p>La anotacion @Test, permite realizar pruebas, donde el tiempo transcurrido en la ejecución esta limitado por el requisito.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Test</span>(timeout=<span class="integer">12000</span>)
+<span class="directive">public</span> <span class="type">void</span> testDeRendimiento() {
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_test_parametrizados">1.3.5. Test parametrizados</h4>
+<div class="paragraph">
+<p>El API incorpora un <strong>Runner</strong>, que permite la ejecución repetida de Test, cada vez con unos datos de prueba, para lo cual hay que</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Anotar la clase con <strong>@RunWith</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@RunWith</span>(Parameterized.class)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Crear un método publico estatico que retorne un <strong>Array de Arrays</strong>, anotado con <strong>@Parameters</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Parameters</span>
+<span class="directive">public</span> <span class="directive">static</span> <span class="predefined-type">Collection</span>&lt;<span class="predefined-type">Object</span><span class="type">[]</span>&gt; data() {}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Puede ser interesante emplear la clase de utilidad <strong>Arrays</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">Arrays</span>.asList(<span class="keyword">new</span> <span class="predefined-type">Object</span><span class="type">[]</span><span class="type">[]</span> {{},{},{}});</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Crear Atributos de clase de la misma tipologia que los elementos de los Arrays.</p>
+</li>
+<li>
+<p>Constructor que establezca los atributos.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_asertos">1.3.6. Asertos</h4>
+<div class="paragraph">
+<p>Los asertos, son métodos estaticos del API, que permiten realizar validaciones, para poder comprobar que los datos obtenidos estan dentro del rango esperado.</p>
+</div>
+<div class="paragraph">
+<p>Algunos de los asertos que se proporcionan son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>assertEquals</p>
+</li>
+<li>
+<p>assertFalse</p>
+</li>
+<li>
+<p>assertTrue</p>
+</li>
+<li>
+<p>assertNotNull</p>
+</li>
+<li>
+<p>assertNull</p>
+</li>
+<li>
+<p>assertNotSame</p>
+</li>
+<li>
+<p>assertSame</p>
+</li>
+<li>
+<p>fail</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Implementar una clase que obtenega los impuestos según los ingresos siguiendo las siguientes reglas:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ingreso &#8656; 8000 no paga impuestos.</p>
+</li>
+<li>
+<p>8000 &lt; Ingreso &#8656; 15000 paga 8% de impuestos.</p>
+</li>
+<li>
+<p>15000 &lt; Ingreso &#8656; 20000 paga 10% de impuestos.</p>
+</li>
+<li>
+<p>20000 &lt; Ingreso &#8656; 25000 paga 15% de impuestos.</p>
+</li>
+<li>
+<p>25000 &lt; Ingreso paga 19.5% de impuestos.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Creamos una clase con un método calcularImpuestosPorIngresos, que recibiendo una cantidad double como parámetro, que son los ingresos de una persona, retornará los impuestos que ha de pagar dicha persona (double).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hamcrest">1.4. Hamcrest</h3>
+<div class="paragraph">
+<p>Framework especializado en proporcionar asertos mas semanticos, permite realizar los Test, con un lenguaje mas cercano, mas legible.</p>
+</div>
+<div class="paragraph">
+<p>La librería hamcrest-library, proporciona una clase con métodos estáticos <strong>org.hamcrest.Matchers</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Estos métodos estáticos, se emplean en formar un predicado, que forma el aserto, para que la forma de leer el código sea mas natural.</p>
+</div>
+<div class="paragraph">
+<p>Algunos de los métodos estáticos de Hamcrest.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>is</p>
+</li>
+<li>
+<p>not</p>
+</li>
+<li>
+<p>nullValue</p>
+</li>
+<li>
+<p>empty</p>
+</li>
+<li>
+<p>endsWith</p>
+</li>
+<li>
+<p>startsWith</p>
+</li>
+<li>
+<p>hasItem</p>
+</li>
+<li>
+<p>hasItems</p>
+</li>
+<li>
+<p>hasProperty</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Un ejemplo de predicado con <strong>Hamcrest</strong>, podria ser el siguiente, donde se <strong>valida que</strong> un objeto <strong>calculadora</strong> <strong>es</strong> <strong>no</strong> <strong>nulo</strong>. La lectura comprensiva de la sentencia, coincide con los escrito.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">assertThat(calculadora, is(not(nullValue())));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Otro ejemplo, que <strong>valida que</strong> el objeto <strong>persona</strong> <strong>tiene la propiedad</strong> "nombre".</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">assertThat(persona, hasProperty(<span class="string"><span class="delimiter">&quot;</span><span class="content">nombre</span><span class="delimiter">&quot;</span></span>));</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mockito">1.5. Mockito</h3>
+<div class="paragraph">
+<p>Para poder crear un buen conjunto de pruebas unitarias, es necesario centrarse exclusivamente en la clase a testear, para ello se pueden simular, con <strong>Mocks</strong> el resto de clases involucradas, de esta manera se crean test unitarios potentes que permiten detectar los errores allí donde se producen y no en dependencias del supuesto código probado.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mockito</strong> es una herramienta que permite generar <strong>Mocks</strong> dinámicos. Estos pueden ser de clases concretas o de interfaces.
+Esta parte de la generación de las pruebas, no se centra en la validación de los resultados, sino en los que han de retornar aquellos componentes de los que depende la clase probada.</p>
+</div>
+<div class="paragraph">
+<p>La creación de pruebas con Mockito se divide en tres fases</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Stubbing</strong>: Definición del comportamiento de los Mock ante unos datos concretos.</p>
+</li>
+<li>
+<p><strong>Invocación</strong>: Utilización de los Mock, al interaccionar la clase que se esta probando con ellos.</p>
+</li>
+<li>
+<p><strong>Validación</strong>: Validación del uso de los Mock.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Se pueden definir los <strong>Mock</strong> con</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La anotacion @Mock aplicada sobre un atributo de clase.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Mock</span>
+<span class="directive">private</span> IUserDAO mockUserDao;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>De emplearse las anotaciones, se ha de ejecutar la siguiente sentencia para que se procesen dichas anotaciones y se generen los objetos <strong>Mock</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">MockitoAnnotations.initMocks(testClass);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O bien emplear un <strong>Runner</strong> especifico de Mockito en la clase de Test que emplee Mockito, el <strong>MockitoJUnitRunner</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@RunWith</span>(MockitoJUnitRunner.class)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>O con el método estatico <strong>mock</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> IDataSesionUserDAO mockDataSesionUserDao = mock(IDataSesionUserDAO.class);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Algunos de los métodos estáticos que ofrece la clase <strong>org.mockito.Mockito</strong> son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>atLeast</p>
+</li>
+<li>
+<p>atMost</p>
+</li>
+<li>
+<p>atLeastOnce</p>
+</li>
+<li>
+<p>doNothing</p>
+</li>
+<li>
+<p>doReturn</p>
+</li>
+<li>
+<p>doThrow</p>
+</li>
+<li>
+<p>when</p>
+</li>
+<li>
+<p>inOrder</p>
+</li>
+<li>
+<p>never</p>
+</li>
+<li>
+<p>only</p>
+</li>
+<li>
+<p>verify</p>
+</li>
+<li>
+<p>mock</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Algunos de los métodos estaticos que ofrece la clase <strong>org.mockito.Matchers</strong>, para establecer datos genericos son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>any</p>
+</li>
+<li>
+<p>anyString</p>
+</li>
+<li>
+<p>anyObject</p>
+</li>
+<li>
+<p>contains</p>
+</li>
+<li>
+<p>endsWith</p>
+</li>
+<li>
+<p>startsWith</p>
+</li>
+<li>
+<p>eq</p>
+</li>
+<li>
+<p>isA</p>
+</li>
+<li>
+<p>isNull</p>
+</li>
+<li>
+<p>isNotNull</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_stubing">1.5.1. Stubing</h4>
+<div class="paragraph">
+<p>Se persigue definir comportamientos del <strong>Mock</strong>, para ello se emplea el método estatico <strong>when</strong> y <strong>thenReturn</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">when(mockUserDao.getUser(validUser.getId())).thenReturn(validUser);
+
+when(mockUserDao.getUser(invalidUser.getId())).thenReturn(<span class="predefined-constant">null</span>);
+
+when(mockDataSesionUserDao.deleteDataSesion((User) eq(<span class="predefined-constant">null</span>), anyString())).thenThrow(<span class="keyword">new</span> <span class="exception">OperationNotSupportedException</span>());
+
+when(mockDataSesionUserDao.updateDataSesion(eq(validUser), eq(validId), anyObject())).thenReturn(<span class="predefined-constant">true</span>);
+
+when(mockDataSesionUserDao.updateDataSesion(eq(validUser), eq(invalidId), anyObject())).thenThrow(<span class="keyword">new</span> <span class="exception">OperationNotSupportedException</span>());
+
+when(mockDataSesionUserDao.updateDataSesion((User) eq(<span class="predefined-constant">null</span>), anyString(), anyObject())).thenThrow(<span class="keyword">new</span> <span class="exception">OperationNotSupportedException</span>());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Por defecto todos los métodos que devuelven valores de un mock devuelven null, una colección vacía o el tipo de dato primitivo apropiado.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_verificación">1.5.2. Verificación</h4>
+<div class="paragraph">
+<p>Se puede verificar el orden en el que se han ejecutado los métodos del <strong>Mock</strong>, pudiendo llegar a diferenciar el orden de invocación de un mismo método por los parametros enviados.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">ordered = inOrder(mockUserDao, mockDataSesionUserDao);
+ordered.verify(mockUserDao).getUser(validUser.getId());
+ordered.verify(mockDataSesionUserDao).deleteDataSesion(validUser, validId);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tambien se puede verificar el numero de veces que se ha invocado una funcionalidad</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">verify(mock, never()).someMethod();
+verify(mock, only()).someMethod();
+verify(mock, times(<span class="integer">2</span>)).someMethod(<span class="string"><span class="delimiter">&quot;</span><span class="content">some arg</span><span class="delimiter">&quot;</span></span>);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dbunit">1.6. DBUnit</h3>
+<div class="paragraph">
+<p>Herramienta para simplificar las pruebas unitarias de operaciones sobre base de datos.</p>
+</div>
+<div class="paragraph">
+<p>Permite establecer un estado de la base de datos conocido, para que el entorno en el que se producen las pruebas sea conocido.</p>
+</div>
+<div class="paragraph">
+<p>Podremos cargar los datos de test de un XML que tengamos generado y del cual conozcamos el estado de los datos.</p>
+</div>
+<div class="paragraph">
+<p>Tambien proporciona un API, para comparar los datos que hay en la base de datos, con un XML con los datos esperados.</p>
+</div>
+<div class="sect3">
+<h4 id="_procedimiento">1.6.1. Procedimiento</h4>
+<div class="paragraph">
+<p>En lugar de extender <strong>TestCase</strong> se extiende <strong>DatabaseTestCase</strong>, que es una clase abstracta, que requiere implementar dos métodos</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>En <strong>getConnection()</strong>, habrá que especificar la conexión con la base de datos a partir de un <strong>java.sql.Connection</strong>.</p>
+</li>
+<li>
+<p>En <strong>getDataSet()</strong>, habrá que especificar el origen de los datos que se van a emplear como conjunto de datos conocidos de partida, existen varios tipos, pero el mas habitual será el <strong>FlatXmlDataSet</strong>, que representa un XML.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Un ejemplo de implementación seria.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> IDataSet loadedDataSet;
+
+<span class="directive">protected</span> IDatabaseConnection getConnection() <span class="directive">throws</span> <span class="exception">Exception</span> {
+        <span class="predefined-type">Class</span>.forName(<span class="string"><span class="delimiter">&quot;</span><span class="content">com.mysql.jdbc.Driver</span><span class="delimiter">&quot;</span></span>);
+        <span class="predefined-type">Connection</span> jdbcConnection =  <span class="predefined-type">DriverManager</span>.getConnection(<span class="string"><span class="delimiter">&quot;</span><span class="content">jdbc:mysql://localhost/test</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">root</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">root</span><span class="delimiter">&quot;</span></span>);
+        <span class="keyword">return</span> <span class="keyword">new</span> DatabaseConnection(jdbcConnection, schema);
+}
+
+<span class="directive">protected</span> IDataSet getDataSet() <span class="directive">throws</span> <span class="exception">Exception</span> {
+        loadedDataSet = <span class="keyword">new</span> FlatXmlDataSet(<span class="keyword">new</span> InputSource(<span class="string"><span class="delimiter">&quot;</span><span class="content">db/input.xml</span><span class="delimiter">&quot;</span></span>));
+        <span class="keyword">return</span> loadedDataSet;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En la clase <strong>DatabaseTestCase</strong>, existen otros dos métodos que quizás sea interesante sobreescribir, aunque ya tienen una implementación.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>getSetUpOperation()</p>
+</li>
+<li>
+<p>getTearDownOperation()</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La implementación de estos métodos es la siguiente.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">protected</span> DatabaseOperation getSetUpOperation() <span class="directive">throws</span> <span class="exception">Exception</span> {
+        <span class="keyword">return</span> DatabaseOperation.CLEAN_INSERT;
+}
+<span class="directive">protected</span> DatabaseOperation getTearDownOperation() <span class="directive">throws</span> <span class="exception">Exception</span> {
+         <span class="keyword">return</span> DatabaseOperation.NONE;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Estos métodos permiten definir que hacer con la Base de Datos antes y despues de ejecutar las pruebas, realizando una acción sobre la base de datos, con el conjunto de datos que representa el DataSet, en el caso de la implementación por defecto, lo que se hace es borrar las tablas que aparecen en el DataSet e insertar los registros que aparecen, antes de iniciar las pruebas, y no se realiza nada al acabar.</p>
+</div>
+<div class="paragraph">
+<p>Las acciones permitidas son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DatabaseOperation.UPDATE</p>
+</li>
+<li>
+<p>DatabaseOperation.INSERT</p>
+</li>
+<li>
+<p>DatabaseOperation.DELETE</p>
+</li>
+<li>
+<p>DatabaseOperation.DELETE_ALL</p>
+</li>
+<li>
+<p>DatabaseOperation.TRUNCATE</p>
+</li>
+<li>
+<p>DatabaseOperation.REFRESH</p>
+</li>
+<li>
+<p>DatabaseOperation.CLEAN_INSERT</p>
+</li>
+<li>
+<p>DatabaseOperation.NONE</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Conviene automatizar la generacion de los XML que representan el estado esperado de la base de datos, para ello, se puede emplear el siguiente codigo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">Class</span>.forName(driverName);
+conn = <span class="predefined-type">DriverManager</span>.getConnection(urlDB, userDB, passwordDB);
+IDatabaseConnection connection = <span class="keyword">new</span> DatabaseConnection(conn, schemaBD);
+
+QueryDataSet partialDataSet = <span class="keyword">new</span> QueryDataSet(connection);
+
+<span class="comment">// Especificar que tablas formaran parte del Dataset</span>
+partialDataSet.addTable(<span class="error">“</span>LIBROS<span class="string"><span class="delimiter">&quot;</span><span class="content">);
+
+// Especificar la ubicación del fichero a generar
+FlatXmlWriter datasetWriter = new FlatXmlWriter(
+                new FileOutputStream(</span><span class="delimiter">&quot;</span></span>db/<span class="string"><span class="delimiter">&quot;</span><span class="content"> + nameXML + </span><span class="delimiter">&quot;</span></span>.xml<span class="string"><span class="delimiter">&quot;</span><span class="content">));
+
+// Generar el fichero
+datasetWriter.write(partialDataSet);</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Un ejemplo de XML seria</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="preprocessor">&lt;?xml version='1.0' encoding='UTF-8'?&gt;</span>
+<span class="tag">&lt;dataset&gt;</span>
+        <span class="tag">&lt;LIBROS</span> <span class="attribute-name">ISBN</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">TITULO</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">La Catedral del Mar</span><span class="delimiter">&quot;</span></span>
+                                <span class="attribute-name">AUTOR</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Ildefonso Falcones</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;LIBROS</span> <span class="attribute-name">ISBN</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">3</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">TITULO</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Las Legiones Malditas</span><span class="delimiter">&quot;</span></span>
+                                <span class="attribute-name">AUTOR</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Santiago Posteguillo</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/dataset&gt;</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Partiendo de una pequeña aplicación que es capaz de insertar, modificar, borrar y consultar datos de una BD MySQL, habrá que crear un test con DBUnit, que cargando una BD controlada, compruebe que realizando una serie de operaciones sobre la BD, la BD resultante, es como una BD esperada.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pruebas_de_integración">1.7. Pruebas de Integración</h3>
+<div class="paragraph">
+<p>Las pruebas de integración son aquellas que se refieren a la prueba o pruebas de todos los elementos unitarios que componen un proceso, hecha en conjunto, de una sola vez, es decir, se prueba el codigo empleando la implementación real de todas las clases que necesite para ejecutarse.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_httpunit">1.8. HttpUnit</h3>
+<div class="paragraph">
+<p>Nos proporciona la capacidad de interactuar programáticamente con una aplicación web de forma amigable.</p>
+</div>
+<div class="paragraph">
+<p>Proporciona la clase <strong>com.meterware.httpunit.WebConversation</strong> que simulará a un navegador accediendo al servidor.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">WebConversation webConversation = <span class="keyword">new</span> WebConversation();
+WebResponse formResponse = webConversation.getResponse(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:8080/5-Servidor/</span><span class="delimiter">&quot;</span></span>);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez realizada una petición, se obtendrá un objeto <strong>WebResponse</strong>, que representa un HTML, por lo que se podrán realizar tareas como</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>getResponseCode() que retorna el codigo HTTP retornado por la petición.</p>
+</li>
+<li>
+<p>getResponseMessage() que retorna el mensaje asociado al codigo HTTP (por ejemplo para HTTP 200, el mensaje es OK)</p>
+</li>
+<li>
+<p>getText() que convierte el HTML en texto</p>
+</li>
+<li>
+<p>getDOM() que convierte el HTML en un objeto XML DOM</p>
+</li>
+<li>
+<p>getForms() que retorna un array con los formularios de la pagina.</p>
+</li>
+<li>
+<p>getTitle() que retorna el titulo de la pagina.</p>
+</li>
+<li>
+<p>getElementsByTagName("div") que retorna un HTMLElement[] con todas las etiquetas de la pagina del tipo indicado.</p>
+</li>
+<li>
+<p>getLinkWith() que retorna los enlaces de la pagina.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">WebLink link = response.getLinkWith(<span class="string"><span class="delimiter">&quot;</span><span class="content">texto</span><span class="delimiter">&quot;</span></span>);
+link.click();</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>getLinkWithImageText() que busca en el texto ALT de una imagen.</p>
+</li>
+<li>
+<p>getTables() que retorna las tablas HTML en la pagina</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">WebTable table = resp.getTables()[<span class="integer">0</span>];</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>getFrameContents("marco") que retorna un frame (marco) de la pagina como un nuevo <strong>WebResponse</strong></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_formularios">1.8.1. Formularios</h4>
+<div class="paragraph">
+<p>El API permite interaccionar con los formularios a traves de la clase <strong>WebForm</strong>, para poder establecer datos que se haran llegar al servidor.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">WebForm form = resp.getForms()[<span class="integer">0</span>];</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>getParameterValue() que retorna el valor de uno de los parametros</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">form.getParameterValue(<span class="string"><span class="delimiter">&quot;</span><span class="content">parámetro</span><span class="delimiter">&quot;</span></span>) ;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>getParameterNames() que retorna un String[] con los nombres de todos los parametros.</p>
+</li>
+<li>
+<p>setParameter() que permite establecer el valor de un parametro.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">setParameter(<span class="string"><span class="delimiter">&quot;</span><span class="content">parámetro</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">valor</span><span class="delimiter">&quot;</span></span>);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>toggleCheckbox("parámetro") que permite cambiar el valor de un checkbox.</p>
+</li>
+<li>
+<p>submit() que envía los datos del formulario</p>
+</li>
+<li>
+<p>reset() que resetea a los valores por defecto los parametros del formulario</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Partiendo de una aplicación web con un formulario sencillo, con un campo nombre y otro mail, que al dar a submit del formulario, se envían dichos datos a otra pagina donde se pintan en una tabla.
+Establecer una conversación con dicha aplicación, siguiendo los siguientes pasos</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Acceder a la pagina de inicio que contiene el formulario.</p>
+</li>
+<li>
+<p>Comprobar que el código de respuesta es 200 y el mensaje OK.</p>
+</li>
+<li>
+<p>Comprobar que existe al menos un formulario y posteriormente que es el único.</p>
+</li>
+<li>
+<p>Comprobar que tiene los campos ”nombre” y “mail”.</p>
+</li>
+<li>
+<p>Rellenar dichos campos y enviar el formulario.</p>
+</li>
+<li>
+<p>Comprobar que la respuesta del formulario, es una pagina con un titulo “Datos enviados”.</p>
+</li>
+<li>
+<p>Comprobar que hay algún tag DIV.</p>
+</li>
+<li>
+<p>Comprobar que únicamente hay dos DIV, que tienen como name “nombre” y “mail”, y que su contenido es el enviado por el formulario.</p>
+</li>
+<li>
+<p>Comprobar que tenemos una única tabla.</p>
+</li>
+<li>
+<p>Comprobar que el contenido de la segunda columna, son los valores enviados por el formulario.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>[0][1] &#8594; Nombre</p>
+</li>
+<li>
+<p>[1][1] &#8594; Mail</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Comprobar que también existe algún link, y que existe uno con el texto inicio.</p>
+</li>
+<li>
+<p>Comprobar que si realizamos click sobre el link, volvemos a la pagina inicial con el formulario.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selenium">1.9. Selenium</h3>
+<div class="paragraph">
+<p>Paquete de herramientas para automatizar pruebas de aplicaciones Web en distintas plataformas.</p>
+</div>
+<div class="paragraph">
+<p>La documentación la podremos obtener <a href="http://seleniumhq.org/docs/index.html">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Las herramientas que componen el paquete son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Selenium IDE.</p>
+</li>
+<li>
+<p>Selenium Remote Control (RC) o selenium 1.</p>
+</li>
+<li>
+<p>Selenium WebDriver o selenium 2.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_selenium_ide">1.9.1. Selenium IDE</h4>
+<div class="paragraph">
+<p>Se trata de un plugin de Firefox, que nos permitirá grabar y reproducir una macro con una prueba funcional, la cual podremos repetir las veces que deseemos. Se puede descargar <a href="https://addons.mozilla.org/es-es/firefox/addon/favorites-selenium-ide/">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Las acciones que se realizan en la navegación mientras se graba la macro, se traducen en comandos.</p>
+</div>
+<div class="paragraph">
+<p>La macro por defecto se guarda en HTML, aunque también se puede obtener como java, c#, Python, &#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>También se podrán insertar validaciones y no solo acciones sobre la pagina, aunque las validaciones son mas faciles de escribir en el código generado (java, c#, &#8230;&#8203;)</p>
+</div>
+<div class="paragraph">
+<p>Una vez grabada la macro, el HTML que se genera tiene una tabla con 3 columnas:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Comando de Selenium.</p>
+</li>
+<li>
+<p>Primer parámetro requerido</p>
+</li>
+<li>
+<p>Segundo parámetro opcional</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Los comandos de selenium se dividen en tres tipos:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Acciones– Acciones sobre el navegador.</p>
+</li>
+<li>
+<p>Almacenamiento– Almacenamiento en variables de valores intermedios.</p>
+</li>
+<li>
+<p>Aserciones– Verificaciones del estado esperado del navegador.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Los comandos de navegación mas habituales son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>open</strong>: abre una página empleando la URL.</p>
+</li>
+<li>
+<p><strong>click/clickAndWait</strong>: simula la acción de click, y opcionalmente espera a que una nueva pagina se cargue.</p>
+</li>
+<li>
+<p><strong>waitForPageToLoad</strong>: para la ejecución hasta que la pagina esperada es cargada. Es llamada por defecto automáticamente cuando se invoca clickAndWait.</p>
+</li>
+<li>
+<p><strong>waitForElementPresent</strong>: para la ejecución hasta que el UIElement esperado, esta definido por un tag HTML presente en la pagina.</p>
+</li>
+<li>
+<p><strong>chooseCancelOnNextConfirmation</strong>: Predispone a seleccionar en la próxima ventana de confirmación el botón de Cancel.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Los comandos de almacenamiento mas habituales son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>store</strong>: Almacena en la variable el valor.</p>
+</li>
+<li>
+<p><strong>storeElementPresent</strong>: Almacenara True o False, dependiendo de si encuentra el UI Element.</p>
+</li>
+<li>
+<p><strong>storeText</strong>: Almacena el texto encontrado. Es usado para localizar un texto en un lugar de la pagina especifico.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Los comandos de verificación mas habituales son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>verifyTitle/assertTitle</strong>: verifica que el titulo de la pagina es el esperado.</p>
+</li>
+<li>
+<p><strong>verifyTextPresent</strong>: verifica que el texto esperado esta en alguna parte de la pagina.</p>
+</li>
+<li>
+<p><strong>verifyElementPresent</strong>: verifica que un UI element esperado, esta definido como tag HTML en la presente pagina.</p>
+</li>
+<li>
+<p><strong>verifyText</strong>: verifica si el texto esperado y su tag HTML estan presentes en la pagina.</p>
+</li>
+<li>
+<p><strong>assertAlert</strong>: verifica si sale un alert con el texto esperado.</p>
+</li>
+<li>
+<p><strong>assertConfirmation</strong>: verifica si sale una ventana de confirmacion con el texto esperado.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selenium_webdriver">1.9.2. Selenium WebDriver</h4>
+<div class="paragraph">
+<p>Es el motor de pruebas automatizadas de Selenium, se encarga de arrancar un navegador que responde a las ordenes del Test, provocando la ejecución de la macro grabada.</p>
+</div>
+<div class="paragraph">
+<p>No todas las versiones de Firefox son compatibles con <strong>Selenium WebDriver</strong>, se puede encontrar mas información <a href="http://www.seleniumhq.org/about/platforms.jsp">aquí</a> o <a href="https://raw.githubusercontent.com/SeleniumHQ/selenium/master/java/CHANGELOG">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Para descargar versiones antiguas de Firefox, se puede hacer desde <a href="https://ftp.mozilla.org/pub/firefox/releases/">aquí</a></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Se puede probar con la version de selenium 2.52.0 y Firefox 45.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Para la dependencia del proyecto con selenium webdriver, añadir</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;dependency&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.seleniumhq.selenium<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>selenium-java<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.19.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El codigo obtenido de la macro grabada con Selenium IDE, tendra las siguientes sentencias</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La creación del objeto que representa la interaccion con el navegador</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>FirefoxDriver driver = new FirefoxDriver();</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La peticion</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>driver.get(baseUrl + "/05-Servidor/");</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pruebas_aceptación">1.10. Pruebas aceptación</h3>
+<div class="paragraph">
+<p>El objetivo de las pruebas de aceptación es validar que un sistema cumple con el funcionamiento esperado y permitir al usuario final de dicho sistema determinar su aceptación desde el punto de vista de su funcionalidad y rendimiento.</p>
+</div>
+<div class="paragraph">
+<p>Las pruebas de aceptación son definidas por el usuario final y preparadas por el equipo de desarrollo, aunque la ejecución y aprobación corresponden al usuario final.</p>
+</div>
+<div class="paragraph">
+<p>La validación del sistema se consigue mediante la realización de pruebas de caja negra que demuestran la conformidad con los requisitos y que se recogen en el plan de pruebas.</p>
+</div>
+<div class="paragraph">
+<p>Dicho plan está diseñado para asegurar que se satisfacen todos los requisitos funcionales especificados por el usuario teniendo en cuenta también los requisitos no funcionales relacionados con el rendimiento, seguridad de acceso al sistema, a los datos y procesos, así como a los distintos recursos del sistema.</p>
+</div>
+<div class="paragraph">
+<p>La mayoría de los desarrolladores de productos de software llevan a cabo un proceso denominado pruebas alfa y beta para descubrir errores que parezca que sólo el usuario final puede descubrir.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Prueba alfa: se lleva a cabo, por un cliente, en el lugar de desarrollo. Se usa el software de forma natural con el desarrollador como observador, registrando los errores y problemas de uso.</p>
+</li>
+<li>
+<p>Prueba beta: se llevan a cabo por los usuarios finales del software en los lugares de trabajo de los clientes. A diferencia de la prueba alfa, el desarrollador no está presente normalmente. El cliente registra todos los problemas e informa al desarrollador.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_concordion">1.11. Concordion</h3>
+<div class="paragraph">
+<p>Es una herramienta que nos permite realizar las pruebas de aceptación. Su pagina principal <a href="http://www.concordion.org/">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>En Concordion,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Las especificaciones (o pruebas de aceptación) se escriben en archivos XHTML, usando los elementos comunes para darle formato. De esta manera se logran especificaciones fáciles de leer y que todos pueden comprender.</p>
+</li>
+<li>
+<p>Y las pruebas a realizar a partir de los requisitos HTML se materializan realizando asociaciones entre el texto y las pruebas (instrumentación del HTML), extrayendo la información valiosa para la prueba automatizada.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Las pruebas en Concordion son pruebas Junit.</p>
+</div>
+<div class="paragraph">
+<p>La instrumentación del HTML, consiste en añadir comandos de Concordion como parámetros en los elementos HTML. Los navegadores web ignoran los atributos que no entienden, de modo que estos comandos son invisibles a efectos prácticos.</p>
+</div>
+<div class="paragraph">
+<p>Los comandos usan el espacio de nombres "concordion" definido al principio de cada documento como sigue:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;html</span> <span class="attribute-name">xmlns:concordion</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.concordion.org/2007/concordion</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El resultado de una prueba con Concordion, será un HTML, generado a partir de la ruta que especifica la propiedad del sistema <strong>java.io.tmpdir</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Para que se sitúe en un lugar conocido, tendremos que añadir al arranque de la JVM.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">-Djava.io.tmpdir=&quot;&lt;directorio donde almacenar los resultados&gt;/resultTest/&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Concordion tendrá una serie de comandos que nos permitirán la instrumentalización, son los siguientes.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>concordion:assertEquals</strong></p>
+</li>
+<li>
+<p><strong>concordion:assertTrue</strong></p>
+</li>
+<li>
+<p><strong>concordion:assertFalse</strong></p>
+</li>
+<li>
+<p><strong>concordion:set</strong></p>
+</li>
+<li>
+<p><strong>concordion:execute</strong></p>
+</li>
+<li>
+<p><strong>concordion:verifyRows</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para poder trabajar con Concordion, se incluira la siguiente dependencia Maven</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;dependency&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.concordion<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-concordion-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>1.0.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_procedimiento_2">1.11.1. Procedimiento</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Añadir librerias</p>
+</li>
+<li>
+<p>Crear los XHTML instrumentalizados con las etiquetas de concordion, en el mismo paquete donde se definen las clases de test.</p>
+</li>
+<li>
+<p>Definir las clases de Test, que heredaran de <strong>ConcordionTestCase</strong>, no tienen porque tener aserciones, solo la logica de invocación al SUT.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_concordion_assertequals">1.11.2. concordion:assertEquals</h4>
+<div class="paragraph">
+<p>Este comando nos sirve para comparar el resultado de un método de Java, con un texto incluido en el HTML.</p>
+</div>
+<div class="paragraph">
+<p>Para este comando, tendremos que cuando el método Java devuelve un tipo de dato Integer, Double, … se emplea el resultado del
+método toString() del objeto para la comparación. Y si el metodo Java devuelve void, se comparara con (null)</p>
+</div>
+<div class="paragraph">
+<p>Con el siguiente código</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;span</span> <span class="attribute-name">concordion:assertEquals</span>=<span class="error">“</span><span class="attribute-value">getNombre</span><span class="error">(</span><span class="error">)</span><span class="error">&quot;</span><span class="tag">&gt;</span>Victor<span class="tag">&lt;/span&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se podrían tener los siguientes resultados</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resultado del método</th>
+<th class="tableblock halign-left valign-top">Resultado de la prueba</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Victor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SUCCESS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Juan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FAILURE</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">victor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FAILURE</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_concordion_asserttrue">1.11.3. concordion:assertTrue</h4>
+<div class="paragraph">
+<p>Este comando nos sirve para comparar si el resultado de un método de Java en True.</p>
+</div>
+<div class="paragraph">
+<p>Con el siguiente código</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;p&gt;</span>
+Mientras el siguiente texto &quot;<span class="tag">&lt;span</span> <span class="attribute-name">concordion:set</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#texto</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>12<span class="tag">&lt;/span&gt;</span>&quot; represente un numero entero sera
+<span class="tag">&lt;span</span> <span class="attribute-name">concordion:assertTrue</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">isNumberInteger(#texto)</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>valido<span class="tag">&lt;/span&gt;</span>.
+<span class="tag">&lt;/p&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Podríamos tener los siguientes resultados</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resultado del método</th>
+<th class="tableblock halign-left valign-top">Resultado de la prueba</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SUCCESS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FAILURE</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_concordion_set">1.11.4. concordion:set</h4>
+<div class="paragraph">
+<p>Este comando nos sirve para definir variables temporales en nuestro Test, que pueden emplearse como parámetros de los métodos Java.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;p&gt;</span>
+El saludo para el usuario <span class="tag">&lt;span</span> <span class="attribute-name">concordion:set</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#nombre</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Pepe<span class="tag">&lt;/span&gt;</span>sera:
+<span class="tag">&lt;span</span> <span class="attribute-name">concordion:assertEquals</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">saludaA(#nombre)</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Hola Pepe!
+<span class="tag">&lt;/p&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este código emplea en el Aserto (concordion:assertEquals), una variable temporal definida en la línea anterior (#nombre).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_concordion_execute">1.11.5. concordion:execute</h4>
+<div class="paragraph">
+<p>Este comando nos servirá para:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ejecutar instrucciones cuyo resultado es void.</p>
+</li>
+<li>
+<p>Ejecutar instrucciones cuyo resultado es un objeto.</p>
+</li>
+<li>
+<p>Manejar frases con estructuras poco habituales.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Las instrucciones con resultado void que se ejecutaran en un test, por regla general serán del tipo “set” o “setUp”, con cualquier otro uso, será una mala señal, no estaremos escribiendo bien la especificación.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;span</span> <span class="attribute-name">concordion:execute</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">setCurrentTime(#time)</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cuando la instrucción nos retorna un objeto, este se almacenara en una variable temporal, accediendo posteriormente a los atributos o métodos del objeto a través de la variable.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;span</span> <span class="attribute-name">concordion:execute</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#resultado = split(#TEXT)</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Victor Herrero<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;span</span> <span class="attribute-name">concordion:assertEquals</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#resultado.nombre</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span> Victor<span class="tag">&lt;/span&gt;</span>
+ y apellido <span class="tag">&lt;span</span> <span class="attribute-name">concordion:assertEquals</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#resultado.apellido</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span> Herrero <span class="tag">&lt;/span&gt;</span>.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vemos en este ejemplo el uso de (#TEXT), que es una variable especial que hace referencia al texto dentro del elemento HTML, esta expresión es equivalente a</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;span</span> <span class="attribute-name">concordion:set</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#nombre</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Victor Herrero<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;span</span> <span class="attribute-name">concordion:execute</span> =<span class="string"><span class="delimiter">&quot;</span><span class="content">#resultado = split(#nombre)</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para manejar frases con una estructura poco habitual, por ejemplo una en la que se emplee un parámetro antes de definirlo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;p&gt;</span> Se debería mostrar el saludo &quot;<span class="tag">&lt;span&gt;</span>¡Hola Pepe!<span class="tag">&lt;/span&gt;</span>&quot; al usuario <span class="tag">&lt;span&gt;</span>Pepe<span class="tag">&lt;/span&gt;</span> cuando éste acceda al sistema. <span class="tag">&lt;/p&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este caso se instrumentaría de la siguiente forma, de tal forma que primero se procesan los set, luego el comando del execute y por ultimo los assertEquals.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;p</span> <span class="attribute-name">concordion:execute</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#greeting = greetingFor(#firstName)</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+Se debería mostrar el saludo
+&quot;<span class="tag">&lt;span</span> <span class="attribute-name">concordion:assertEquals</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#greeting</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>¡Hola Pepe!<span class="tag">&lt;/span&gt;</span>&quot;
+al usuario <span class="tag">&lt;span</span> <span class="attribute-name">concordion:set</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#firstName</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Pepe<span class="tag">&lt;/span&gt;</span> cuando éste acceda al sistema. <span class="tag">&lt;/p&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En una tabla lo podríamos usar de la siguiente forma.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;table</span> <span class="attribute-name">concordion:execute</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#resultado = split(#nombreCompleto)</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;tr&gt;</span>
+                <span class="tag">&lt;th</span> <span class="attribute-name">concordion:set</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content"># nombreCompleto </span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Nombre Completo<span class="tag">&lt;/th&gt;</span>
+                <span class="tag">&lt;th</span> <span class="attribute-name">concordion:assertEquals</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#resultado.nombre</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Nombre<span class="tag">&lt;/th&gt;</span>
+                <span class="tag">&lt;th</span> <span class="attribute-name">concordion:assertEquals</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#resultado.apellido</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Apellido<span class="tag">&lt;/th&gt;</span>
+        <span class="tag">&lt;/tr&gt;</span>
+        <span class="tag">&lt;tr&gt;</span>
+                <span class="tag">&lt;td&gt;</span>Pau Gasol<span class="tag">&lt;/td&gt;</span> <span class="tag">&lt;td</span> <span class="tag">&gt;</span>Juan<span class="tag">&lt;/td&gt;</span> <span class="tag">&lt;td</span> <span class="tag">&gt;</span>Pérez<span class="tag">&lt;/td&gt;</span>
+        <span class="tag">&lt;/tr&gt;</span>
+        <span class="tag">&lt;tr&gt;</span>
+                <span class="tag">&lt;td&gt;</span>Felipe Reyes<span class="tag">&lt;/td&gt;</span> <span class="tag">&lt;td&gt;</span>Felipe<span class="tag">&lt;/td&gt;</span> <span class="tag">&lt;td&gt;</span>Reyes<span class="tag">&lt;/td&gt;</span>
+        <span class="tag">&lt;/tr&gt;</span>
+<span class="tag">&lt;/table&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Consiguiendo en este caso, verificar distintas caracteristicas del objeto obtenido como resultado de la operación.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_concordion_verifyrows">1.11.6. concordion:verifyRows</h4>
+<div class="paragraph">
+<p>Este comando nos permite comprobar los contenidos de una colección de resultados que devuelve el sistema.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;table</span> <span class="attribute-name">concordion:execute</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">setUpUser(#username)</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;th</span> <span class="attribute-name">concordion:set</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#username</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Nombre de usuario<span class="tag">&lt;/th&gt;</span><span class="tag">&lt;/tr&gt;</span>
+        <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;td&gt;</span>john.lennon<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;/tr&gt;</span>
+        <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;td&gt;</span>ringo.starr<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;/tr&gt;</span>
+        <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;td&gt;</span>george.harrison<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;/tr&gt;</span>
+        <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;td&gt;</span>paul.mccartney<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;/tr&gt;</span>
+<span class="tag">&lt;/table&gt;</span>
+<span class="tag">&lt;p&gt;</span>La búsqueda por &quot;<span class="tag">&lt;b</span> <span class="attribute-name">concordion:set</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#searchString</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>arr<span class="tag">&lt;/b&gt;</span>&quot; devolverá:<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;table</span> <span class="attribute-name">concordion:verifyRows</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#resultado : getSearchResultsFor(#searchString)</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;th</span> <span class="attribute-name">concordion:assertEquals</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#resultado</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Nombres de usuario con correspondencia<span class="tag">&lt;/th&gt;</span><span class="tag">&lt;/tr&gt;</span>
+        <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;td&gt;</span>george.harrison<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;/tr&gt;</span>
+        <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;td&gt;</span>ringo.starr<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;/tr&gt;</span>
+<span class="tag">&lt;/table&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En este ejemplo, primero se establecen los datos de prueba, ejecutando el método setUpUserName, tantas veces como elementos hay en la tabla y posteriormente se ejecuta la busqueda por un string (arr), verificando que la lista retornada contiene los elementos de la segunda tabla.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejemplo">1.11.7. Ejemplo</h4>
+<div class="paragraph">
+<p>Definicion del HTML sin instrumentalizar</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="HTML"><span class="tag">&lt;html&gt;</span>
+    <span class="tag">&lt;body&gt;</span>
+        <span class="tag">&lt;p&gt;</span>Hello World!<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Instrumentalizar el fichero</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XHTML">&lt;html xmlns:concordion=&quot;http://www.concordion.org/2007/concordion&quot;&gt;
+    &lt;body&gt;
+        &lt;p concordion:assertEquals=&quot;getGreeting()&quot;&gt;Hello World!&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Añadir en el mismo paquete, un fichero Java <strong>HelloWorldTest.java</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">import</span> <span class="include">org.concordion.integration.junit3.ConcordionTestCase</span>;
+<span class="directive">public</span> <span class="type">class</span> <span class="class">HelloWorldTest</span> <span class="directive">extends</span> ConcordionTestCase {
+    <span class="directive">public</span> <span class="predefined-type">String</span> getGreeting() {
+        <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello World!</span><span class="delimiter">&quot;</span></span>;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Obteniendo como resultado</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">C:\temp\concordion-output\example\HelloWorld.html
+Successes: 1  Failures: 0</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejercicio">1.11.8. Ejercicio</h4>
+<div class="paragraph">
+<p>Dada la siguiente historia de usuario (requisitos), generar las pruebas de aceptación necesarias.</p>
+</div>
+<div class="paragraph">
+<p>Mientras el password "Password" sea el correcto para el usuario "Juan", este estará validado y su DNI deberá ser "11111111-C".</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ejercicio_2">1.11.9. Ejercicio</h4>
+<div class="paragraph">
+<p>Dada los siguientes requisitos, generar las pruebas de aceptación necesarias.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Si se invoca con un id existente, se devuelve la provincia correspondiente</p>
+</li>
+<li>
+<p>Si se invoca con un id inexistente, se devuelve null</p>
+</li>
+<li>
+<p>Si se invoca con un null, se tira una java.lang.IllegalArgumentException</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_soa">2. SOA</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La Arquitectura Orientada a Servicios (SOA), es una arquitectura para diseñar sistemas distribuidos, buscando facilidad y flexibilidad de integración de los componentes que lo forman, siendo sistemas altamente escalables.</p>
+</div>
+<div class="paragraph">
+<p>Define la utilización de componentes (servicios) para implementar la lógica de negocio.</p>
+</div>
+<div class="sect2">
+<h3 id="_conceptos">2.1. Conceptos</h3>
+<div class="paragraph">
+<p><strong>Servicio</strong> Funcionalidad sin estado, auto-contenida, que acepta llamadas y devuelve respuestas mediante una interfaz bien definida.</p>
+</div>
+<div class="paragraph">
+<p><strong>Orquestación</strong> Secuenciación de la ejecución de los servicios necesarios para responder a los requisitos. No incluye la presentación de los datos.</p>
+</div>
+<div class="paragraph">
+<p><strong>Sin estado</strong> Los servicios no mantienen ni dependen de condiciones pre-existente.</p>
+</div>
+<div class="paragraph">
+<p><strong>Proveedor</strong> Cada componente que forma la arquitectura será proveedor de una funcionalidad y quizas tambien a su vez sea Consumidor de otra.</p>
+</div>
+<div class="paragraph">
+<p><strong>Consumidor</strong> Cada componente que invoca la funcionalidad de otro componente, el principal será el orquestador.</p>
+</div>
+<div class="paragraph">
+<p><strong>Interface</strong> Contrato establecido entre el Proveedor y el Consumidor, para conseguir un perfecto entendimiento.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soa_arquitectura.png" alt="soa arquitectura">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_estandares">2.2. Estandares</h3>
+<div class="paragraph">
+<p>SOA para conseguir la interoperabilidad, promueve basar los desarrollos en estandares, aunque si bien estos no son obligatorios, son los mas habituales y recomendados</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>XML</p>
+</li>
+<li>
+<p>HTTP</p>
+</li>
+<li>
+<p>SOAP</p>
+</li>
+<li>
+<p>WSDL</p>
+</li>
+<li>
+<p>UDDI</p>
+</li>
+<li>
+<p>JSON</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_soap">3. SOAP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>El Simple Object Access Protocol (SOAP), es un protocolo que establece como se invoca a un servicio remoto.</p>
+</div>
+<div class="paragraph">
+<p>Emplean XML para la representación de la información. Los mensajes XML se estructuran en</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Envelope</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Header</p>
+</li>
+<li>
+<p>Body</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soap_envelope.png" alt="soap envelope">
+</div>
+</div>
+<div class="paragraph">
+<p>Emplean HTTP, SMTP, TCP o JMS como protocolo de transporte.</p>
+</div>
+<div class="paragraph">
+<p>Es el protocolo mas empleado en arquitecturas SOA.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_soapui">4. SoapUI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Herramienta que permite crear facilmente pruebas funcionales (unitarias y integracion) y no funcionales (carga y rendimiento) de servicios web.</p>
+</div>
+<div class="sect2">
+<h3 id="_caracteristicas">4.1. Caracteristicas</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Compatibilidad con la mayoria de estandares relacionados con los servicios web.</p>
+</li>
+<li>
+<p>Posiblidad de crear Mocks de servicios.</p>
+</li>
+<li>
+<p>Permite crear pruebas funcionales.</p>
+</li>
+<li>
+<p>Permite crear pruebas de rendimiento.</p>
+</li>
+<li>
+<p>Se puede integrar con herramientas como Maven o servidores de IC como Jenkins.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instalación">4.2. Instalación</h3>
+<div class="paragraph">
+<p>Para la instalación, descargar de <a href="http://www.soapui.org/">aquí</a>.</p>
+</div>
+<div class="paragraph">
+<p>El producto tiene dos versiones</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenSource</p>
+</li>
+<li>
+<p>Comercial</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pruebas_de_servicios_web_soap">4.3. Pruebas de servicios web SOAP</h3>
+<div class="paragraph">
+<p>Se pueden encontrar servicios web publicos para realizar pruebas <a href="http://www.service-repository.com/">aquí</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_procedimiento_3">4.3.1. Procedimiento</h4>
+<div class="paragraph">
+<p>Crear un nuevo proyecto SOAP, indicando</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nombre</p>
+</li>
+<li>
+<p>WSDL</p>
+</li>
+<li>
+<p>Marcar "Crear ejemplos de peticiones para todas las operaciones"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soapui_nuevo_proyecto.png" alt="soapui nuevo proyecto">
+</div>
+</div>
+<div class="paragraph">
+<p>La herramienta creará el proyecto con
+* Una entrada por cada Port.
+* Una entrada por cada Operation de cada Port-Binding.
+* Una Request por cada Operation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soapui_proyecto.png" alt="soapui proyecto">
+</div>
+</div>
+<div class="paragraph">
+<p>Sobre el Port generado, se puede pinchar y se accede a una ventana que permite navegar por las características del Port</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>WSDL</p>
+</li>
+<li>
+<p>EndPoint</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En la pestaña <strong>WS-I Compliance</strong>, se puede validar si el descriptor WSDL cumple con el estándar <strong>WS-I Basic Profile</strong> de interoperabilidad del <strong>Web Services Interoperability Organization (WS-I)</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Pinchando doblemente en la Request, se abre una ventana que permite realizar la petición, solo hay que sustituir las ? por datos y pinchar sobre el triangulo verde de la esquina superior izquierda para ejecutarlo.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soapui_request.png" alt="soapui request">
+</div>
+</div>
+<div class="paragraph">
+<p>La ejecución de la petición, representa la ejecución de la logica aprobar, todavia no se han definido las validaciones (aserciones), para ello se dispone de un botón para crear un test de esa request</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soapui_request_test.png" alt="soapui request test">
+</div>
+</div>
+<div class="paragraph">
+<p>Abriendo el Test, se tiene la posibilidad de añadir una aserción.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soapui_request_test_asercion.png" alt="soapui request test asercion">
+</div>
+</div>
+<div class="paragraph">
+<p>Una posible Aserción seria una expresión Xpath.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soapui_request_test_asercion_xpath.png" alt="soapui request test asercion xpath">
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden pasar datos (Properties) entre distintos Step de un TestCase, para ello hay que crear un Step, del tipo Property Transfer.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soapui_request_test_step_propertie_transfer.png" alt="soapui request test step propertie transfer">
+</div>
+</div>
+<div class="paragraph">
+<p>En ella se ha de seleccionar, por ejemplo con Xpath el valor a trasladar de un Step al siguiente y el lugar dentro del siguiente Step para situar el valor.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soapui_request_test_step_propertie_transfer_2.png" alt="soapui request test step propertie transfer 2">
+</div>
+</div>
+<div class="paragraph">
+<p>También se pueden crear LoadTest (Test de carga)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/soapui_load_test.png" alt="soapui load test">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_soapui_maven_plugin">4.4. SoapUI Maven Plugin</h3>
+<div class="paragraph">
+<p>Plugin para poder lanzar los proyectos SoapUI de forma automatizada con Maven.</p>
+</div>
+<div class="paragraph">
+<p>Se necesita añadir un repositorio para poder descargar el plugin, ya que no se encuentra en el repositorio central de Maven.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;pluginRepositories&gt;</span>
+        <span class="tag">&lt;pluginRepository&gt;</span>
+                <span class="tag">&lt;id&gt;</span>SmartBearPluginRepository<span class="tag">&lt;/id&gt;</span>
+                <span class="tag">&lt;url&gt;</span>http://www.soapui.org/repository/maven2/<span class="tag">&lt;/url&gt;</span>
+        <span class="tag">&lt;/pluginRepository&gt;</span>
+<span class="tag">&lt;/pluginRepositories&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y el Plugin</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>eviware<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-soapui-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>4.0.1<span class="tag">&lt;/version&gt;</span>
+        <span class="tag">&lt;dependencies&gt;</span>
+                <span class="tag">&lt;dependency&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>mysql<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>mysql-connector-java<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>5.1.6<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/dependency&gt;</span>
+                <span class="tag">&lt;dependency&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>eviware<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-soapui-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>4.0.1<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/dependency&gt;</span>
+                <span class="tag">&lt;dependency&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>junit<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>junit<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>4.8.2<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/dependency&gt;</span>
+                <span class="tag">&lt;dependency&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>xerces<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>xercesImpl<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.8.1<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/dependency&gt;</span>
+                <span class="tag">&lt;dependency&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>commons-collections<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>commons-collections<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>3.2.2<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/dependency&gt;</span>
+        <span class="tag">&lt;/dependencies&gt;</span>
+        <span class="tag">&lt;executions&gt;</span>
+                <span class="tag">&lt;execution&gt;</span>
+                        <span class="tag">&lt;phase&gt;</span>test<span class="tag">&lt;/phase&gt;</span>
+                        <span class="tag">&lt;goals&gt;</span>
+                                <span class="tag">&lt;goal&gt;</span>test<span class="tag">&lt;/goal&gt;</span>
+                        <span class="tag">&lt;/goals&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;projectFile&gt;</span>TestConverterW3C-soapui-project.xml<span class="tag">&lt;/projectFile&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/execution&gt;</span>
+        <span class="tag">&lt;/executions&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Ojo con los ficheros XML que se generan al guardar el proyecto de SoapUI, que son los que se leen desde el plugin de Maven, ya que incluyen en los XML de los mensajes SOAP un “/r” que habrá que eliminar, ya que sino no funcionarán los test.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jmeter">5. JMeter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Herramienta independiente para realizar pruebas funcionales y de stress sobre un servidor Web.</p>
+</div>
+<div class="paragraph">
+<p>Se pagina oficial con la documentación esta <a href="http://jakarta.apache.org/jmeter/">aquí</a></p>
+</div>
+<div class="sect2">
+<h3 id="_que_puede_hacer">5.1. Que puede hacer</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Cuellos de botella en el sistema.</p>
+</li>
+<li>
+<p>Fallos en aplicaciones.</p>
+</li>
+<li>
+<p>Peticiones que es capaz de absorber el servidor.</p>
+</li>
+<li>
+<p>Simulación de un uso cotidiano de una aplicación.</p>
+</li>
+<li>
+<p>Simulación de estrés de una aplicación.</p>
+</li>
+<li>
+<p>…</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_que_no_puede_hacer">5.2. Que no puede hacer</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>JMeter simplifica la generación de los planes de Test, pero no puede generarlos por si mismo.</p>
+</li>
+<li>
+<p>Se precisa de tiempo para generar planes de Test eficientes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_estructura">5.3. Estructura</h3>
+<div class="paragraph">
+<p>Al acceder a JMeter se ve que la aplicación esta dividida en dos partes.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Plan de Pruebas</strong>. Donde desarrollaremos nuestros planes de pruebas.</p>
+</li>
+<li>
+<p><strong>Banco de Trabajo</strong>. Donde tendremos las herramientas y operaciones a utilizar en nuestro plan de pruebas.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Podremos mover contenidos del Banco de Trabajo a los Planes de Prueba para su uso.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instalación_2">5.4. Instalación</h3>
+<div class="paragraph">
+<p>La descarga se realiza desde <a href="http://jakarta.apache.org/site/downloads/downloads_jmeter.cgi">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Necesaria JVM. Compatibilidad 1.5x en adelante.</p>
+</div>
+<div class="paragraph">
+<p>Para asignar memoria a JMeter, emplearemos la variable de entorno JVM_ARGS.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">JVM_ARGS=-Xms256m -Xmx512m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para incluir un jar en nuestros test, por ejemplo el driver de una base de datos, se incluirá en la carpeta lib.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plan_de_pruebas">5.5. Plan de Pruebas</h3>
+<div class="paragraph">
+<p>Los Planes de Pruebas estan compuestos por elementos de las siguientes tipologías.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Grupo de Hilos. Simulara al numero de usuarios.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/jmeter_grupo_hilos.png" alt="jmeter grupo hilos">
+</div>
+</div>
+<div class="paragraph">
+<p>Permite definir usuarios simultáneos y peticiones de cada usuario.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/jmeter_grupo_hilos_2.png" alt="jmeter grupo hilos 2">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Procesadores. Permiten realizar modificaciones en la petición original. Se dividen en</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pre-Procesadores. Modifican la petición antes de ejecutarse.</p>
+</li>
+<li>
+<p>Post-Procesadores. Modifican la petición después de ejecutarse.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Controladores. Existen de diversos tipos</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Muestreadores. Indican las acciones que JMeter puede hacer. Tenemos entre otros los siguientes tipos:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Petición HTTP. Nos permite realizar una petición HTTP, indicando protocolo, método, parámetros, …</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/jmeter_muestreador_http.png" alt="jmeter muestreador http">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Petición JDBC. Nos permite ejecutar una consulta sobre la Base de Datos.</p>
+</li>
+<li>
+<p>Petición WebServices (SOAP). Permite realizar peticiones SOAP a un servicio web, empleando el WSDL.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Aserciones. Comprobación de resultados esperados. Algunas de las aserciones disponibles son</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Aserción de respuesta. Nos permite comprobar si alguno de los campos de la respuesta coincide con un determinado patrón, OJO!! es la respuesta no el HTML.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/jmeter_asercion_respuesta.png" alt="jmeter asercion respuesta">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Aserción de esquema XML. Valida que la respuesta cumple el esquema indicado mediante un fichero XSD.</p>
+</li>
+<li>
+<p>Aserción XML. Comprueba que el resultado es un XML bien construido.</p>
+</li>
+<li>
+<p>Aserción de Tamaño. Nos permite comprobar si alguno de los campos de la respuesta tiene un tamaño determinado.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Elementos de configuración. Trabaja en conjunto con los Muestreadores para modificarlos.</p>
+</li>
+<li>
+<p>Controladores lógicos. Modifican la lógica de lo que se debe hacer (Toma de decisiones).</p>
+</li>
+<li>
+<p>Temporizadores. Incluye pausas en el test, para simular la realidad.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Receptores o Listeners. Muestran los resultados de las peticiones en distintos formatos. Para mostrar los resultados se debe añadir un Listener al plan de pruebas. Tenemos entre otros los siguientes tipos:</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Árbol de resultados. Para cada petición muestra la respuesta HTTP, la petición y los datos HTML devueltos.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/jmeter_listener_arbol_resultados.png" alt="jmeter listener arbol resultados">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Informe agregado. Muestra un resumen de los resultados</p>
+</li>
+<li>
+<p>Gráfico de resultados. Muestra un gráfico de rendimiento</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_banco_de_trabajo">5.6. Banco de trabajo</h3>
+<div class="paragraph">
+<p>El Banco de Trabajo es el lugar donde tengamos nuestras herramientas que nos ayudaran a configurar nuestro Plan de Pruebas, una de las herramientas mas interesantes que tendremos será el <strong>Servidor Proxy HTTP</strong>, esta herramienta nos permitirá obtener los pasos seguidos en una navegación, es decir es capaz de traducirnos a acciones de JMeter, los pasos que hacemos en una navegación, para posteriormente poder grabarlos como macro de JMeter.</p>
+</div>
+<div class="paragraph">
+<p>Los que se genera en el <strong>banco de trabajo</strong>, solo esta disponible mientra JMeter esta arrancado.</p>
+</div>
+<div class="paragraph">
+<p>Para utilizar el <strong>Servidor Proxy HTTP</strong>, debemos seguir los siguientes pasos:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Creamos en el Banco de Trabajo un elemento Servidor Proxy HTTP.</p>
+</li>
+<li>
+<p>Configuramos el controlador objetivo, es decir donde queremos que vaya poniendo los pasos que se vayan a seguir en la navegación.</p>
+</li>
+<li>
+<p>Establecemos los patrones a incluir o excluir en la navegación, es posible que no interese que se almacenen imágenes, javascript, …</p>
+</li>
+<li>
+<p>Arrancamos el Proxy.</p>
+</li>
+<li>
+<p>Configuramos el navegador a utilizar, para que pase a través de este proxy.</p>
+</li>
+<li>
+<p>Realizamos la navegación.</p>
+</li>
+<li>
+<p>Paramos el Proxy.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jmeter_maven_plugin">5.7. Jmeter Maven Plugin</h3>
+<div class="paragraph">
+<p>Este plugin permite ejecutar los test generados con JMeter en una fase de Maven, la documentación se puede encontrar <a href="https://github.com/jmeter-maven-plugin/jmeter-maven-plugin">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Se ha de añadir el plugin, seleccionando la fase en la que se quiere ejecutar, las habituales serán <strong>integration-test</strong> y <strong>verify</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>com.lazerycode.jmeter<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>jmeter-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.10.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;executions&gt;</span>
+        <span class="tag">&lt;execution&gt;</span>
+            <span class="tag">&lt;id&gt;</span>jmeter-tests<span class="tag">&lt;/id&gt;</span>
+            <span class="tag">&lt;phase&gt;</span>verify<span class="tag">&lt;/phase&gt;</span>
+            <span class="tag">&lt;goals&gt;</span>
+                <span class="tag">&lt;goal&gt;</span>jmeter<span class="tag">&lt;/goal&gt;</span>
+            <span class="tag">&lt;/goals&gt;</span>
+       <span class="tag">&lt;/execution&gt;</span>
+    <span class="tag">&lt;/executions&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Además se han de incluir los ficheros <strong>jmx</strong> generados con JMeter en el directorio <strong>&lt;Project Dir&gt;/src/test/jmeter</strong></p>
+</div>
+<div class="paragraph">
+<p>Se pueden añadir plugins a la ejecución</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>com.lazerycode.jmeter<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>jmeter-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.10.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;executions&gt;</span>
+        <span class="tag">&lt;execution&gt;</span>
+            <span class="tag">&lt;id&gt;</span>jmeter-tests<span class="tag">&lt;/id&gt;</span>
+            <span class="tag">&lt;phase&gt;</span>verify<span class="tag">&lt;/phase&gt;</span>
+            <span class="tag">&lt;goals&gt;</span>
+                <span class="tag">&lt;goal&gt;</span>jmeter<span class="tag">&lt;/goal&gt;</span>
+            <span class="tag">&lt;/goals&gt;</span>
+            <span class="tag">&lt;configuration&gt;</span>
+                <span class="tag">&lt;jmeterPlugins&gt;</span>
+                    <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>kg.apc<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>jmeter-plugins<span class="tag">&lt;/artifactId&gt;</span>
+                    <span class="tag">&lt;/plugin&gt;</span>
+                <span class="tag">&lt;/jmeterPlugins&gt;</span>
+            <span class="tag">&lt;/configuration&gt;</span>
+        <span class="tag">&lt;/execution&gt;</span>
+    <span class="tag">&lt;/executions&gt;</span>
+    <span class="tag">&lt;dependencies&gt;</span>
+        <span class="tag">&lt;dependency&gt;</span>
+            <span class="tag">&lt;groupId&gt;</span>kg.apc<span class="tag">&lt;/groupId&gt;</span>
+            <span class="tag">&lt;artifactId&gt;</span>jmeter-plugins<span class="tag">&lt;/artifactId&gt;</span>
+            <span class="tag">&lt;version&gt;</span>1.0.0<span class="tag">&lt;/version&gt;</span>
+        <span class="tag">&lt;/dependency&gt;</span>
+    <span class="tag">&lt;/dependencies&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se puede encontrar una aplicación de ejemplo <a href="https://github.com/smarigowda/jmeter-maven-example">aquí</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jenkins_performance_plugin">5.8. Jenkins Performance Plugin</h3>
+<div class="paragraph">
+<p>Es un plugin de Jenkins, que permite incorporar los resultados obtenidos con JMeter en la UI de Jenkins.</p>
+</div>
+<div class="paragraph">
+<p>Una vez añadido, habra que definir un nuevo <strong>Post Procesor</strong> a la tarea de tipo <strong>Publicar Informes de Test de rendimiento</strong>, donde se han de establecer <strong>patrón de búsquedas</strong> a <strong>*/</strong>.jtl</p>
+</div>
+<div class="paragraph">
+<p>Y posteriormente otro nuevo <strong>Post Procesor</strong> de tipo <strong>Guardar los archivos generados</strong>, donde se han de establecer <strong>Ficheros para guardar</strong> a **/*jtl-report.html</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/jmeter_jenkins_plugin_config.png" alt="jmeter jenkins plugin config">
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez se lanza la tarea, se obtienen nuevos datos en la vista de la tarea como <strong>Tendencia de rendimiento</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/jmeter_jenkins_plugin_resultado.png" alt="jmeter jenkins plugin resultado">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_calidad_estática_del_código">6. Calidad estática del código</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_calidad_del_código">6.1. Calidad del Código</h3>
+<div class="paragraph">
+<p>Decimos que un código tiene calidad, cuando tenemos facilidad de mantenimiento y de desarrollo.</p>
+</div>
+<div class="paragraph">
+<p>¿Como podemos hacer que nuestro código tenga mas calidad? Consiguiendo que nuestro código no tenga partes que hagan que:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Se reduzca el rendimiento.</p>
+</li>
+<li>
+<p>Se provoquen errores en el software.</p>
+</li>
+<li>
+<p>Se compliquen los flujos de datos.</p>
+</li>
+<li>
+<p>Lo hagan mas complejo.</p>
+</li>
+<li>
+<p>Supongan un problema en la seguridad.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Tendremos dos técnicas para mejorar el código fuente de nuestra aplicación y, con ello, el software que utilizan los usuarios como producto final:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Test. Son una serie de procesos que permiten verificar y comprobar que el software cumple con los objetivos y con las exigencias para las que fue creado.</p>
+</li>
+<li>
+<p>Análisis estático del código. Proceso de evaluar el software sin ejecutarlo.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_análisis_estático_del_código">6.2. Análisis Estático del Código</h3>
+<div class="paragraph">
+<p>Es una técnica que se aplica directamente sobre el código fuente tal cual, sin transformaciones previas ni cambios de ningún tipo.</p>
+</div>
+<div class="paragraph">
+<p>La idea es que, en base a ese código fuente, podamos obtener información que nos permita mejorar la base de código manteniendo la semántica original.</p>
+</div>
+<div class="paragraph">
+<p>Esta información nos vendrá dada en forma de sugerencias para mejorar el código.</p>
+</div>
+<div class="paragraph">
+<p>Emplearemos herramientas que incluyen</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Analizadores léxicos y sintácticos que procesan el código fuente.</p>
+</li>
+<li>
+<p>Conjunto de reglas que aplicar sobre determinadas estructuras.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Si nuestro código fuente posee una estructura concreta que el analizador considere como "mejorable" en base a sus reglas nos lo indicará y nos sugerirá una mejora.</p>
+</div>
+<div class="paragraph">
+<p>Se deberian realizar análisis estáticos del código cada vez que se crea una nueva funcionalidad, así como cuando el desarrollo se complica, nos cuesta implementar algo que supuestamente debe ser sencillo.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pmd">6.3. PMD</h3>
+<div class="paragraph">
+<p>Detecta patrones de posibles errores que pueden aparecer en tiempo de ejecución, por ejemplo</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Código que no se puede ejecutar nunca porque no hay manera de llegar a él.</p>
+</li>
+<li>
+<p>Código que puede ser optimizado.</p>
+</li>
+<li>
+<p>Expresiones lógicas que puedan ser simplificadas.</p>
+</li>
+<li>
+<p>Malos usos del lenguaje, etc</p>
+</li>
+<li>
+<p>Tambien incluye detección de CopyPaste (CPD)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La pagina de referencia <a href="https://pmd.github.io/">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Los patrones que se emplean se encuentran catalogados en distintas categorías, se pueden consultar <a href="https://pmd.github.io/pmd-5.4.1/pmd-java/rules/index.html">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Se pueden añadir nuevas reglas o configurar las que ya se incluyen en caso de que esto fuera necesario.</p>
+</div>
+<div class="paragraph">
+<p>Se dipone de un plugin de Maven para la generacion de reportes</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+    <span class="tag">&lt;plugins&gt;</span>
+        <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-pmd-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>3.6<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;linkXref&gt;</span>true<span class="tag">&lt;/linkXref&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+    <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este plugin tambien puede ser configurado como plugin de la fase de Test</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-pmd-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>3.6<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;failOnViolation&gt;</span>true<span class="tag">&lt;/failOnViolation&gt;</span>
+                                <span class="tag">&lt;failurePriority&gt;</span>2<span class="tag">&lt;/failurePriority&gt;</span>
+                                <span class="tag">&lt;minimumPriority&gt;</span>5<span class="tag">&lt;/minimumPriority&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                        <span class="tag">&lt;executions&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>pmd<span class="tag">&lt;/goal&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>cpd<span class="tag">&lt;/goal&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>cpd-check<span class="tag">&lt;/goal&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>check<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                        <span class="tag">&lt;/executions&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Con los parametros</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>failOnViolation</strong> &#8594; le indicamos que si hay fallos, haga que la fase de Test falle, supeditamos el exito de los Test al analisis de PMD</p>
+</li>
+<li>
+<p><strong>failurePriority</strong> &#8594; le indicamos a partir de que prioridad se considera fallo, las prioridades van de 1 a 5, siendo 1 la maxima y 5 la menor, si se define por ejemplo 2, solo se consideran las reglas con prioridad 1 y 2.</p>
+</li>
+<li>
+<p><strong>minimumPriority</strong> &#8594; Minima prioridad de las reglas a evaluar.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Y los goal</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>pmd</strong> &#8594; Ejecuta las reglas de pmd</p>
+</li>
+<li>
+<p><strong>cpd</strong> &#8594; Ejecuta las reglas de cpd</p>
+</li>
+<li>
+<p><strong>cpd-check</strong> &#8594; Chequea los resultados de cpd</p>
+</li>
+<li>
+<p><strong>check</strong> &#8594; Chequea los resultados de pmd</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_checkstyle">6.4. Checkstyle</h3>
+<div class="paragraph">
+<p>Inicialmente se desarrolló con el objetivo de crear una herramienta que permitiese comprobar que el código de las aplicaciones se ajustase a los estándares dictados por <strong>Sun Microsystems</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Posteriormente se añadieron nuevas capacidades que han hecho que sea un producto muy similar a PMD. Es por ello que también busca patrones en el código que se ajustan a categorías muy similares a las de este analizador.</p>
+</div>
+<div class="paragraph">
+<p>La página de referencia <a href="http://checkstyle.sourceforge.net/">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Dispone de un plugin de Maven</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-checkstyle-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.9.1<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_findbugs">6.5. Findbugs</h3>
+<div class="paragraph">
+<p>Es un producto de la Universidad de Maryland que, como su nombre indica, está especializado en encontrar errores.</p>
+</div>
+<div class="paragraph">
+<p>Tiene una serie de categorías que catalogan los errores</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>malas prácticas</p>
+</li>
+<li>
+<p>mal uso del lenguaje</p>
+</li>
+<li>
+<p>internacionalización</p>
+</li>
+<li>
+<p>posibles vulnerabilidades</p>
+</li>
+<li>
+<p>mal uso de multihilo</p>
+</li>
+<li>
+<p>rendimiento</p>
+</li>
+<li>
+<p>seguridad, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La página de referencia <a href="http://findbugs.sourceforge.net/">aquí</a> y la descripción de los bugs <a href="http://findbugs.sourceforge.net/bugDescriptions.html">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Hay un plugin de maven</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                    <span class="tag">&lt;groupId&gt;</span>org.codehaus.mojo<span class="tag">&lt;/groupId&gt;</span>
+                    <span class="tag">&lt;artifactId&gt;</span>findbugs-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                    <span class="tag">&lt;version&gt;</span>2.5.2<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+    <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cobertura">6.6. Cobertura</h3>
+<div class="paragraph">
+<p>La Cobertura, representa la cantidad de codigo que cubren las pruebas realizadas sobre el codigo.</p>
+</div>
+<div class="paragraph">
+<p>Existe un plugin de Maven que permite realizar la medición de la cobertura, presentando el resultado en informes <strong>html</strong> y <strong>xml</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.codehaus.mojo<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>cobertura-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.5.2<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;formats&gt;</span>
+                                        <span class="tag">&lt;format&gt;</span>xml<span class="tag">&lt;/format&gt;</span>
+                                        <span class="tag">&lt;format&gt;</span>html<span class="tag">&lt;/format&gt;</span>
+                                <span class="tag">&lt;/formats&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+    <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jacoco">6.7. Jacoco</h3>
+<div class="paragraph">
+<p>Formado por las primeras silabas de <strong>Java Code Coverage</strong>, es otro plugin de cobertura.</p>
+</div>
+<div class="paragraph">
+<p>La página de referencia se encuentra <a href="http://www.eclemma.org/jacoco/">aquí</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.jacoco<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>jacoco-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>0.7.5.201505241946<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;executions&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>pre-unit-test<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>prepare-agent<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                        <span class="tag">&lt;configuration&gt;</span>
+                                                <span class="comment">&lt;!-- Establece la ubicacion del fichero con los datos de la ejecucion. --&gt;</span>
+                                                <span class="tag">&lt;destFile&gt;</span>${project.build.directory}/jacoco-ut.exec<span class="tag">&lt;/destFile&gt;</span>
+                                                <span class="comment">&lt;!-- Establece la propiedad que contiene la ruta del agente Jacoco para las pruebas unitarias--&gt;</span>
+                                                <span class="tag">&lt;propertyName&gt;</span>surefireArgLine<span class="tag">&lt;/propertyName&gt;</span>
+                                        <span class="tag">&lt;/configuration&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>post-unit-test<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>report<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                        <span class="tag">&lt;configuration&gt;</span>
+                                                <span class="comment">&lt;!-- Establece la ubicacion del fichero con los datos de la ejecucion. --&gt;</span>
+                                                <span class="tag">&lt;dataFile&gt;</span>${project.build.directory}/jacoco-ut.exec<span class="tag">&lt;/dataFile&gt;</span>
+                                                <span class="comment">&lt;!-- Establece la ruta donde se genera el reporte para pruebas unitarias --&gt;</span>
+                                                <span class="tag">&lt;outputDirectory&gt;</span>${project.reporting.outputDirectory}/jacoco-ut<span class="tag">&lt;/outputDirectory&gt;</span>
+                                        <span class="tag">&lt;/configuration&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>pre-integration-test<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>pre-integration-test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>prepare-agent<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                        <span class="tag">&lt;configuration&gt;</span>
+                                                <span class="comment">&lt;!-- Establece la ubicacion del fichero con los datos de la ejecucion. --&gt;</span>
+                                                <span class="tag">&lt;destFile&gt;</span>${project.build.directory}/jacoco-it.exec<span class="tag">&lt;/destFile&gt;</span>
+                                                <span class="comment">&lt;!-- Establece la propiedad que contiene la ruta del agente Jacoco para las pruebas de integracion --&gt;</span>
+                                                <span class="tag">&lt;propertyName&gt;</span>failsafeArgLine<span class="tag">&lt;/propertyName&gt;</span>
+                                        <span class="tag">&lt;/configuration&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>post-integration-test<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>post-integration-test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>report<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                        <span class="tag">&lt;configuration&gt;</span>
+                                                <span class="comment">&lt;!-- Establece la ubicacion del fichero con los datos de la ejecucion. --&gt;</span>
+                                                <span class="tag">&lt;dataFile&gt;</span>${project.build.directory}/jacoco-it.exec<span class="tag">&lt;/dataFile&gt;</span>
+                                                <span class="comment">&lt;!-- Establece la ruta donde se genera el reporte para pruebas de integracion --&gt;</span>
+                                                <span class="tag">&lt;outputDirectory&gt;</span>${project.reporting.outputDirectory}/jacoco-it<span class="tag">&lt;/outputDirectory&gt;</span>
+                                        <span class="tag">&lt;/configuration&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                        <span class="tag">&lt;/executions&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+    <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se ha de configurar igualmente que el agente sea ejecutado en las distintas fases de <strong>test</strong> e <strong>integration-test</strong>, indicando en el plugin con <strong>argLine</strong> la ubicacion del agente de <strong>jacoco</strong> que debera generar los datos del analisis.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;build&gt;</span>
+        <span class="tag">&lt;plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-surefire-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.12.4<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;argLine&gt;</span>${surefireArgLine}<span class="tag">&lt;/argLine&gt;</span>
+                                <span class="tag">&lt;excludes&gt;</span>
+                                        <span class="tag">&lt;exclude&gt;</span>**/integracion/*.java<span class="tag">&lt;/exclude&gt;</span>
+                                <span class="tag">&lt;/excludes&gt;</span>
+                                <span class="tag">&lt;includes&gt;</span>
+                                        <span class="tag">&lt;include&gt;</span>**/unitarias/*.java<span class="tag">&lt;/include&gt;</span>
+                                <span class="tag">&lt;/includes&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>maven-failsafe-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>2.8<span class="tag">&lt;/version&gt;</span>
+                        <span class="tag">&lt;configuration&gt;</span>
+                                <span class="tag">&lt;argLine&gt;</span>${failsafeArgLine}<span class="tag">&lt;/argLine&gt;</span>
+                                <span class="tag">&lt;excludes&gt;</span>
+                                        <span class="tag">&lt;exclude&gt;</span>**/unitarias/*.java<span class="tag">&lt;/exclude&gt;</span>
+                                <span class="tag">&lt;/excludes&gt;</span>
+                                <span class="tag">&lt;includes&gt;</span>
+                                        <span class="tag">&lt;include&gt;</span>**/integracion/*.java<span class="tag">&lt;/include&gt;</span>
+                                <span class="tag">&lt;/includes&gt;</span>
+                        <span class="tag">&lt;/configuration&gt;</span>
+                        <span class="tag">&lt;executions&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>pasar test integracion<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>integration-test<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>integration-test<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                                <span class="tag">&lt;execution&gt;</span>
+                                        <span class="tag">&lt;id&gt;</span>validar pruebas integracion<span class="tag">&lt;/id&gt;</span>
+                                        <span class="tag">&lt;phase&gt;</span>verify<span class="tag">&lt;/phase&gt;</span>
+                                        <span class="tag">&lt;goals&gt;</span>
+                                                <span class="tag">&lt;goal&gt;</span>verify<span class="tag">&lt;/goal&gt;</span>
+                                        <span class="tag">&lt;/goals&gt;</span>
+                                <span class="tag">&lt;/execution&gt;</span>
+                        <span class="tag">&lt;/executions&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/build&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finalmente se pueden añadir los resultados del analisis al sitio añadiendo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;reporting&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+                <span class="tag">&lt;plugin&gt;</span>
+                        <span class="tag">&lt;groupId&gt;</span>org.jacoco<span class="tag">&lt;/groupId&gt;</span>
+                        <span class="tag">&lt;artifactId&gt;</span>jacoco-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+                        <span class="tag">&lt;version&gt;</span>0.7.5.201505241946<span class="tag">&lt;/version&gt;</span>
+                <span class="tag">&lt;/plugin&gt;</span>
+        <span class="tag">&lt;/plugins&gt;</span>
+<span class="tag">&lt;/reporting&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sonarqube">7. Sonarqube</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_introducción_2">7.1. Introducción</h3>
+<div class="paragraph">
+<p>Herramienta que centraliza otras herramientas que analizan la calidad estática del código de un proyecto. Cubre 7 ejes principales de la calidad del software</p>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/sonarqube_ejes.png" alt="sonarqube ejes">
+</div>
+</div>
+<div class="paragraph">
+<p>Ofrece información sobre</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Cobertura</p>
+</li>
+<li>
+<p>Complejidad ciclomatica.</p>
+</li>
+<li>
+<p>Buenas practicas.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A traves de herramientas como</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Checkstyle</p>
+</li>
+<li>
+<p>PMD</p>
+</li>
+<li>
+<p>FindBugs</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Hay disponible una demo con APIs conocidas <a href="http://nemo.sonarqube.org/">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>También hay un grupo español, que ofrece información <a href="https://sonarqubehispano.org/display/DOC/Portada">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Algunos de los plugins mas interesantes de Sonar</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PDF Export. Plugin que permite generqar pdf con la info de Sonar</p>
+</li>
+<li>
+<p>Motion Chart. Pluginque permite mostrar graficos en movimineto con la evolucion de las metricas</p>
+</li>
+<li>
+<p>Timeline. Plugin que visualiza el historico de las metricas</p>
+</li>
+<li>
+<p>Sonargraph. Plugin  enables you to check and measure the overall coupling and the level of cyclic dependencies</p>
+</li>
+<li>
+<p>Taglist. Plugin handles Checkstyle ToDoComment rule and Squid NoSonar rule and generates a report.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instalación_3">7.2. Instalación</h3>
+<div class="paragraph">
+<p>Descargar la distribución de <a href="http://www.sonarqube.org/downloads/">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Configurar la base de datos en el fichero</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">SONAR_HOME/conf/sonar.properties</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Estos son los posibles valores para mysql, de no configurarse se empleará una base de datos Derby, no recomendable para entornos de producción.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE"># MySql
+# uncomment the 3 following lines to use MySQL
+sonar.jdbc.url: jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
+sonar.jdbc.driverClassName: com.mysql.jdbc.Driver
+sonar.jdbc.validationQuery: select 1
+sonar.jdbc.username=sonar
+sonar.jdbc.password=sonar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Arrancar el servidor con el comando para el sistema operativo correspondiente que se encuentra en</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">SONAR_HOME/bin/&lt;sistema operativo&gt;/&lt;comando&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esta opción arranca Sonar en el puerto <strong>9000</strong>, el puerto tambien se puede configurar en el anterior fichero de configuración.</p>
+</div>
+<div class="paragraph">
+<p>Existe un usuario administrador creado por defecto con <strong>admin/admin</strong></p>
+</div>
+<div class="paragraph">
+<p>Se puede instalar un plugin para el idioma español, para ello acceder a <strong>Administration/System/Update Center/Available Plugins</strong> y buscar el <strong>Spanish Pack</strong></p>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/sonarqube_plugin_spanish.png" alt="sonarqube plugin spanish">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conceptos_2">7.3. Conceptos</h3>
+<div class="paragraph">
+<p><strong>Deuda tecnica</strong>: Es un calculo basado únicamente en <strong>reglas</strong> y <strong>evidencias</strong>. La deuda técnica en Sonar, se calcula con la metodología SQALE (Software Quality Assessment based on Lifecycle Expectations). Se mide en dias.</p>
+</div>
+<div class="paragraph">
+<p><strong>Reglas</strong>: Representan aquellos puntos que se desean vigilar en los proyectos. Se pueden definir con un perfil de calidad. Se pueden obtener mas reglas a partir de nuevos Plugins. Se pueden definir nuevas reglas basadas en plantillas.</p>
+</div>
+<div class="paragraph">
+<p><strong>Evidencias</strong>: Son los incumplimientos de las Reglas de calidad que se presentan en el código. Tendrán asociada una severidad. Con las evidencias se pued hacer: Comentar, Asignar, Planificar, Confirmar, Cambiar Severidad, Resolver y Falso Positivo. Todas estas tareas se pueden realizar de forma individual o conjunta. Se pueden definir evidencias manuales.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_organizacion">7.4. Organizacion</h3>
+<div class="paragraph">
+<p>La interface web de sonar, se divide en tres partes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Menu superior</p>
+</li>
+<li>
+<p>Menu lateral</p>
+</li>
+<li>
+<p>Zona de visualizacion de datos</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En el menu superior aparecen los siguientes items</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Cuadros de mando para volver en cualquier momento a la página de inicio</p>
+</li>
+<li>
+<p>Proyectos para acceder al listado completo de proyectos, vistas, desarrolladores, etc. o para acceder de forma rápida a proyectos recientemente accedidos</p>
+</li>
+<li>
+<p>Medidas, permite definir consultas sobre las medidas, se pueden guardar para visualizarlas en un cuadro de mando.</p>
+</li>
+<li>
+<p>Evidencias para acceder al servicio de evidencias</p>
+</li>
+<li>
+<p>Reglas para acceder a la página de reglas</p>
+</li>
+<li>
+<p>Perfiles navegar y gestionar perfiles de calidad</p>
+</li>
+<li>
+<p>Configuración para acceder a la configuración del sistema (acceso restringido a administradores de sistema)</p>
+</li>
+<li>
+<p>Conectarse / &lt;Nombre&gt; para conectarse con tu usuario. Dependiendo de tus permisos de usuario, tendrás acceso a diferentes servicios y cuadros de mando. Autenticarte en el sistema te permitirá tener acceso a tu propia interfaz web personalizada. Desde aquí puedes modificar tu perfil y desconectarte.</p>
+</li>
+<li>
+<p>Buscar un componente: proyecto, fichero, vista, desarrollador, etc. para acceder rápidamente a él. Pulsa 's' para acceso directo a la caja de búsqueda.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>El menú lateral ira cambiando sus opciones dependiendo del área en la que nos encuentremos, de los permisos de usuario y de las extensiones que se hayan incorporado en la instalación. Proporciona acceso a diferentes cuadros de mando y servicios.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_carga_de_datos">7.5. Carga de datos</h3>
+<div class="paragraph">
+<p>Para cargar los datos de un proyecto, se puede hacer de varias formas, la mas habituales son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A través de un plugin de Maven.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.codehaus.mojo<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>sonar-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.7<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y su goal</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">mvn sonar:sonar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para la seleccion de un perfil de Sonar a emplear, se ha de indicar el parametro <strong>sonar.profile</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="CONSOLE">-Dsonar.profile=&quot;Mi Perfil&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si se desea publicar la cobertura en Sonar, se ha de seguir los pasos que se pueden encontrar en <strong><a href="https://github.com/SonarSource/sonar-examples/blob/master/projects/languajes/java/code-coverage" class="bare">https://github.com/SonarSource/sonar-examples/blob/master/projects/languajes/java/code-coverage</a></strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A través del plugin de jenkins sonarqube.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gestion_de_usuarios_y_seguridad">7.6. Gestion de Usuarios y Seguridad</h3>
+<div class="paragraph">
+<p>Se pueden añadir nuevos usuarios, grupos, definir permisos a nivel global o de proyecto, desde <strong>Administration/Security/Users</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cuadro_de_mando">7.7. Cuadro de mando</h3>
+<div class="paragraph">
+<p>Los cuadros de mando, son los componentes principales de Sonar, ya que son los que nos permiten configurar que información de que proyecto queremos visualizar y como visualizarlo.</p>
+</div>
+<div class="paragraph">
+<p>Se organizan en columnas, pudiendo seleccionar entre 5 distribuciones distintas.</p>
+</div>
+<div class="paragraph">
+<p>Se dividen en <strong>Widget</strong>, habiendo <strong>Widget</strong> orientados a distintos propositos, si se busca un Widget concreto se pueden filtrar los Widget mostrados por categorias.</p>
+</div>
+<div class="paragraph">
+<p>Los Widget a parte de mostrar información, permiten acceder a vistas mas avanzadas, ya que en general los Widget ofrecen resumenes de la información.</p>
+</div>
+<div class="paragraph">
+<p>Existen Widget que ofrecen información sobre</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tamaño de los ficheros</p>
+</li>
+<li>
+<p>Bloques duplicados</p>
+</li>
+<li>
+<p>Mala distribución de la complejidad</p>
+</li>
+<li>
+<p>Codigo Spaguetti</p>
+</li>
+<li>
+<p>Falta de pruebas unitarias</p>
+</li>
+<li>
+<p>Cumplimiento de estandares y defectos potenciales</p>
+</li>
+<li>
+<p>Contabilizacion de comentarios</p>
+</li>
+<li>
+<p>Eventos en cuanto a la calidad.</p>
+</li>
+<li>
+<p>Treemap</p>
+</li>
+<li>
+<p>Evidencias y deuda técnica.</p>
+</li>
+<li>
+<p>Piramide de deuda técnica. Muestra la deuda tecnica organizada de abajo arriba por prioridad en su resolución.</p>
+</li>
+<li>
+<p>Resumen de deuda tecnica. Ofrece un Ratio entre lo que se necesita invertir para solventar la deuda tecnica y lo que se necesita invertir para crear el proyecto desde cero.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/sonarqube_cuadro_mando_1.png" alt="sonarqube cuadro mando 1">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2016-05-10 07:53:32 Hora de verano romance
+</div>
+</div>
+</body>
+</html>
