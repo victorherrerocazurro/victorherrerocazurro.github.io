@@ -534,43 +534,45 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_closures">4. Closures</a>
 <ul class="sectlevel2">
-<li><a href="#_estrategia_de_delegacion">4.1. Estrategia de Delegacion</a></li>
-<li><a href="#_currying">4.2. Currying</a></li>
-<li><a href="#_memoize_cache">4.3. Memoize (Cache)</a></li>
-<li><a href="#_composicion">4.4. Composicion</a></li>
-<li><a href="#_trampoline">4.5. Trampoline</a></li>
-<li><a href="#_empleo_con_interfaces">4.6. Empleo con Interfaces</a></li>
-<li><a href="#_with">4.7. With</a></li>
+<li><a href="#_paso_por_parametros">4.1. Paso por parametros</a></li>
+<li><a href="#_estrategia_de_delegacion">4.2. Estrategia de Delegacion</a></li>
+<li><a href="#_currying">4.3. Currying</a></li>
+<li><a href="#_memoize_cache">4.4. Memoize (Cache)</a></li>
+<li><a href="#_composicion">4.5. Composicion</a></li>
+<li><a href="#_trampoline">4.6. Trampoline</a></li>
+<li><a href="#_empleo_con_interfaces">4.7. Empleo con Interfaces</a></li>
+<li><a href="#_with">4.8. With</a></li>
 </ul>
 </li>
 <li><a href="#_metaprogramacion">5. Metaprogramacion</a>
 <ul class="sectlevel2">
-<li><a href="#_runtime">5.1. Runtime</a>
+<li><a href="#_reflection">5.1. Reflection</a></li>
+<li><a href="#_runtime">5.2. Runtime</a>
 <ul class="sectlevel3">
-<li><a href="#_delegatingmetaclass">5.1.1. DelegatingMetaClass</a></li>
-<li><a href="#_metaclass_por_defecto">5.1.2. MetaClass por defecto</a></li>
-<li><a href="#_metaclass_por_instancia">5.1.3. MetaClass por instancia</a></li>
+<li><a href="#_delegatingmetaclass">5.2.1. DelegatingMetaClass</a></li>
+<li><a href="#_metaclass_por_defecto">5.2.2. MetaClass por defecto</a></li>
+<li><a href="#_metaclass_por_instancia">5.2.3. MetaClass por instancia</a></li>
 </ul>
 </li>
-<li><a href="#_expandometaclass">5.2. ExpandoMetaClass</a>
+<li><a href="#_expandometaclass">5.3. ExpandoMetaClass</a>
 <ul class="sectlevel3">
-<li><a href="#_metodos">5.2.1. Metodos</a></li>
-<li><a href="#_propiedades">5.2.2. Propiedades</a></li>
-<li><a href="#_contructores_2">5.2.3. Contructores</a></li>
-<li><a href="#_metodos_estaticos">5.2.4. Metodos estaticos</a></li>
-<li><a href="#_metodos_prestados_borrowing">5.2.5. Metodos prestados (borrowing)</a></li>
-<li><a href="#_nombres_de_metodos_dinamicos">5.2.6. Nombres de Metodos Dinamicos</a></li>
-<li><a href="#_interfaces">5.2.7. Interfaces</a></li>
-<li><a href="#_runtime_discovery">5.2.8. Runtime Discovery</a></li>
+<li><a href="#_metodos">5.3.1. Metodos</a></li>
+<li><a href="#_propiedades">5.3.2. Propiedades</a></li>
+<li><a href="#_contructores_2">5.3.3. Contructores</a></li>
+<li><a href="#_metodos_estaticos">5.3.4. Metodos estaticos</a></li>
+<li><a href="#_metodos_prestados_borrowing">5.3.5. Metodos prestados (borrowing)</a></li>
+<li><a href="#_nombres_de_metodos_dinamicos">5.3.6. Nombres de Metodos Dinamicos</a></li>
+<li><a href="#_interfaces">5.3.7. Interfaces</a></li>
+<li><a href="#_runtime_discovery">5.3.8. Runtime Discovery</a></li>
 </ul>
 </li>
-<li><a href="#_groovyobject">5.3. GroovyObject</a></li>
-<li><a href="#_metodos_2">5.4. Metodos</a></li>
-<li><a href="#_methodmissing">5.5. MethodMissing</a></li>
-<li><a href="#_propiedades_2">5.6. Propiedades</a></li>
-<li><a href="#_atributos_2">5.7. Atributos</a></li>
-<li><a href="#_propertymissing">5.8. PropertyMissing</a></li>
-<li><a href="#_modulos_de_extension">5.9. Modulos de Extension</a></li>
+<li><a href="#_groovyobject">5.4. GroovyObject</a></li>
+<li><a href="#_metodos_2">5.5. Metodos</a></li>
+<li><a href="#_methodmissing">5.6. MethodMissing</a></li>
+<li><a href="#_propiedades_2">5.7. Propiedades</a></li>
+<li><a href="#_atributos_2">5.8. Atributos</a></li>
+<li><a href="#_propertymissing">5.9. PropertyMissing</a></li>
+<li><a href="#_modulos_de_extension">5.10. Modulos de Extension</a></li>
 </ul>
 </li>
 <li><a href="#_operadores">6. Operadores</a>
@@ -620,17 +622,31 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 </ul>
 </li>
-<li><a href="#_functional">8. Functional</a></li>
-<li><a href="#_sql">9. SQL</a></li>
-<li><a href="#_ficheros">10. Ficheros</a></li>
-<li><a href="#_api_groovy">11. Api Groovy</a>
+<li><a href="#_sql">8. SQL</a>
 <ul class="sectlevel2">
-<li><a href="#_gstrings">11.1. GStrings</a></li>
-<li><a href="#_expresiones_regulares">11.2. Expresiones regulares</a></li>
-<li><a href="#_json">11.3. Json</a></li>
+<li><a href="#_preparacion_de_la_bd">8.1. Preparacion de la BD</a></li>
+<li><a href="#_conexion">8.2. Conexion</a></li>
+<li><a href="#_crear_tablas">8.3. Crear Tablas</a></li>
+<li><a href="#_inserciones">8.4. Inserciones</a></li>
+<li><a href="#_actualizaciones">8.5. Actualizaciones</a></li>
+<li><a href="#_borrados">8.6. Borrados</a></li>
+<li><a href="#_consultas">8.7. Consultas</a></li>
+<li><a href="#_transacciones">8.8. Transacciones</a></li>
+<li><a href="#_batch">8.9. Batch</a></li>
+<li><a href="#_paginacion">8.10. Paginacion</a></li>
+<li><a href="#_procedimientos_almacenados">8.11. Procedimientos Almacenados</a></li>
+<li><a href="#_dataset">8.12. DataSet</a></li>
 </ul>
 </li>
-<li><a href="#_ast">12. AST</a></li>
+<li><a href="#_ficheros">9. Ficheros</a></li>
+<li><a href="#_api_groovy">10. Api Groovy</a>
+<ul class="sectlevel2">
+<li><a href="#_gstrings">10.1. GStrings</a></li>
+<li><a href="#_expresiones_regulares">10.2. Expresiones regulares</a></li>
+<li><a href="#_json">10.3. Json</a></li>
+</ul>
+</li>
+<li><a href="#_ast">11. AST</a></li>
 </ul>
 </div>
 </div>
@@ -1300,17 +1316,6 @@ println <span class="string"><span class="delimiter">&quot;</span><span class="c
 </div>
 </div>
 <div class="paragraph">
-<p>Se pueden pasar por parametro a otras funciones para invocarlas internamente.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">def</span> <span class="function">funcionAleatorio</span> (Closure closure){
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">desde funcion: </span><span class="inline"><span class="inline-delimiter">${</span>closure()<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-}
-println funcionAleatorio(devolverAleatorio)</code></pre>
-</div>
-</div>
-<div class="paragraph">
 <p>Dentro de las Closures se puede referenciar a variables definidas fuera de la closure.</p>
 </div>
 <div class="listingblock">
@@ -1339,7 +1344,41 @@ lista.each  imprimeCl</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_estrategia_de_delegacion">4.1. Estrategia de Delegacion</h3>
+<h3 id="_paso_por_parametros">4.1. Paso por parametros</h3>
+<div class="paragraph">
+<p>Las Closures se pueden pasar por parametro a otras funciones para invocarlas internamente.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">//Definicion de método que acepta Closure por parametro</span>
+<span class="keyword">def</span> <span class="function">funcionAleatorio</span> (<span class="predefined-type">String</span> parametro, Closure closure){
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">Este es el parametro recibido: </span><span class="inline"><span class="inline-delimiter">$</span>parametro</span><span class="content"> y este el resultado de invocar la Closure: </span><span class="inline"><span class="inline-delimiter">${</span>closure()<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+}
+
+<span class="comment">//Definicion de Closure</span>
+<span class="keyword">def</span> devolverAleatorio = {<span class="predefined-type">Math</span>.random()}
+
+println funcionAleatorio(<span class="string"><span class="delimiter">&quot;</span><span class="content">El dato enviado a la funcion</span><span class="delimiter">&quot;</span></span>, devolverAleatorio)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En el API es habitual encontrarse con métodos que aceptan una serie de parametros y finalmente una Closure, y en vez de invocar ese método de forma tradicional, se puede encontrar algo como lo siguiente.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">def</span> <span class="function">metodo</span>( <span class="predefined-type">String</span> parametro, Closure algoritmo) {
+    algoritmo(parametro)
+}
+
+metodo(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hola Mundo!!!!</span><span class="delimiter">&quot;</span></span>){ println <span class="local-variable">it</span>}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La sintaxis de la invocacion es similar a la de definición de funcion, pero no se declaran parametros, sino que se pasan</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_estrategia_de_delegacion">4.2. Estrategia de Delegacion</h3>
 <div class="paragraph">
 <p>Permite acceder a variables en distintos ambitos de las Closures.</p>
 </div>
@@ -1476,7 +1515,7 @@ p.pretty.resolveStrategy = Closure.DELEGATE_FIRST
 </div>
 </div>
 <div class="sect2">
-<h3 id="_currying">4.2. Currying</h3>
+<h3 id="_currying">4.3. Currying</h3>
 <div class="paragraph">
 <p>Permite predefinir parametros de una función, simplificando la invocacion de la función ya que no deberá pasar todos los parametros, es una forma de reutilizar la definicion de parametros para varias ejecuciones de la misma funcion</p>
 </div>
@@ -1497,7 +1536,7 @@ println <span class="string"><span class="delimiter">&quot;</span><span class="c
 </div>
 </div>
 <div class="sect2">
-<h3 id="_memoize_cache">4.3. Memoize (Cache)</h3>
+<h3 id="_memoize_cache">4.4. Memoize (Cache)</h3>
 <div class="paragraph">
 <p>Método de las <strong>Closures</strong> que permite cachear los resultados de las ivocaciones a las <strong>Closures</strong>, es especialmente interesante cuando se emplea recursividad y del todo fiable cuando se programa funcionalmente.</p>
 </div>
@@ -1520,7 +1559,7 @@ println (<span class="string"><span class="delimiter">&quot;</span><span class="
 </div>
 </div>
 <div class="sect2">
-<h3 id="_composicion">4.4. Composicion</h3>
+<h3 id="_composicion">4.5. Composicion</h3>
 <div class="paragraph">
 <p>Permite agrupar las logicas de dos Closures en una nueva, se emplean los operadores <strong>&lt;&lt;</strong> y <strong>&gt;&gt;</strong>, dependiendo del orden de ejecución de las <strong>Closures</strong>.</p>
 </div>
@@ -1559,7 +1598,7 @@ println (<span class="string"><span class="delimiter">&quot;</span><span class="
 </div>
 </div>
 <div class="sect2">
-<h3 id="_trampoline">4.5. Trampoline</h3>
+<h3 id="_trampoline">4.6. Trampoline</h3>
 <div class="paragraph">
 <p>Los algoritmos recursivos están restringidos por el tamaño del stack, en el stack se almacena la pila de llamadas, cuantas mas llamadas, mas ocupa en el stack.</p>
 </div>
@@ -1607,7 +1646,7 @@ println factorial(<span class="integer">1000</span>)  <span class="comment">// I
 </div>
 </div>
 <div class="sect2">
-<h3 id="_empleo_con_interfaces">4.6. Empleo con Interfaces</h3>
+<h3 id="_empleo_con_interfaces">4.7. Empleo con Interfaces</h3>
 <div class="paragraph">
 <p>Se puede implementar una <strong>Interface</strong> con una <strong>Closure</strong>, para ello se emplea la palabra reservada <strong>as</strong>.</p>
 </div>
@@ -1664,7 +1703,7 @@ miImprimir.imprimirPantalla(<span class="string"><span class="delimiter">&quot;<
 </div>
 </div>
 <div class="sect2">
-<h3 id="_with">4.7. With</h3>
+<h3 id="_with">4.8. With</h3>
 <div class="paragraph">
 <p>Método que permite asociar una Closure de inicializacion a todos los objetos, pudiendo en la Closure establece caracteristicas o invocar métodos del objeto.</p>
 </div>
@@ -1728,7 +1767,23 @@ println sb.toString()</code></pre>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_runtime">5.1. Runtime</h3>
+<h3 id="_reflection">5.1. Reflection</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">println <span class="predefined-type">String</span>.class
+<span class="predefined-type">String</span>.interfaces.each { println <span class="local-variable">it</span> }
+<span class="predefined-type">String</span>.constructors.each { println <span class="local-variable">it</span> }
+<span class="predefined-type">String</span>.methods.each { println <span class="local-variable">it</span> }
+
+<span class="keyword">def</span> s = <span class="keyword">new</span> <span class="predefined-type">String</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">cadena de texto</span><span class="delimiter">&quot;</span></span>)
+s.properties.each { propiedad -&gt;
+    println propiedad
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_runtime">5.2. Runtime</h3>
 <div class="paragraph">
 <p>Groovy, añade a todos los objetos una caracteristica <strong>metaClass</strong>, que es la encargada de resolver el codigo a ejecutar en el proceso de invocacion de métodos a través de <strong>MetaClass#invokeMethod</strong>.</p>
 </div>
@@ -1755,7 +1810,7 @@ println sb.toString()</code></pre>
 <p>Antes de emplear una nueva instancia de <strong>MetaClass</strong> habrá que invocar su método <strong>groovy.lang.MetaClass#initialize()</strong></p>
 </div>
 <div class="sect3">
-<h4 id="_delegatingmetaclass">5.1.1. DelegatingMetaClass</h4>
+<h4 id="_delegatingmetaclass">5.2.1. DelegatingMetaClass</h4>
 <div class="paragraph">
 <p>Se emplea si lo que se necesita es añadir algo de funcionalidad a la implementacion de referencia (decorar) ya que se dispone de la referencia a <strong>super</strong></p>
 </div>
@@ -1786,7 +1841,7 @@ Foo.metaClass = mc
 </div>
 </div>
 <div class="sect3">
-<h4 id="_metaclass_por_defecto">5.1.2. MetaClass por defecto</h4>
+<h4 id="_metaclass_por_defecto">5.2.2. MetaClass por defecto</h4>
 <div class="paragraph">
 <p>Se puede cambiar la metaclase por defecto para un tipo, creando una clase con un nombre particular en un paquete particular. Por ejemplo para <strong>java.lang.Integer</strong>, será necesario definir la clase <strong>IntegerMetaClass</strong> en el paquete <strong>groovy.runtime.metaclass.java.lang</strong></p>
 </div>
@@ -1811,7 +1866,7 @@ Foo.metaClass = mc
 </div>
 </div>
 <div class="sect3">
-<h4 id="_metaclass_por_instancia">5.1.3. MetaClass por instancia</h4>
+<h4 id="_metaclass_por_instancia">5.2.3. MetaClass por instancia</h4>
 <div class="paragraph">
 <p>Se puede asociar una <strong>metaclass</strong> a una instancia en particular, por lo que es posible que diferentes instancias de la misma clase, tengan distintas <strong>metaclass</strong> asociadas.</p>
 </div>
@@ -1841,7 +1896,7 @@ f2.metaClass = <span class="keyword">new</span> FooMetaClass(f2.metaClass)
 </div>
 </div>
 <div class="sect2">
-<h3 id="_expandometaclass">5.2. ExpandoMetaClass</h3>
+<h3 id="_expandometaclass">5.3. ExpandoMetaClass</h3>
 <div class="paragraph">
 <p>Implementacion que permite añadir o modificar metodos, constructores y propiedades de forma dinamica a clases ya definidas.</p>
 </div>
@@ -1855,7 +1910,7 @@ f2.metaClass = <span class="keyword">new</span> FooMetaClass(f2.metaClass)
 <p>Aunque en cuanto se hace referencia a las funcionalidades que proporciona, la implmentacion cambia automaticamente.</p>
 </div>
 <div class="sect3">
-<h4 id="_metodos">5.2.1. Metodos</h4>
+<h4 id="_metodos">5.3.1. Metodos</h4>
 <div class="paragraph">
 <p>Se pueden añadir métodos empleando los operadores <strong>=</strong> y <strong>&lt;&lt;</strong> sobre la instancia <strong>metaClass</strong> de un objeto o clase.</p>
 </div>
@@ -1884,7 +1939,7 @@ f2.metaClass = <span class="keyword">new</span> FooMetaClass(f2.metaClass)
 </div>
 </div>
 <div class="sect3">
-<h4 id="_propiedades">5.2.2. Propiedades</h4>
+<h4 id="_propiedades">5.3.2. Propiedades</h4>
 <div class="paragraph">
 <p>Se pueden añadir propiedades siguiendo dos aproximaciones</p>
 </div>
@@ -1928,7 +1983,7 @@ assert &quot;Stephen King&quot; == b.author</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_contructores_2">5.2.3. Contructores</h4>
+<h4 id="_contructores_2">5.3.3. Contructores</h4>
 <div class="paragraph">
 <p>Se pueden definir nuevas formas de construir objetos, para ello se emplea la caracteristica <strong>constructor</strong> del objeto <strong>metaClass</strong> junto con los operadores <strong>=</strong> y <strong>&lt;&lt;</strong></p>
 </div>
@@ -1945,7 +2000,7 @@ assert &quot;Stephen King&quot; == b.author</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_metodos_estaticos">5.2.4. Metodos estaticos</h4>
+<h4 id="_metodos_estaticos">5.3.4. Metodos estaticos</h4>
 <div class="paragraph">
 <p>De forma analoga a como se definen los constructores, se pueden definir métodos estaticos, esta vez empelando la caracteristica <strong>static</strong> del objeto <strong>metaClass</strong> junto con los operadores <strong>=</strong> y <strong>&lt;&lt;</strong></p>
 </div>
@@ -1962,7 +2017,7 @@ assert &quot;Stephen King&quot; == b.author</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_metodos_prestados_borrowing">5.2.5. Metodos prestados (borrowing)</h4>
+<h4 id="_metodos_prestados_borrowing">5.3.5. Metodos prestados (borrowing)</h4>
 <div class="paragraph">
 <p>Se pueden asignar a clases métodos definidos en otras clases empleando el operador <strong>.&amp;</strong></p>
 </div>
@@ -1986,7 +2041,7 @@ Person.metaClass.buyHouse = MortgageLender.&amp;borrowMoney
 </div>
 </div>
 <div class="sect3">
-<h4 id="_nombres_de_metodos_dinamicos">5.2.6. Nombres de Metodos Dinamicos</h4>
+<h4 id="_nombres_de_metodos_dinamicos">5.3.6. Nombres de Metodos Dinamicos</h4>
 <div class="paragraph">
 <p>Se pueden definir los nombres de los métodos empleando cadenas de caracteres GString.</p>
 </div>
@@ -2011,7 +2066,7 @@ p.changeNameToBob()
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interfaces">5.2.7. Interfaces</h4>
+<h4 id="_interfaces">5.3.7. Interfaces</h4>
 <div class="paragraph">
 <p>Se pueden añadir métodos a interfaces</p>
 </div>
@@ -2029,7 +2084,7 @@ list &lt;&lt; <span class="integer">2</span>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_runtime_discovery">5.2.8. Runtime Discovery</h4>
+<h4 id="_runtime_discovery">5.3.8. Runtime Discovery</h4>
 <div class="paragraph">
 <p>Se dispone de los siguientes métodos en runtime para poder buscar metodos y propiedades en los objetos y clases.</p>
 </div>
@@ -2074,7 +2129,7 @@ Person.metaClass.buyHouse = MortgageLender.&amp;borrowMoney
 </div>
 </div>
 <div class="sect2">
-<h3 id="_groovyobject">5.3. GroovyObject</h3>
+<h3 id="_groovyobject">5.4. GroovyObject</h3>
 <div class="paragraph">
 <p>Interface que por defecto cumplen todos los objetos basados en clases <strong>Groovy</strong>.</p>
 </div>
@@ -2098,7 +2153,7 @@ Person.metaClass.buyHouse = MortgageLender.&amp;borrowMoney
 </div>
 </div>
 <div class="sect2">
-<h3 id="_metodos_2">5.4. Metodos</h3>
+<h3 id="_metodos_2">5.5. Metodos</h3>
 <div class="paragraph">
 <p>La implementacion de <strong>invokeMethod()</strong> será invocado cuando se invoque un método que no exista.</p>
 </div>
@@ -2140,7 +2195,7 @@ Person.metaClass.buyHouse = MortgageLender.&amp;borrowMoney
 </div>
 </div>
 <div class="sect2">
-<h3 id="_methodmissing">5.5. MethodMissing</h3>
+<h3 id="_methodmissing">5.6. MethodMissing</h3>
 <div class="paragraph">
 <p>Invocado unicamente cuando ha ocurrido un fallo al acceder a un método por no estar definido.</p>
 </div>
@@ -2158,7 +2213,7 @@ Person.metaClass.buyHouse = MortgageLender.&amp;borrowMoney
 </div>
 </div>
 <div class="sect2">
-<h3 id="_propiedades_2">5.6. Propiedades</h3>
+<h3 id="_propiedades_2">5.7. Propiedades</h3>
 <div class="paragraph">
 <p>El acceso a cualquier propiedad, uso de <strong>get/set</strong> de un objeto Groovy, pasará por la implementacion de <strong>getProperty/setProperty</strong>, exista la propiedad o no, la implementacion por defecto de este método recurre a <strong>metaClass</strong> para obtener la referencia a la propiedad.</p>
 </div>
@@ -2210,7 +2265,7 @@ pogo.property = <span class="string"><span class="delimiter">'</span><span class
 </div>
 </div>
 <div class="sect2">
-<h3 id="_atributos_2">5.7. Atributos</h3>
+<h3 id="_atributos_2">5.8. Atributos</h3>
 <div class="paragraph">
 <p>Se puede acceder directamente a cualquier atributo, sin usar <strong>get/set</strong>, empleando la caracteristica <strong>metaClass</strong> de un objeto Groovy y sus métodos <strong>getAttribute/setAttribute</strong></p>
 </div>
@@ -2254,7 +2309,7 @@ pogo.metaClass.setAttribute(pogo, <span class="string"><span class="delimiter">'
 </div>
 </div>
 <div class="sect2">
-<h3 id="_propertymissing">5.8. PropertyMissing</h3>
+<h3 id="_propertymissing">5.9. PropertyMissing</h3>
 <div class="paragraph">
 <p>Invocado unicamente cuando ha ocurrido un fallo al acceder a una propiedad por no estar definida.</p>
 </div>
@@ -2274,7 +2329,7 @@ f.foo = <span class="string"><span class="delimiter">&quot;</span><span class="c
 </div>
 </div>
 <div class="sect2">
-<h3 id="_modulos_de_extension">5.9. Modulos de Extension</h3>
+<h3 id="_modulos_de_extension">5.10. Modulos de Extension</h3>
 <div class="paragraph">
 <p>Se pueden definir nuevos métodos a clases ya existentes, incluso aunque esten precompiladas.</p>
 </div>
@@ -2313,6 +2368,103 @@ f.foo = <span class="string"><span class="delimiter">&quot;</span><span class="c
 <p>Del segundo parametro en adelante, son los parametros de entrada al método.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Se pueden definir nuevos métodos asociados a la instancia y a la clase.</p>
+</div>
+<div class="paragraph">
+<p>Para definir un nuevo <strong>Metodo de instancia</strong>, habrá que definir una clase con un método estatico como el siguiente</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="type">class</span> <span class="class">MaxRetriesExtension</span> {
+    <span class="directive">static</span> <span class="type">void</span> maxRetries(<span class="predefined-type">Integer</span> self, Closure code) {
+        <span class="keyword">assert</span> self &gt;= <span class="integer">0</span>
+        <span class="type">int</span> retries = self
+        <span class="predefined-type">Throwable</span> e = <span class="predefined-constant">null</span>
+        <span class="keyword">while</span> (retries &gt; <span class="integer">0</span>) {
+            <span class="keyword">try</span> {
+                code.call()
+                <span class="keyword">break</span>
+            } <span class="keyword">catch</span> (<span class="predefined-type">Throwable</span> err) {
+                e = err
+                retries--
+            }
+        }
+        <span class="keyword">if</span> (retries == <span class="integer">0</span> &amp;&amp; e) {
+            <span class="keyword">throw</span> e
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>PAra emplear el anterior método de instancia se hará</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="type">int</span> i=<span class="integer">0</span>
+<span class="integer">5</span>.maxRetries {
+    i++
+}
+<span class="keyword">assert</span> i == <span class="integer">1</span>
+i=<span class="integer">0</span>
+<span class="keyword">try</span> {
+    <span class="integer">5</span>.maxRetries {
+        i++
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">RuntimeException</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">oops</span><span class="delimiter">&quot;</span></span>)
+    }
+} <span class="keyword">catch</span> (<span class="exception">RuntimeException</span> e) {
+    <span class="keyword">assert</span> i == <span class="integer">5</span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para definir un nuevo <strong>Metodo de clase</strong>, habrá que definir una clase con un método estatico como el siguiente</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="type">class</span> <span class="class">StaticStringExtension</span> {
+    <span class="directive">static</span> <span class="predefined-type">String</span> greeting(<span class="predefined-type">String</span> self) {
+        <span class="string"><span class="delimiter">'</span><span class="content">Hello, world!</span><span class="delimiter">'</span></span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>PAra emplear el anterior método de clase se hará</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">assert</span> <span class="predefined-type">String</span>.greeting() == <span class="string"><span class="delimiter">'</span><span class="content">Hello, world!</span><span class="delimiter">'</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En ambos casos, tambien habrá que definir el fichero de configuracion del modulo de extension <strong>META-INF/groovy/org.codehaus.groovy.runtime.ExtensionModule</strong> con los siguientes campos</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>moduleName</strong>: Nombre del modulo</p>
+</li>
+<li>
+<p><strong>moduleVersion</strong>: Version del modulo</p>
+</li>
+<li>
+<p><strong>extensionClasses</strong>: Clase con métodos estaticos de instancia</p>
+</li>
+<li>
+<p><strong>staticExtensionClasses</strong>: Clase con métodos estaticos de clase</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="properties">moduleName=Test module for specifications
+moduleVersion=1.0-test
+extensionClasses=support.MaxRetriesExtension
+staticExtensionClasses=support.StaticStringExtension</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -2942,7 +3094,10 @@ lista.eachWithIndex { <span class="local-variable">it</span>, i -&gt; println <s
 
 <span class="keyword">def</span> list = [<span class="integer">7</span>, <span class="integer">4</span>, <span class="integer">9</span>, -<span class="integer">6</span>, -<span class="integer">1</span>, <span class="integer">11</span>, <span class="integer">2</span>, <span class="integer">3</span>, -<span class="integer">9</span>, <span class="integer">5</span>, -<span class="integer">13</span>]
 <span class="keyword">assert</span> list.max(mc) == <span class="integer">11</span>
-<span class="keyword">assert</span> list.min(mc) == -<span class="integer">13</span></code></pre>
+<span class="keyword">assert</span> list.min(mc) == -<span class="integer">13</span>
+
+<span class="comment">//Se pueden quitar duplicados</span>
+[<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">c</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">d</span><span class="delimiter">'</span></span>].unique() == [<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">c</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">d</span><span class="delimiter">'</span></span>]</code></pre>
 </div>
 </div>
 </div>
@@ -3259,28 +3414,364 @@ mapa.eachWithIndex { entry, i -&gt;
 </div>
 </div>
 <div class="sect1">
-<h2 id="_functional">8. Functional</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sql">9. SQL</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ficheros">10. Ficheros</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_api_groovy">11. Api Groovy</h2>
+<h2 id="_sql">8. SQL</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_gstrings">11.1. GStrings</h3>
+<h3 id="_preparacion_de_la_bd">8.1. Preparacion de la BD</h3>
+<div class="paragraph">
+<p>En los ejemplos se emplea un base de datos Derby, para levantar el servidor, se ha de ejecutar el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; %DERBY_HOME%\bin\startNetworkServer.bat</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se dispone de un cliente de comandos <strong>ij</strong>, para emplearlo ejecutar</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; %DERBY_HOME%\bin\ij.bat</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez dentro, se puede conectar a la BD con el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">ij&gt; connect 'jdbc:derby://127.0.0.1:1527/PRUEBA_GROOVY;create=true';</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mostrar los esquemas con</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">ij&gt; show schemas;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En los siguientes ejemplo, se empleará el schema <strong>APP</strong></p>
+</div>
+<div class="paragraph">
+<p>Mostrar las tablas de un schema</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">ij&gt; show tables in app;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mostrar las columnas de una tabla</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">ij&gt; describe personas;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ejecutar cualquier sonsulta SQL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">ij&gt; select * from personas;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conexion">8.2. Conexion</h3>
+<div class="paragraph">
+<p>Se basa en el uso de de la clase <strong>groovy.sql.Sql</strong></p>
+</div>
+<div class="paragraph">
+<p>Para conectarse a la base de datos habrá que dar los siguientes campos</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>URL</p>
+</li>
+<li>
+<p>User</p>
+</li>
+<li>
+<p>Password</p>
+</li>
+<li>
+<p>DriverClassName</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">def</span> sql = Sql.newInstance(<span class="string"><span class="delimiter">&quot;</span><span class="content">jdbc:derby://127.0.0.1:1527/PRUEBA_GROOVY;create=true</span><span class="delimiter">&quot;</span></span>,
+        <span class="predefined-constant">null</span>,<span class="comment">//Usuario de la BD</span>
+        <span class="predefined-constant">null</span>,<span class="comment">//Password de la BD</span>
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">org.apache.derby.jdbc.ClientDriver</span><span class="delimiter">&quot;</span></span>)<span class="comment">//Driver de conexion</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para terminar la conexion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">sql.close()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se puede emplear la funcion <strong>withInstance</strong> que permite delegar la gestion del cierre de la conexion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">Sql.withInstance(url, user, password, driver) { sql -&gt;
+  <span class="comment">// use 'sql' instance ...</span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tambien se tiene la opcion de obtener las conexiones a traves de un datasource</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">def</span> dataSource = <span class="keyword">new</span> JDBCDataSource(<span class="key">database</span>: <span class="string"><span class="delimiter">'</span><span class="content">jdbc:hsqldb:mem:yourDB</span><span class="delimiter">'</span></span>, <span class="key">user</span>: <span class="string"><span class="delimiter">'</span><span class="content">sa</span><span class="delimiter">'</span></span>, <span class="key">password</span>: <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>)
+<span class="keyword">def</span> sql = <span class="keyword">new</span> Sql(dataSource)</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>No se tiene la opcion de trabajar con <strong>withInstance</strong> y <strong>datasource</strong> juntos.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_crear_tablas">8.3. Crear Tablas</h3>
+<div class="paragraph">
+<p>Para lanzar cualquier sentencia que altere el estado de la base de datos, se dispone de <strong>execute()</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">sql.execute <span class="string"><span class="delimiter">'''</span><span class="content">
+  CREATE TABLE Author (
+    id          INTEGER GENERATED BY DEFAULT AS IDENTITY,
+    firstname   VARCHAR(64),
+    lastname    VARCHAR(64)
+  );
+</span><span class="delimiter">'''</span></span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inserciones">8.4. Inserciones</h3>
+<div class="paragraph">
+<p>Con el propio método <strong>execute()</strong> o son el mas especializado <strong>executeInsert()</strong>, se pueden añadir registros a la BD.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">sql.execute <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Dierk', 'Koenig')</span><span class="delimiter">&quot;</span></span>
+
+<span class="comment">//Parametrizado, se pueden definir ? tanto en execute, como en executeInsert</span>
+<span class="keyword">def</span> insertSql = <span class="string"><span class="delimiter">'</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES (?,?)</span><span class="delimiter">'</span></span>
+<span class="keyword">def</span> params = [<span class="string"><span class="delimiter">'</span><span class="content">Jon</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Skeet</span><span class="delimiter">'</span></span>]
+<span class="comment">//executeInsert retorna las claves generadas</span>
+<span class="keyword">def</span> keys = sql.executeInsert insertSql, params
+<span class="keyword">assert</span> keys[<span class="integer">0</span>] == [<span class="integer">1</span>]
+
+<span class="comment">//Aunque lo mas facil es emplear GString</span>
+<span class="keyword">def</span> first = <span class="string"><span class="delimiter">'</span><span class="content">Guillaume</span><span class="delimiter">'</span></span>
+<span class="keyword">def</span> last = <span class="string"><span class="delimiter">'</span><span class="content">Laforge</span><span class="delimiter">'</span></span>
+<span class="keyword">def</span> myKeyNames = [<span class="string"><span class="delimiter">'</span><span class="content">ID</span><span class="delimiter">'</span></span>]
+<span class="keyword">def</span> myKeys = sql.executeInsert <span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+  INSERT INTO Author (firstname, lastname)
+  VALUES (</span><span class="inline"><span class="inline-delimiter">${</span>first<span class="inline-delimiter">}</span></span><span class="content">, </span><span class="inline"><span class="inline-delimiter">${</span>last<span class="inline-delimiter">}</span></span><span class="content">)
+</span><span class="delimiter">&quot;&quot;&quot;</span></span>, myKeyNames
+<span class="keyword">assert</span> myKeys[<span class="integer">0</span>] == [<span class="key">ID</span>: <span class="integer">2</span>]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_actualizaciones">8.5. Actualizaciones</h3>
+<div class="paragraph">
+<p>De nuevo <strong>execute()</strong> y el método mas concreto <strong>executeUpdate()</strong>, que retorna el numero de registros afectados por la actualizacion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">sql.execute <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (lastname) VALUES ('Thorvaldsson')</span><span class="delimiter">&quot;</span></span>
+sql.execute <span class="string"><span class="delimiter">&quot;</span><span class="content">UPDATE Author SET firstname='Erik' where lastname='Thorvaldsson'</span><span class="delimiter">&quot;</span></span>
+
+<span class="keyword">def</span> updateSql = <span class="string"><span class="delimiter">&quot;</span><span class="content">UPDATE Author SET lastname='Pragt' where lastname='Thorvaldsson'</span><span class="delimiter">&quot;</span></span>
+<span class="keyword">def</span> updateCount = sql.executeUpdate updateSql
+<span class="keyword">assert</span> updateCount == <span class="integer">1</span>
+
+<span class="keyword">def</span> row = sql.firstRow <span class="string"><span class="delimiter">&quot;</span><span class="content">SELECT * FROM Author where firstname = 'Erik'</span><span class="delimiter">&quot;</span></span>
+<span class="keyword">assert</span> <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>row.firstname<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="inline"><span class="inline-delimiter">${</span>row.lastname<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span> == <span class="string"><span class="delimiter">'</span><span class="content">Erik Pragt</span><span class="delimiter">'</span></span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_borrados">8.6. Borrados</h3>
+<div class="paragraph">
+<p>De nuevo <strong>execute()</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">assert</span> sql.firstRow(<span class="string"><span class="delimiter">'</span><span class="content">SELECT COUNT(*) as num FROM Author</span><span class="delimiter">'</span></span>).num == <span class="integer">3</span>
+sql.execute <span class="string"><span class="delimiter">&quot;</span><span class="content">DELETE FROM Author WHERE lastname = 'Skeet'</span><span class="delimiter">&quot;</span></span>
+<span class="keyword">assert</span> sql.firstRow(<span class="string"><span class="delimiter">'</span><span class="content">SELECT COUNT(*) as num FROM Author</span><span class="delimiter">'</span></span>).num == <span class="integer">2</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_consultas">8.7. Consultas</h3>
+<div class="paragraph">
+<p>Se proporciona el método <strong>query(){}</strong>, que acepta por un lado la consulta y por otro la closure que recibirá el <strong>resultSet</strong> con los resultados de la consulta.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">def</span> expected = [<span class="string"><span class="delimiter">'</span><span class="content">Dierk Koenig</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Jon Skeet</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Guillaume Laforge</span><span class="delimiter">'</span></span>]
+
+<span class="keyword">def</span> rowNum = <span class="integer">0</span>
+sql.query(<span class="string"><span class="delimiter">'</span><span class="content">SELECT firstname, lastname FROM Author</span><span class="delimiter">'</span></span>) { resultSet -&gt;
+  <span class="keyword">while</span> (resultSet.next()) {
+    <span class="keyword">def</span> first = resultSet.getString(<span class="integer">1</span>)
+    <span class="keyword">def</span> last = resultSet.getString(<span class="string"><span class="delimiter">'</span><span class="content">lastname</span><span class="delimiter">'</span></span>)
+    <span class="keyword">assert</span> expected[rowNum++] == <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>first</span><span class="content"> </span><span class="inline"><span class="inline-delimiter">$</span>last</span><span class="delimiter">&quot;</span></span>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tambien se proporciona <strong>eachRow(){}</strong>, que recibiendo un String que representa la consulta SQL y una Closure, permite aplicar a cada registro obtenido la logica de la Closure, LA Closure recibe por parametro abstraiendo el <strong>resultSet</strong> en mapas de claves y valores</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">rowNum = <span class="integer">0</span>
+sql.eachRow(<span class="string"><span class="delimiter">'</span><span class="content">SELECT firstname, lastname FROM Author</span><span class="delimiter">'</span></span>) { row -&gt;
+  <span class="keyword">def</span> first = row[<span class="integer">0</span>]
+  <span class="keyword">def</span> last = row.lastname
+  <span class="keyword">assert</span> expected[rowNum++] == <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>first</span><span class="content"> </span><span class="inline"><span class="inline-delimiter">$</span>last</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y <strong>rows()</strong> que permite obtener un <strong>List</strong> donde cada fila será un <strong>Map</strong>, abstraiendo así del objeto <strong>resultSet</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="predefined-type">List</span> authors = sql.rows(<span class="string"><span class="delimiter">'</span><span class="content">SELECT firstname, lastname FROM Author</span><span class="delimiter">'</span></span>)
+<span class="keyword">assert</span> authors.size() == <span class="integer">3</span>
+<span class="keyword">assert</span> authors.collect { <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span><span class="local-variable">it</span></span><span class="content">.FIRSTNAME </span><span class="inline"><span class="inline-delimiter">${</span><span class="local-variable">it</span>[-<span class="integer">1</span>]<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span> } == expected</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_transacciones">8.8. Transacciones</h3>
+<div class="paragraph">
+<p>Se pueden ejecutar transacciones de forma facil con la closure <strong>withTransaction{}</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">assert</span> sql.firstRow(<span class="string"><span class="delimiter">'</span><span class="content">SELECT COUNT(*) as num FROM Author</span><span class="delimiter">'</span></span>).num == <span class="integer">0</span>
+sql.withTransaction {
+  sql.execute <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Dierk', 'Koenig')</span><span class="delimiter">&quot;</span></span>
+  sql.execute <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Jon', 'Skeet')</span><span class="delimiter">&quot;</span></span>
+}
+<span class="keyword">assert</span> sql.firstRow(<span class="string"><span class="delimiter">'</span><span class="content">SELECT COUNT(*) as num FROM Author</span><span class="delimiter">'</span></span>).num == <span class="integer">2</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_batch">8.9. Batch</h3>
+<div class="paragraph">
+<p>Permite la ejecucuion de bloques de sentencias con <strong>withBatch(){}</strong>, donde se le indicará cuantas sentencias se quieren que formen un bloque y todas las sentencias a ejecutar.</p>
+</div>
+<div class="listingblock">
+<div class="title">Ejecucion de 7 sentencias en bloques de 3</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">sql.withBatch(<span class="integer">3</span>) { stmt -&gt;
+  stmt.addBatch <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Dierk', 'Koenig')</span><span class="delimiter">&quot;</span></span>
+  stmt.addBatch <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Paul', 'King')</span><span class="delimiter">&quot;</span></span>
+  stmt.addBatch <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Guillaume', 'Laforge')</span><span class="delimiter">&quot;</span></span>
+  stmt.addBatch <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Hamlet', 'D''Arcy')</span><span class="delimiter">&quot;</span></span>
+  stmt.addBatch <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Cedric', 'Champeau')</span><span class="delimiter">&quot;</span></span>
+  stmt.addBatch <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Erik', 'Pragt')</span><span class="delimiter">&quot;</span></span>
+  stmt.addBatch <span class="string"><span class="delimiter">&quot;</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES ('Jon', 'Skeet')</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En una segunda implmentacion, permite tambien recibir la consulta SQL parametrizada, teniendo que definir en los <strong>Batch</strong> los parametros para cada ejecucion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">ef qry = <span class="string"><span class="delimiter">'</span><span class="content">INSERT INTO Author (firstname, lastname) VALUES (?,?)</span><span class="delimiter">'</span></span>
+sql.withBatch(<span class="integer">3</span>, qry) { ps -&gt;
+  ps.addBatch(<span class="string"><span class="delimiter">'</span><span class="content">Dierk</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Koenig</span><span class="delimiter">'</span></span>)
+  ps.addBatch(<span class="string"><span class="delimiter">'</span><span class="content">Paul</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">King</span><span class="delimiter">'</span></span>)
+  ps.addBatch(<span class="string"><span class="delimiter">'</span><span class="content">Guillaume</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Laforge</span><span class="delimiter">'</span></span>)
+  ps.addBatch(<span class="string"><span class="delimiter">'</span><span class="content">Hamlet</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">D'Arcy</span><span class="delimiter">&quot;</span></span>)
+  ps.addBatch(<span class="string"><span class="delimiter">'</span><span class="content">Cedric</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Champeau</span><span class="delimiter">'</span></span>)
+  ps.addBatch(<span class="string"><span class="delimiter">'</span><span class="content">Erik</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Pragt</span><span class="delimiter">'</span></span>)
+  ps.addBatch(<span class="string"><span class="delimiter">'</span><span class="content">Jon</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Skeet</span><span class="delimiter">'</span></span>)
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_paginacion">8.10. Paginacion</h3>
+<div class="paragraph">
+<p>El método <strong>rows(sql, offset, maxrows)</strong> esta sobrecargado, siendo una de sus implementaciones la que recibe la consulta, el elemento por donde empezar a retornar y el numero de elementos solicitados</p>
+</div>
+<div class="listingblock">
+<div class="title">Siguiendo con el anterior ejemplo, donde se habian insertado 7 registros, se obtienen distintos bloques por paginacion</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">def</span> qry = <span class="string"><span class="delimiter">'</span><span class="content">SELECT * FROM Author</span><span class="delimiter">'</span></span>
+<span class="comment">//Empezando por el primer elemento, se retornan 3, es decir los 3 primeros</span>
+<span class="keyword">assert</span> sql.rows(qry, <span class="integer">1</span>, <span class="integer">3</span>)*.firstname == [<span class="string"><span class="delimiter">'</span><span class="content">Dierk</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Paul</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Guillaume</span><span class="delimiter">'</span></span>]
+<span class="comment">//Empezando por el cuarto elemento, se retornan 3, es decir los 3 segundos</span>
+<span class="keyword">assert</span> sql.rows(qry, <span class="integer">4</span>, <span class="integer">3</span>)*.firstname == [<span class="string"><span class="delimiter">'</span><span class="content">Hamlet</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Cedric</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Erik</span><span class="delimiter">'</span></span>]
+<span class="comment">//Empezando por el septimo elemento, se retornan 3, es decir ultimo</span>
+<span class="keyword">assert</span> sql.rows(qry, <span class="integer">7</span>, <span class="integer">3</span>)*.firstname == [<span class="string"><span class="delimiter">'</span><span class="content">Jon</span><span class="delimiter">'</span></span>]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_procedimientos_almacenados">8.11. Procedimientos Almacenados</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dataset">8.12. DataSet</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ficheros">9. Ficheros</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_api_groovy">10. Api Groovy</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_gstrings">10.1. GStrings</h3>
 <div class="paragraph">
 <p>Tambien conocidos como string interpolados, permiten definir <strong>Strings</strong> empleando variables Groovy.</p>
 </div>
@@ -3294,7 +3785,7 @@ mapa.eachWithIndex { entry, i -&gt;
 </div>
 </div>
 <div class="sect2">
-<h3 id="_expresiones_regulares">11.2. Expresiones regulares</h3>
+<h3 id="_expresiones_regulares">10.2. Expresiones regulares</h3>
 <div class="paragraph">
 <p>Basta con declarar la expresión de búsqueda entre barras diagonales, como en Perl, y usar uno de los tres operadores disponibles:</p>
 </div>
@@ -3375,7 +3866,7 @@ texto = <span class="string"><span class="delimiter">&quot;</span><span class="c
 </div>
 </div>
 <div class="sect2">
-<h3 id="_json">11.3. Json</h3>
+<h3 id="_json">10.3. Json</h3>
 <div class="paragraph">
 <p>El empleo de Json es tambien muy sencillo, ya que se proporciona un API para procesar objetos Json.</p>
 </div>
@@ -3430,7 +3921,7 @@ println builder.toPrettyString()</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ast">12. AST</h2>
+<h2 id="_ast">11. AST</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Con la anotacion <strong>@Canonical</strong>, se obtienen implementaciones para equals, hascode y tostring, ademas de constructores con los atributos.</p>
@@ -3440,7 +3931,7 @@ println builder.toPrettyString()</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-10-15 13:48:42 UTC
+Last updated 2018-10-16 05:59:22 UTC
 </div>
 </div>
 </body>
