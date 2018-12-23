@@ -1,290 +1,490 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="Content-Type" content="text/html">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Curso de Víctor Herrero Cazurro">
-    <meta name="author" content="Víctor Herrero Cazurro, Pronoide">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Victor Herrero Cazurro</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        .jumbotron {
+            background-image: url("img/banner.png");
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            background-position: center center;
+            background-size: cover;
+            padding: 17rem 2rem;
+            margin-bottom: 0rem;
+            color: #f8f9fa;
+        }
+        .navbar {
+            -webkit-transition: padding-top .3s,padding-bottom .3s;
+            transition: padding-top .3s,padding-bottom .3s;
+            border: none;
+            background-color: transparent;
+        
+        }
+        .navbar-brand {
+            display: none;
+        }
+        .navbar-brand .img-profile {
+            max-width: 5rem;
+            max-height: 5rem;
+            border: .2rem solid rgba(255,255,255,.2);
+        }
+        .navbar-nav {
+            font-size: 2rem;
+        }
+        .navbar-shrink {
+            padding-top: 0;
+            padding-bottom: 0;
+            background-color: #212529
+        }
+        .navbar-shrink .navbar-brand {
+            display: block;
+            font-size: 1.25em;
+            padding: 12px 0;
+        }
+        h1 {
+            font-size: 5rem;
+        }
+        .text-primary {
+	        background: -webkit-linear-gradient(rgba(13, 156, 224, 0.9),rgba(6,68,145, 0.9));
+            background-clip: text;
+            -webkit-background-clip: text;
+	        -webkit-text-fill-color: transparent;
+        }
+        .nav-link {
+            padding: 2rem 1.5rem;
+        }
+        section h2.section-heading {
+            font-size: 40px;
+            margin-top: 0;
+            margin-bottom: 15px
+        }
 
-  <link rel="icon" href="http://www.pronoide.com/img/logo/pronoide-3-125.png">
-
-  <link href="http://www.pronoide.com/lib/bootstrap-3.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://www.pronoide.com/lib/bootstrap-3.2.0/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-  <link href="http://www.pronoide.com/css/default.css" rel="stylesheet">
-  <link href="http://www.pronoide.com/css/index.css" rel="stylesheet">
-
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+        section h3.section-subheading {
+            font-size: 16px;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 75px;
+            text-transform: none;
+            font-family: 'Droid Serif',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji'
+        }
+        .social-icons a {
+            display: inline-block;
+            height: 3.5rem;
+            width: 3.5rem;
+            background-color: #495057;
+            color: #fff!important;
+            border-radius: 100%;
+            text-align: center;
+            font-size: 1.5rem;
+            line-height: 3.5rem;
+            margin-right: 1rem
+        }
+        .social-icons a:last-child {
+            margin-right: 0
+        }
+        .social-icons a:hover {
+            background: -webkit-linear-gradient(rgba(13, 156, 224, 0.9),rgba(6,68,145, 0.9));
+        }
+    </style>
+    <script>
+        window.onscroll = function() {scrollFunction()};
+        
+        function scrollFunction() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                $(".navbar").addClass("navbar-shrink");
+            } else {
+                $(".navbar").removeClass("navbar-shrink");
+            }
+        }
+    </script>
 </head>
-<body data-spy="scroll" data-target=".navbar">
-
-  <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle"
-          data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Navegación</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <nav class="navbar navbar-expand-xl navbar-dark fixed-top">
+        <a class="navbar-brand" href="#">
+            <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/perfil.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Víctor Herrero Cazurro</a>
-      </div>
-      <div class="collapse navbar-collapse navbar-right">
-        <ul class="nav navbar-nav">
-          <li><a href="#quien">¿Quien soy?</a></li>
-          <li><a href="#conocimientos">Conocimientos</a></li>
-          <!--<li><a href="#material">Material para cursos</a></li>-->
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </nav>
-
-<!-- Quien Soy-->
-  <section id="quien" class="container dark">
-    <div class="row">
-      <div class="text-center col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="img-rounded">
-              <img src="http://www.pronoide.com/img/team/victor-herrero-cazurro.jpg"
-                alt="Víctor Herrero Cazurro" />
+            
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">Quien soy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#experience">Experiencia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#education">Formacion</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#cetificate">Certificaciones</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#skills">Conocimientos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <header class="jumbotron">
+        <h1  class="mb-0 text-primary text-uppercase">Herrero Cazurro</h1>
+        <h1  class="mb-0 text-uppercase">Víctor</h1>
+    </header>
+    <section id="about" class="about-section container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Quien Soy</h2>
+                    <h3 class="section-subheading text-muted">Te cuento un poco de mi</h3>
+                </div>
             </div>
-          </div>
-          <div class="panel-footer">
-            <a href="https://twitter.com/VictorHerrero1">
-              <img src="http://www.pronoide.com/img/icons/48/social/twitter.png"
-                alt="Twitter de Víctor Herrero Cazurro" /></a>
-            <a href="https://www.linkedin.com/pub/victor-herrero-cazurro/88/ba6/1b3">
-              <img src="http://www.pronoide.com/img/icons/48/social/linkedin.png"
-                alt="LinkedIn de Víctor Herrero Cazurro" /></a>
-            <a href="https://github.com/VictorHerrero">
-              <img src="http://www.pronoide.com/img/icons/48/social/github.png"
-                alt="GitHub de Víctor Herrero Cazurro" /></a>
-          </div>
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <h1  class="mb-0 text-uppercase">Víctor<span  class="text-primary"> Herrero Cazurro</span></h1>
+                    <h4 class="text-uppercase">Valladolid · 658803598 · <a href="mailto:victorherrerocazurro@gmail.com">victorherrerocazurro@gmail.com</a></h4>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <p class="mb-3">Aunque Ingeniero Técnico en Telecomunicaciones, mi vida profesional siempre ha estado ligada al desarrollo de Software, tanto en grandes como en pequeñas empresas, donde aprendí lo suficiente para dar el salto a la que, hoy por hoy, es mi profesión, la formación, y aquí estoy aprendiendo cada día para enseñar todo aquello que aprendo a mis alumnos</p>
+                    <p>Pero no todo es estudiar y trabajar, me encantan las herramientas, y fabricar cosas con mis propias manos, los animales, el aire libre, andar, ver una temporada completa de una buena serie una tarde de domingo, los juegos de mesa, una buena parlada con amigos</p>
+                </div>
+            </div>
+            <div class="social-icons mb-5">
+                <a href="https://www.linkedin.com/in/victorherrerocazurro/">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://plus.google.com/+VictorHerreroCazurro">
+                    <i class="fab fa-google-plus"></i>
+                </a>
+                <a href="https://github.com/VictorHerrero">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://twitter.com/VictorHerrero1">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-        <h1>Victor Herrero Cazurro</h1>
-        <h2>Formador y Consultor</h2>
-        <p>Aunque Ingeniero Técnico en Telecomunicaciones, mi vida profesional siempre ha estado ligada al desarrollo de Software, tanto en grandes como en pequeñas empresas, donde aprendí lo suficiente para dar el salto a mi autentica vocación, la <strong>formación</strong> y aquí estoy aprendiendo cada día para enseñar todo aquello que aprendo</p>
-        <h2>Entretenimientos (...no todo es trabajar)</h2>
-        <p>Me encantan las herramientas, y fabricar cosas con mis propias manos, los animales, el aire libre, andar, ver una temporada completa de una buena serie una tarde de domingo, los juegos de mesa, una buena parlada con amigos</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Conocimientos-->
-  <section id="conocimientos" class="container dark">
-    <h1>Conocimientos</h1>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/dotnet.png" alt=".Net" data-toggle="tooltip" title=".Net"/>
-          </div>
+    </section>
+    <section id="experience" class="bg-light experience-section container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Experiencia</h2>
+                    <h3 class="section-subheading text-muted">En que he trabajado</h3>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <h3>Analista Programador – Eptisa TI</h3>
+                    <p class="mb-3">Desde Agosto de 2010 hasta Octubre 2011 realice tareas de analista programador en Eptisa TI. Entre los trabajos realizados cabe destacar:</p>
+                    <ul>
+                        <li>Pruebas de concepto para La Caixa, FC Barcelona y Heraldo de Aragón, del buscador de Microsoft FAST, para la indexación y consumo de los datos almacenados por las entidades. Desarrollos personalizados en Python apoyando la funcionalidad ofrecida por FAST.</li>
+                        <li>Desarrollo de software a medida para ArcGIS 9.3, para la ayuda en las Tareas del Control de Obra Civil para Eptisa Ingeniería, Basada en Visual Basic .NET, ADF ArcGIS, Crystal report y Access.</li>
+                        <li>Mantenimiento correctivo y evolutivo de la aplicación Mirame Duero Java para la Confederación Hidrográfica del Duero. Puesta en marcha del entorno de preproducción, integración del código generado por las distintas empresas participantes en el desarrollo, elaboración de documentación para paliar carencias detectadas en una auditoria previa. Basada en JSF, Hibernate, Oracle y JavaBeans.</li>
+                        <li>Desarrollo del módulo de simulación de áreas de servicio para el cálculo de coberturas de los distintos centros del proyecto SIIS Java para Sanidad JCyL. Basada en Struts 2, ADF ArcGis server, Oracle y Jasper Reports</li>
+                        <li>Desarrollo de herramienta para el estudio de las coberturas de los centros de día para Gerencia de Servicios Sociales JCyL. Basada en C# y ArcGis Desktop.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <h3>Analista Programador- Cotesa</h3>
+                    <p class="mb-3">Desde Junio del 2008 hasta Agosto de 2010 realice tareas de analista programador y consultor en Cotesa. Entre los trabajos realizados cabe destacar:</p>
+                    <ul>
+                        <li>Desarrollo de plugin para el visor web cartográfico Java del proyecto LOCALGIS para el Ministerio de Industria, Turismo y Comercio. Basados en WFS-T. Basado en GWT (Google Web Toolkit), Servlets, Openlayers, GXT para GWT y Geoserver.</li>
+                        <li>Desarrollo de varios módulos de la aplicación Mírame Duero Java para la Confederación Hidrográfica del Duero. Basada en JSF, Openlayers y JQuery.</li>
+                        <li>Auditoria sobre el proyecto Mírame Duero Java para la Confederación Hidrográfica del Duero, evaluando los niveles de calidad. Basado en Enterprise Architect, FindBugs, CeckStyle y PMD.</li>
+                        <li>Desarrollo de una aplicación para la Administración de la Concesión de Licencias Java para la Dirección General de Transportes Terrestres. Basado en JSP y Struts.</li>
+                        <li>Evolutivo de visor web cartográfico Java del proyecto LOCALGIS para el Ministerio de Industria, Turismo y Comercio. Basado en JSP, Struts, Servicios Web, Openlayers y Geoserver.</li>
+                        <li>Desarrollo de portal web de Puntos de Interés Turístico de diversas comarcas gallegas para Agader. Basado en JSP, Struts, Openlayers.</li>
+                        <li>Desarrollo de la Intranet Corporativa de Grupo Tecopy. Basada en Microsoft Sharepoint y C# NET.</li>
+                        <li>Desarrollo, mantenimiento y evolutivo del Geoportal Web de Hidrocarburos para Ministerio de Industria, Turismo y Comercio. Basado en JSP, Struts, Openlayers y YUI.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <h3>Programador- Cotesa</h3>
+                    <p>Desde Mayo del 2007 hasta Junio del 2008, realice tareas de programador en Cotesa. Entre los trabajos realizados cabe destacar:</p>
+                    <ul>
+                        <li>Desarrollo de aplicación CRUD para el control de Sondeos geológicos para el Instituto Geologico Catalan. Basada en JSF, Oracle e Hibernate.</li>
+                        <li>Desarrollo del Geoportal Web de Antenas para Ministerio de Industria, Turismo y Comercio. Basado en JSP, Struts y Openlayers.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <h3>Programador- Indra</h3>
+                    <p>Desde Febrero del 2006 hasta Mayo del 2007 realice tareas de programador en Indra. Entre los trabajos realizados cabe destacar:</p>
+                    <ul>
+                        <li>Desarrollo de aplicación Web para validación de certificados digitales para Instituto Nacional de Estadística (INE). Basado en: JSP, Struts, TrustedX y Servicios Web SOAP con AXIS de Apache.</li>
+                        <li>Desarrollo de aplicación Crawler Java para la indexación de páginas que ofrecían servicios mediante DNIe para Ministerio de Industria, Turismo y Comercio. Basada en Apache Lucene, JSP, Servlet y SQLServer.</li>
+                        <li>Desarrollo de aplicación web para la Tarificación de consumos de telefonía móvil para Telefónica Movistar. Hibernate, Swing y Oracle.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/java.png" alt="Java (JSE y JEE)" data-toggle="tooltip" title="Java (JSE y JEE)"/>
-          </div>
+    </section>
+    <section id="education" class="education-section container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Formación</h2>
+                    <h3 class="section-subheading text-muted">En que me he formado</h3>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <h4 class="mb-4"><span class="text-primary text-uppercase">INGENIERO TÉCNICO DE TELECOMUNICACIONES</span>, especialidad sistemas electrónicos. Escuela Universitaria Politécnica. Universidad de Valladolid.</h4>
+                    <h5 class="mb-4"><span class="text-primary text-uppercase">Programación en Java.</span> Programación de aplicaciones Swing y J2EE (Servlets y JSP) – Indra - 20 horas - (2006)</h5>
+                    <h5 class="mb-4"><span class="text-primary text-uppercase">Herramientas de código abierto para JAVA.</span> Herramientas como JBoss, Hibernate, Eclipse, Netbeans… - Indra - 20 horas - (2006)</h5>
+                    <h5 class="mb-4"><span class="text-primary text-uppercase">Desarrollo sobre Struts 2.</span> Patrones de diseño. Implementación de un MVC con Struts – Indra - 20 horas - (2007)</h5>
+                    <h5 class="mb-4"><span class="text-primary text-uppercase">Ecosistemas Java.</span> Agile. TDD. Integracion Continua con Jenins - CLE Formación - 25 horas - (2012)</h5>
+                    <h5 class="mb-4"><span class="text-primary text-uppercase">Spring Avanzado.</span> Core, web, mvc, jdbc, transactions, jpa, jsf, aop, remoting, jms, integration - Pronoide - 60 horas - (2012)</h5>
+                    <h5 class="mb-4"><span class="text-primary text-uppercase">Mongo DB.</span> Desarrollo java sobre Mongo DB - Pronoide - 12 horas - (2016)</h5>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/jsf.png" alt="JSF" data-toggle="tooltip" title="JSF"/>
-          </div>
+    </section>
+    <section id="cetificate" class="cetificate-section container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Certificaciones</h2>
+                    <h3 class="section-subheading text-muted">Certificados obtenidos</h3>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <h4 class="mb-5"><span class="text-primary text-uppercase">JAVA STANDARD EDITION 6 PROGRAMMER CERTIFIED PROFESSIONAL (OCJP).</span> Oracle University.</h4>
+                    <h4 class="mb-5"><span class="text-primary text-uppercase">JAVA PLATFORM, EE 6 WEB COMPONENT DEVELOPER CERTIFIED EXPERT.</span> Oracle University.</h4>
+                    <h4 class="mb-5"><span class="text-primary text-uppercase">ANDROID APPLICATION DEVELOPMENT (AND-401).</span> Android ATC.</h4>
+                    <h4 class="mb-5"><span class="text-primary text-uppercase">ANDROID SECURITY ESSENTIALS (AND-402).</span> Android ATC.</h4>
+                    <h4 class="mb-5"><span class="text-primary text-uppercase">MONETIZE ANDROID APPLICATIONS (AND-403).</span> Android ATC.</h4>
+                    <h4 class="mb-5"><span class="text-primary text-uppercase">TRAINING SKILLS FOR ANDROID ATC CERTIFIED TRAINER (AND-400).</span> Android ATC.</h4>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <a href="Contenidos/Spring.html" target="_blank"><img src="img/spring.png" alt="Spring" data-toggle="tooltip" title="Spring"/><a>
-          </div>
+    </section>
+    <section id="skills" class="bg-light skills-section container-fluid text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Conocimientos</h2>
+                    <h3 class="section-subheading text-muted">Tecnologias que conozco</h3>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Fila 1-->
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/java.png" alt="Java (JSE y JEE)" data-toggle="tooltip" title="Java (JSE y JEE)"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Java (JSE y JEE)</h4>
+                        <p class="text-muted">Backend</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/spring.png" alt="Spring" data-toggle="tooltip" title="Spring"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Spring</h4>
+                        <p class="text-muted">Backend</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img src="img/scala.png" alt="Scala" data-toggle="tooltip" title="Scala"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Scala</h4>
+                        <p class="text-muted">Backend</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img src="img/groovy.png" alt="Groovy" data-toggle="tooltip" title="Groovy"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Groovy</h4>
+                        <p class="text-muted">Backend</p>
+                    </div>
+                </div>
+                <!-- Fila 2-->
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/maven.png" alt="Maven" data-toggle="tooltip" title="Maven"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Maven</h4>
+                        <p class="text-muted">Ecoystem</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/gradle.png" alt="Gradle" data-toggle="tooltip" title="Gradle"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Gradle</h4>
+                        <p class="text-muted">Ecoystem</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/jenkins.png" alt="Jenkins" data-toggle="tooltip" title="Jenkins"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Jenkins</h4>
+                        <p class="text-muted">Ecoystem</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/bamboo.png" alt="Bamboo" data-toggle="tooltip" title="Bamboo"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Bamboo</h4>
+                        <p class="text-muted">Ecoystem</p>
+                    </div>
+                </div>
+                <!-- Fila 3-->
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/tdd.png" alt="TDD" data-toggle="tooltip" title="TDD"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>TDD</h4>
+                        <p class="text-muted">Agile</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/scrum.png" alt="Scrum" data-toggle="tooltip" title="Scrum"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Scrum</h4>
+                        <p class="text-muted">Agile</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/git.png" alt="Git" data-toggle="tooltip" title="Git"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Git</h4>
+                        <p class="text-muted">Ecoystem</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/sonar.png" alt="SonarQube" data-toggle="tooltip" title="SonarQube"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>SonarQube</h4>
+                        <p class="text-muted">Ecoystem</p>
+                    </div>
+                </div>
+                <!-- Fila 4-->
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/html5.png" alt="HTML5" data-toggle="tooltip" title="HTML5"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>HTML5</h4>
+                        <p class="text-muted">Frontend</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/javascript.png" alt="Javascript" data-toggle="tooltip" title="Javascript"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Javascript</h4>
+                        <p class="text-muted">Frontend</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/css3.png" alt="CSS3" data-toggle="tooltip" title="CSS3"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>CSS3</h4>
+                        <p class="text-muted">Frontend</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/angular.png" alt="Angular" data-toggle="tooltip" title="Angular"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Angular</h4>
+                        <p class="text-muted">Frontend</p>
+                    </div>
+                </div>
+                 <!-- Fila 5-->
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/android.png" alt="Android"
+                        data-toggle="tooltip" title="Android">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Android</h4>
+                        <p class="text-muted">Movilidad</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/liferay.png" alt="Liferay" data-toggle="tooltip" title="Liferay"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Liferay</h4>
+                        <p class="text-muted">Portal</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/dotnet.png" alt=".Net" data-toggle="tooltip" title=".Net"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>.NET</h4>
+                        <p class="text-muted">Backend</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/jsf.png" alt="JSF" data-toggle="tooltip" title="JSF"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>JSF</h4>
+                        <p class="text-muted">Frontend</p>
+                    </div>
+                </div>
+                <!--
+                <div class="col-sm-6 col-md-4 col-lg-3 portfolio-item">
+                    <a href="#">
+                        <img class="img-fluid" src="img/hibernate.png" alt="Hibernate" data-toggle="tooltip" title="Hibernate"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Hibernate</h4>
+                        <p class="text-muted">Backend</p>
+                    </div>
+                </div>
+                -->
+            </div>            
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/hibernate.png" alt="Hibernate" data-toggle="tooltip" title="Hibernate"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/android.png" alt="Android" data-toggle="tooltip" title="Android"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/phonegap.png" alt="Phonegap" data-toggle="tooltip" title="Phonegap"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/html5.png" alt="HTML5" data-toggle="tooltip" title="HTML5"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/javascript.png" alt="Javascript" data-toggle="tooltip" title="Javascript"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/css3.png" alt="CSS3" data-toggle="tooltip" title="CSS3"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/tdd.png" alt="TDD" data-toggle="tooltip" title="TDD"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/liferay.png" alt="Liferay" data-toggle="tooltip" title="Liferay"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <a href="Contenidos/Maven.html" target="_blank"><img src="img/maven.png" alt="Maven" data-toggle="tooltip" title="Maven"/><a>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/jenkins.png" alt="Jenkins" data-toggle="tooltip" title="Jenkins"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/sonar.png" alt="Sonar" data-toggle="tooltip" title="Sonar"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/git.png" alt="Git" data-toggle="tooltip" title="Git"/>
-          </div>
-        </div>
-      </div> 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="img/subversion.png" alt="Subversion" data-toggle="tooltip" title="Subversion"/>
-          </div>
-        </div>
-      </div>
-       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <a href="Contenidos/Scala.html" target="_blank"><img src="img/scala.png" alt="Scala" data-toggle="tooltip" title="Scala"/><a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!--Material Cursos-->
-  <!--section id="material" class="container dark">
-    <h1>Material para Cursos</h1>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 text-center">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <a href="Contenidos/VisualBasic.html" target="_blank"><h2>VB.Net</h2></a>
-          </div>
-          <div class="panel-footer">
-            <a href="Contenidos/VisualBasic.pdf" target="_blank"><img src="img/pdf.png" alt="Visual Basic .Net" /></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section-->
-
-  <!-- Donde -->
-  <!--footer>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-8 col-lg-22 text-center">
-        <p>
-          <a href="https://www.google.es/maps/place/Calle+de+la+Duquesa+de+Parcent,+80,+28047+Madrid/">C/Duquesa de Parcent, 80, 28047, Madrid</a>
-          <br class="visible-xs" />
-          <a href="callto:+34914620995"><img src="http://www.pronoide.com/img/icons/48/social-white/phone-bis.png" alt="Teléfono"/>+34 91 462 09 95</a>
-        </p>
-        <p>
-          <a href="mailto:info@pronoide.com"><img src="http://www.pronoide.com/img/icons/48/social-white/email.jpg" alt="Email"></a>
-          <a href="http://blog.pronoide.es" target="_blank"><img src="http://www.pronoide.com/img/icons/48/social-white/rss.jpg" alt="Blog"></a>
-          <a href="https://www.linkedin.com/company/pronoide" target="_blank"><img src="http://www.pronoide.com/img/icons/48/social-white/linkedin.jpg" alt="LinkedIn"></a>
-          <a href="https://github.com/pronoide" target="_blank"><img src="http://www.pronoide.com/img/icons/48/social-white/github.jpg" alt="GitHub"></a>
-          <a href="https://twitter.com/pronoide" target="_blank"><img src="http://www.pronoide.com/img/icons/48/social-white/twitter.jpg" alt="Twitter"></a>
-          <a href="https://www.facebook.com/pronoide" target="_blank"><img src="http://www.pronoide.com/img/icons/48/social-white/facebook.jpg" alt="Facebook"></a>
-        <p>
-      </div>
-    </div>
-  </footer-->
-
-
-  <!-- Bootstrap core JavaScript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="http://www.pronoide.com/lib/bootstrap-3.2.0/dist/js/bootstrap.min.js"></script>
-  <script src="http://www.pronoide.com/lib/jquery.easing.1.3/jquery.easing.1.3.js" type="text/javascript" ></script>
-
-  <script>
-  $(document).ready(function(){
-      var scrollValue, speed = 2000;
-      // hide menu after click on mobile
-      $('.navbar .nav > li > a').click(function(){
-          $('.navbar-collapse.in')
-            .removeClass('in').addClass('collapse').css('height', '0');
-      });
-      // go to section
-      $('.navbar .nav > li > a').on('click', goSection);
-      function goSection(e){
-          var selectedSection = $(this).attr('href');
-          var posY = $(selectedSection).offset().top;
-          $('html, body')
-            .animate({ scrollTop: posY}, {duration:speed, easing: 'easeOutSine'});
-          e.preventDefault();
-      }
-      $(document).on('scroll', parallax);
-      function parallax() {
-          scrollValue = $('html').scrollTop() || $('body').scrollTop();
-          $('section').each(function (){
-              $(this).css(
-                { backgroundPosition:
-                 'center '+((scrollValue - $(this).offset().top) * .9)+'px' });
-          });
-      }
-  });
-  </script>
+    </section>
 </body>
 </html>
