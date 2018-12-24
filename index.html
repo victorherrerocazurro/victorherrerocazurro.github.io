@@ -10,16 +10,57 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <style>
+    <style>        
+        .text-primary {
+	        background: -webkit-linear-gradient(rgba(13, 156, 224, 0.9),rgba(6,68,145, 0.9));
+            background-clip: text;
+            -webkit-background-clip: text;
+	        -webkit-text-fill-color: transparent;
+        }
         .jumbotron {
             background-image: url("img/banner.png");
             background-repeat: no-repeat;
-            background-attachment: scroll;
+            background-attachment: fixed;
             background-position: center center;
             background-size: cover;
             padding: 17rem 2rem;
             margin-bottom: 0rem;
             color: #f8f9fa;
+        }
+        header.jumbotron h1 {
+            font-size: 5rem;
+        }
+        @media (max-width: 1024px) {
+            .jumbotron {
+                background-image: url("img/banner-laptop.png");
+                padding: 11rem 2rem;
+            }
+            header.jumbotron h1 {
+                font-size: 4rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .jumbotron {
+                background-image: url("img/banner-tablet.png");
+                padding: 12rem 2rem;
+            }
+            header.jumbotron h1 {
+                font-size: 3rem;
+            }
+        }
+        @media (max-width: 426px) {
+            .jumbotron {
+                background-image: url("img/banner-smartphone.png");
+                padding: 5rem 2rem 20rem 2rem;
+            }
+            header.jumbotron h1 {
+                font-size: 2.4rem;
+            }
+        }
+        @media (max-width: 376px) {
+            header.jumbotron h1 {
+                font-size: 1.7rem;
+            }
         }
         .navbar {
             -webkit-transition: padding-top .3s,padding-bottom .3s;
@@ -49,17 +90,13 @@
             font-size: 1.25em;
             padding: 12px 0;
         }
-        h1 {
-            font-size: 5rem;
-        }
-        .text-primary {
-	        background: -webkit-linear-gradient(rgba(13, 156, 224, 0.9),rgba(6,68,145, 0.9));
-            background-clip: text;
-            -webkit-background-clip: text;
-	        -webkit-text-fill-color: transparent;
-        }
         .nav-link {
             padding: 2rem 1.5rem;
+        }
+        @media (max-width: 1024px) {
+            .nav-link {
+                padding: 0.9rem 1.5rem;
+            }
         }
         section h2.section-heading {
             font-size: 40px;
@@ -85,13 +122,42 @@
             text-align: center;
             font-size: 1.5rem;
             line-height: 3.5rem;
-            margin-right: 1rem
+            margin-right: 1rem;
         }
         .social-icons a:last-child {
             margin-right: 0
         }
         .social-icons a:hover {
             background: -webkit-linear-gradient(rgba(13, 156, 224, 0.9),rgba(6,68,145, 0.9));
+        }
+        @media (max-width: 426px) {
+            h4 a{
+                font-size: 1rem;
+            }
+            section h2.section-heading {
+                font-size: 2rem;
+            }
+            .contacto {
+                text-align: center!important;
+            }
+            .social-icons a {
+                margin-right: 0.4rem;
+            }
+            .apellido{
+                font-size: 2.4rem;
+                display: block;
+            }
+        }
+        @media (max-width: 376px) {
+            .apellido{
+                font-size: 2.1rem;
+                display: block;
+            }
+        }
+        @media (max-width: 321px) {
+            h4 a{
+                font-size: 0.9rem;
+            }
         }
     </style>
     <script>
@@ -148,9 +214,9 @@
                     <h3 class="section-subheading text-muted">Te cuento un poco de mi</h3>
                 </div>
             </div>
-            <div class="row mb-3">
+            <div class="row mb-3 contacto">
                 <div class="col-lg-12">
-                    <h1  class="mb-0 text-uppercase">Víctor<span  class="text-primary"> Herrero Cazurro</span></h1>
+                    <h1  class="mb-0 text-uppercase">Víctor<span  class="text-primary apellido"> Herrero Cazurro</span></h1>
                     <h4 class="text-uppercase">Valladolid · 658803598 · <a href="mailto:victorherrerocazurro@gmail.com">victorherrerocazurro@gmail.com</a></h4>
                 </div>
             </div>
@@ -246,13 +312,13 @@
             </div>
             <div class="row mb-3">
                 <div class="col-lg-12">
-                    <h4 class="mb-4"><span class="text-primary text-uppercase">INGENIERO TÉCNICO DE TELECOMUNICACIONES</span>, especialidad sistemas electrónicos. Escuela Universitaria Politécnica. Universidad de Valladolid.</h4>
-                    <h5 class="mb-4"><span class="text-primary text-uppercase">Programación en Java.</span> Programación de aplicaciones Swing y J2EE (Servlets y JSP) – Indra - 20 horas - (2006)</h5>
-                    <h5 class="mb-4"><span class="text-primary text-uppercase">Herramientas de código abierto para JAVA.</span> Herramientas como JBoss, Hibernate, Eclipse, Netbeans… - Indra - 20 horas - (2006)</h5>
-                    <h5 class="mb-4"><span class="text-primary text-uppercase">Desarrollo sobre Struts 2.</span> Patrones de diseño. Implementación de un MVC con Struts – Indra - 20 horas - (2007)</h5>
-                    <h5 class="mb-4"><span class="text-primary text-uppercase">Ecosistemas Java.</span> Agile. TDD. Integracion Continua con Jenins - CLE Formación - 25 horas - (2012)</h5>
-                    <h5 class="mb-4"><span class="text-primary text-uppercase">Spring Avanzado.</span> Core, web, mvc, jdbc, transactions, jpa, jsf, aop, remoting, jms, integration - Pronoide - 60 horas - (2012)</h5>
-                    <h5 class="mb-4"><span class="text-primary text-uppercase">Mongo DB.</span> Desarrollo java sobre Mongo DB - Pronoide - 12 horas - (2016)</h5>
+                    <h4 class="mb-2"><div class="text-primary text-uppercase">INGENIERO TÉCNICO DE TELECOMUNICACIONES</div>Especialidad sistemas electrónicos. Escuela Universitaria Politécnica. Universidad de Valladolid.</h4>
+                    <h5 class="mb-2"><div class="text-primary text-uppercase">Programación en Java.</div>Programación de aplicaciones Swing y J2EE (Servlets y JSP) – Indra - 20 horas - (2006)</h5>
+                    <h5 class="mb-2"><div class="text-primary text-uppercase">Herramientas de código abierto para JAVA.</div>Herramientas como JBoss, Hibernate, Eclipse, Netbeans… - Indra - 20 horas - (2006)</h5>
+                    <h5 class="mb-2"><div class="text-primary text-uppercase">Desarrollo sobre Struts 2.</div>Patrones de diseño. Implementación de un MVC con Struts – Indra - 20 horas - (2007)</h5>
+                    <h5 class="mb-2"><div class="text-primary text-uppercase">Ecosistemas Java.</div>Agile. TDD. Integracion Continua con Jenins - CLE Formación - 25 horas - (2012)</h5>
+                    <h5 class="mb-2"><div class="text-primary text-uppercase">Spring Avanzado.</div>Core, web, mvc, jdbc, transactions, jpa, jsf, aop, remoting, jms, integration - Pronoide - 60 horas - (2012)</h5>
+                    <h5 class="mb-2"><div class="text-primary text-uppercase">Mongo DB.</div>Desarrollo java sobre Mongo DB - Pronoide - 12 horas - (2016)</h5>
                 </div>
             </div>
         </div>
@@ -267,12 +333,12 @@
             </div>
             <div class="row mb-3">
                 <div class="col-lg-12">
-                    <h4 class="mb-5"><span class="text-primary text-uppercase">JAVA STANDARD EDITION 6 PROGRAMMER CERTIFIED PROFESSIONAL (OCJP).</span> Oracle University.</h4>
-                    <h4 class="mb-5"><span class="text-primary text-uppercase">JAVA PLATFORM, EE 6 WEB COMPONENT DEVELOPER CERTIFIED EXPERT.</span> Oracle University.</h4>
-                    <h4 class="mb-5"><span class="text-primary text-uppercase">ANDROID APPLICATION DEVELOPMENT (AND-401).</span> Android ATC.</h4>
-                    <h4 class="mb-5"><span class="text-primary text-uppercase">ANDROID SECURITY ESSENTIALS (AND-402).</span> Android ATC.</h4>
-                    <h4 class="mb-5"><span class="text-primary text-uppercase">MONETIZE ANDROID APPLICATIONS (AND-403).</span> Android ATC.</h4>
-                    <h4 class="mb-5"><span class="text-primary text-uppercase">TRAINING SKILLS FOR ANDROID ATC CERTIFIED TRAINER (AND-400).</span> Android ATC.</h4>
+                    <h4 class="mb-3"><div class="text-primary text-uppercase">JAVA STANDARD EDITION 6 PROGRAMMER CERTIFIED PROFESSIONAL (OCJP).</div>Oracle University.</h4>
+                    <h4 class="mb-3"><div class="text-primary text-uppercase">JAVA PLATFORM, EE 6 WEB COMPONENT DEVELOPER CERTIFIED EXPERT.</div>Oracle University.</h4>
+                    <h4 class="mb-3"><div class="text-primary text-uppercase">ANDROID APPLICATION DEVELOPMENT (AND-401).</div>Android ATC.</h4>
+                    <h4 class="mb-3"><div class="text-primary text-uppercase">ANDROID SECURITY ESSENTIALS (AND-402).</div>Android ATC.</h4>
+                    <h4 class="mb-3"><div class="text-primary text-uppercase">MONETIZE ANDROID APPLICATIONS (AND-403).</div>Android ATC.</h4>
+                    <h4 class="mb-3"><div class="text-primary text-uppercase">TRAINING SKILLS FOR ANDROID ATC CERTIFIED TRAINER (AND-400).</div>Android ATC.</h4>
                 </div>
             </div>
         </div>
