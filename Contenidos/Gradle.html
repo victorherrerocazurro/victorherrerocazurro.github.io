@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.2">
+<meta name="author" content="Victor Herrero Cazurro">
+<title>Gradle</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+/* Remove the comments around the @import statement below when using this as a custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+script{display:none!important}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+a{background:transparent}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+#map_canvas img,#map_canvas embed,#map_canvas object,.map_canvas img,.map_canvas embed,.map_canvas object{max-width:none!important}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+.antialiased,body{-webkit-font-smoothing:antialiased}
+img{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+p.lead,.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{font-size:1.21875em;line-height:1.6}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:none}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.no-bullet{list-style:none}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite:before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media only screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7;font-weight:bold}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
+.clearfix:after,.float-group:after{clear:both}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{display:inline-block;color:rgba(0,0,0,.8);font-size:.75em;line-height:1.4;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:-.15em .15em 0 .15em;padding:.2em .6em .2em .5em;vertical-align:middle;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menu{color:rgba(0,0,0,.8)}
+b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
+b.button:before{content:"[";padding:0 3px 0 2px}
+b.button:after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header:before,#header:after,#content:before,#content:after,#footnotes:before,#footnotes:after,#footer:before,#footer:after{content:" ";display:table}
+#header:after,#content:after,#footnotes:after,#footer:after{clear:both}
+#content{margin-top:1.25em}
+#content:before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #ddddd8}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
+#header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span:before{content:"\00a0\2013\00a0"}
+#header .details br+span.author:before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark:before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber:after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #ddddd8;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #efefed;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}@media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+.sect1{padding-bottom:.625em}
+@media only screen and (min-width:768px){.sect1{padding-bottom:1.25em}}.sect1+.sect1{border-top:1px solid #efefed}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor:before,h2>a.anchor:before,h3>a.anchor:before,#toctitle>a.anchor:before,.sidebarblock>.content>.title>a.anchor:before,h4>a.anchor:before,h5>a.anchor:before,h6>a.anchor:before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
+.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock pre:not(.highlight),.listingblock pre[class="highlight"],.listingblock pre[class^="highlight "],.listingblock pre.CodeRay,.listingblock pre.prettyprint{background:#f7f7f8}
+.sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
+.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
+.literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
+@media only screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}@media only screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]:before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:#999}
+.listingblock:hover code[data-lang]:before{display:block}
+.listingblock.terminal pre .command:before{content:attr(data-prompt);padding-right:.5em;color:#999}
+.listingblock.terminal pre .command:not([data-prompt]):before{content:"$"}
+table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0}
+table.pyhltable td.code{padding-left:.75em;padding-right:0}
+pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
+pre.pygments .lineno{display:inline-block;margin-right:.25em}
+table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock blockquote p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote:before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.5em;margin-right:.5ex;text-align:right}
+.quoteblock .quoteblock{margin-left:0;margin-right:0;padding:.5em 0;border-left:3px solid rgba(0,0,0,.6)}
+.quoteblock .quoteblock blockquote{padding:0 0 0 .75em}
+.quoteblock .quoteblock blockquote:before{display:none}
+.verseblock{margin:0 1em 1.25em 1em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.05em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract{margin:0 0 1.25em 0;display:block}
+.quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{text-align:left;word-spacing:0}
+.quoteblock.abstract blockquote:before,.quoteblock.abstract blockquote p:first-of-type:before{display:none}
+table.tableblock{max-width:100%;border-collapse:separate}
+table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
+table.spread{width:100%}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
+table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
+table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
+table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
+table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
+table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
+table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot{border-width:1px 0}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+td>div.verse{white-space:pre}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
+ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
+ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
+ul.inline>li>*{display:block}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1{padding-right:.75em;font-weight:bold}
+td.hdlist1,td.hdlist2{vertical-align:top}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:last-of-type{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
+.imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none}
+span.footnote,span.footnoteref{vertical-align:super;font-size:.875em}
+span.footnote a,span.footnoteref a{text-decoration:none}
+span.footnote a:active,span.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em 0;border-width:1px 0 0 0}
+#footnotes .footnote{padding:0 .375em;line-height:1.3;font-size:.875em;margin-left:1.2em;text-indent:-1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+span.icon>.fa{cursor:default}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning:before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution:before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important:before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background-color:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]:after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+h1,h2{letter-spacing:-.01em}
+dt,th.tableblock,td.content{text-rendering:optimizeLegibility}
+p,td.content{letter-spacing:-.01em}
+p strong,td.content strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@media print{@page{margin:1.25cm .75cm}
+*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare):after,a[href^="https:"]:not(.bare):after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]:after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img{page-break-inside:avoid}
+thead{display:table-header-group}
+img{max-width:100%!important}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #ddddd8!important;padding-bottom:0!important}
+.sect1{padding-bottom:0!important}
+.sect1+.sect1{border:0!important}
+#header>h1:first-child{margin-top:1.25rem}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em 0}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span:before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]:before{display:block}
+#footer{background:none!important;padding:0 .9375em}
+#footer-text{color:rgba(0,0,0,.6)!important;font-size:.9em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+</style>
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{font-weight: normal}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#00}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
+</head>
+<body class="article toc2 toc-right">
+<div id="header">
+<h1>Gradle</h1>
+<div class="details">
+<span id="author" class="author">Victor Herrero Cazurro</span><br>
+<span id="email" class="email">&lt;<a href="https://github.com/victorherrerocazurro">https://github.com/victorherrerocazurro</a>&gt;</span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Contenidos</div>
+<ul class="sectlevel1">
+<li><a href="#_introducción">1. Introducción</a></li>
+<li><a href="#_instalacion">2. Instalacion</a>
+<ul class="sectlevel2">
+<li><a href="#_ides">2.1. IDEs</a></li>
+</ul>
+</li>
+<li><a href="#_primer_proyecto">3. Primer proyecto</a>
+<ul class="sectlevel2">
+<li><a href="#_tareas_por_defecto">3.1. Tareas por defecto</a></li>
+<li><a href="#_establecer_properties">3.2. Establecer properties</a></li>
+<li><a href="#_comentarios">3.3. Comentarios</a></li>
+<li><a href="#_aplicar_naturaleza_eclipse_al_proyecto">3.4. Aplicar naturaleza eclipse al proyecto</a></li>
+<li><a href="#_propiedades_de_ejecucion">3.5. Propiedades de Ejecucion</a></li>
+</ul>
+</li>
+<li><a href="#_logging">4. Logging</a></li>
+<li><a href="#_ciclo_de_vida_del_build">5. Ciclo de vida del Build</a>
+<ul class="sectlevel2">
+<li><a href="#_inicializacion">5.1. Inicializacion</a></li>
+</ul>
+</li>
+<li><a href="#_proyecto_java">6. Proyecto Java</a>
+<ul class="sectlevel2">
+<li><a href="#_tareas">6.1. Tareas</a></li>
+<li><a href="#_estructura_del_proyecto">6.2. Estructura del Proyecto</a></li>
+<li><a href="#_dependencias">6.3. Dependencias</a>
+<ul class="sectlevel3">
+<li><a href="#_repositorios">6.3.1. Repositorios</a></li>
+<li><a href="#_ambitos">6.3.2. Ambitos</a></li>
+</ul>
+</li>
+<li><a href="#_jar_name">6.4. Jar name</a></li>
+<li><a href="#_java_version">6.5. Java Version</a></li>
+<li><a href="#_sourceset">6.6. SourceSet</a></li>
+<li><a href="#_selenium">6.7. Selenium</a></li>
+</ul>
+</li>
+<li><a href="#_proyecto_java_web">7. Proyecto Java Web</a>
+<ul class="sectlevel2">
+<li><a href="#_tareas_2">7.1. Tareas</a></li>
+<li><a href="#_estructura_del_proyecto_2">7.2. Estructura del Proyecto</a></li>
+<li><a href="#_ambitos_2">7.3. Ambitos</a></li>
+</ul>
+</li>
+<li><a href="#_task">8. Task</a>
+<ul class="sectlevel2">
+<li><a href="#_acciones_ciclo_de_vida_de_la_tarea">8.1. Acciones (ciclo de vida de la tarea)</a></li>
+<li><a href="#_propiedades">8.2. Propiedades</a></li>
+<li><a href="#_ciclo_de_vida_del_proyecto">8.3. Ciclo de Vida del Proyecto</a></li>
+<li><a href="#_herencia_en_las_tareas">8.4. Herencia en las Tareas</a></li>
+<li><a href="#_ejecucion_de_tareas_multiple">8.5. Ejecucion de tareas multiple</a></li>
+<li><a href="#_ejecutando_comandos_del_so">8.6. Ejecutando comandos del SO</a></li>
+<li><a href="#_ejecutando_test">8.7. Ejecutando Test</a></li>
+</ul>
+</li>
+<li><a href="#_plugins">9. Plugins</a>
+<ul class="sectlevel2">
+<li><a href="#_plugins_de_terceros">9.1. Plugins de terceros</a></li>
+<li><a href="#_custom_plugins">9.2. Custom Plugins</a>
+<ul class="sectlevel3">
+<li><a href="#_configuracion_custom_plugins">9.2.1. Configuracion Custom Plugins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_otros_plugins">10. Otros Plugins</a>
+<ul class="sectlevel2">
+<li><a href="#_jetty_plugin_deprecated_en_gradle_4_0">10.1. Jetty Plugin (Deprecated en Gradle 4.0)</a></li>
+<li><a href="#_gretty_plugin">10.2. Gretty Plugin</a></li>
+<li><a href="#_liquibase_plugin">10.3. Liquibase Plugin</a></li>
+<li><a href="#_maven">10.4. Maven</a></li>
+<li><a href="#_credentials">10.5. Credentials</a></li>
+</ul>
+</li>
+<li><a href="#_multiproyecto">11. MultiProyecto</a></li>
+<li><a href="#_otras_funcionalidades">12. Otras Funcionalidades</a>
+<ul class="sectlevel2">
+<li><a href="#_deteccion_del_so">12.1. Deteccion del SO</a></li>
+<li><a href="#_perfiles">12.2. Perfiles</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_introducción">1. Introducción</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Es una herramienta de construcción como Maven o ANT, basada en un DSL Groovy.</p>
+</div>
+<div class="paragraph">
+<p>La documentacion del DSL se encuentra <a href="https://docs.gradle.org/3.5/dsl/">aquí</a> y una guia de usuario <a href="https://docs.gradle.org/3.5/userguide/userguide.html">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>En gradle se definen principalmente tres tipos de objetos</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Projects</p>
+</li>
+<li>
+<p>Task</p>
+</li>
+<li>
+<p>Settings</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Los proyectos gestionados con <strong>Gradle</strong>, se basan en la configuración definida en los ficheros <strong>.gradle</strong>, por defecto el fichero de configuración se llama <strong>build.gradle</strong>, aunque esto se puede cambiar, no es recomendable por favorecer la legibilidad.</p>
+</div>
+<div class="paragraph">
+<p>A estos ficheros, se les denomina ficheros de <strong>Script</strong>, y están escritos en un DSL de <strong>groovy</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instalacion">2. Instalacion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Descargar la distribucion de <a href="https://gradle.org/releases">aquí</a></p>
+</div>
+<div class="paragraph">
+<p>Definir la variable de entorno <strong>GRADLE_HOME</strong> con la siguiente ruta <strong>&lt;directorio de descompresion de gradle&gt;</strong></p>
+</div>
+<div class="paragraph">
+<p>Añadir a la variable de entorno <strong>PATH</strong> la siguiente ruta <strong>GRADLE_HOME/bin</strong></p>
+</div>
+<div class="sect2">
+<h3 id="_ides">2.1. IDEs</h3>
+<div class="paragraph">
+<p>Gradle se puede emplear desde varios IDEs, incluidos los mas habituales: eclipse, netbeans, sts, intellij, etc.</p>
+</div>
+<div class="paragraph">
+<p>Para eclipse el plugin recomendado, que habrá que añadir, es <strong>BuildShip Gradle Integration</strong>, aunque es un pulgin que solo ofrece <strong>resaltado de sintaxis</strong> y <strong>gestor de tareas gradle</strong>
+integrado.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Gradle_eclipse_plugin.png" alt="Gradle eclipse plugin">
+</div>
+</div>
+<div class="paragraph">
+<p>Para las ultimas versiones de eclipse (&gt; Neon), se recomienda <strong>EGradle</strong>, que incluye tambien <strong>content asssit</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_primer_proyecto">3. Primer proyecto</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Una vez que se han definido las variable de entorno, se puede crear un nuevo proyecto con el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle init</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este comando crea la estructura de ficheros necesaria para un proyecto gradle.</p>
+</div>
+<div class="paragraph">
+<p>Se puede definir el tipo de proyecto a crear, pudiendose asi emplear distintas plantillas</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>java-application</p>
+</li>
+<li>
+<p>java-library</p>
+</li>
+<li>
+<p>scala-library</p>
+</li>
+<li>
+<p>groovy-library</p>
+</li>
+<li>
+<p>basic</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle init --type java-library</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tareas_por_defecto">3.1. Tareas por defecto</h3>
+<div class="paragraph">
+<p>En cualquier proyecto Gradle por defecto se definen una serie de <strong>task</strong>, algunas son</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>init</strong>: Crea un nuevo proyecto gradle.</p>
+</li>
+<li>
+<p><strong>dependencies</strong>: Muestra las dependencias del proyecto.</p>
+</li>
+<li>
+<p><strong>help</strong>: Muestra la ayuda.</p>
+</li>
+<li>
+<p><strong>projects</strong>: Muestra los subproyectos del proyecto principal.</p>
+</li>
+<li>
+<p><strong>properties</strong>: Muetra las propiedades del proyecto.</p>
+</li>
+<li>
+<p><strong>tasks</strong>: lista las tareas disponibles.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para ejecutarlas, desde la linea de comandos, se hace referencia al comando <strong>gradle</strong> y a la tarea o conjunto de tareas deseadas</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">&gt; gradle tasks
+
+&gt; gradle tasks projects</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Con el primer comando se obtiene una salida similar a esta</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">------------------------------------------------------------
+All tasks runnable from root project
+------------------------------------------------------------
+
+Build Setup tasks
+-----------------
+init - Initializes a new Gradle build.
+wrapper - Generates Gradle wrapper files.
+
+Help tasks
+----------
+buildEnvironment - Displays all buildscript dependencies declared in root project 'HolaMundo'.
+components - Displays the components produced by root project 'HolaMundo'. [incubating]
+dependencies - Displays all dependencies declared in root project 'HolaMundo'.
+dependencyInsight - Displays the insight into a specific dependency in root project 'HolaMundo'.
+dependentComponents - Displays the dependent components of components in root project 'HolaMundo'. [incubating]
+help - Displays a help message.
+model - Displays the configuration model of root project 'HolaMundo'. [incubating]
+projects - Displays the sub-projects of root project 'HolaMundo'.
+properties - Displays the properties of root project 'HolaMundo'.
+tasks - Displays the tasks runnable from root project 'HolaMundo'.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si se lanza el siguiente comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle properties</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se obtiene una salida similar a esta</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">------------------------------------------------------------
+Root project
+------------------------------------------------------------
+
+allprojects: [root project 'HolaMundo']
+ant: org.gradle.api.internal.project.DefaultAntBuilder@57513a9
+antBuilderFactory: org.gradle.api.internal.project.DefaultAntBuilderFactory@1b87129c
+artifacts: org.gradle.api.internal.artifacts.dsl.DefaultArtifactHandler_Decorated@662d785b
+asDynamicObject: DynamicObject for root project 'HolaMundo'
+baseClassLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@4cedcfe0
+buildDir: D:\GitLab\Gradle\workspace\HolaMundo\build
+buildFile: D:\GitLab\Gradle\workspace\HolaMundo\build.gradle
+buildPath: :
+buildScriptSource: org.gradle.groovy.scripts.TextResourceScriptSource@61a8658f
+buildscript: org.gradle.api.internal.initialization.DefaultScriptHandler@421888d4
+childProjects: {}
+class: class org.gradle.api.internal.project.DefaultProject_Decorated
+classLoaderScope: org.gradle.api.internal.initialization.DefaultClassLoaderScope@4ffadf6c
+components: SoftwareComponentInternal set
+configurationActions: org.gradle.configuration.project.DefaultProjectConfigurationActionContainer@6dca9bbc
+configurationTargetIdentifier: org.gradle.configuration.ConfigurationTargetIdentifier$1@4f6c0f97
+configurations: configuration container
+convention: org.gradle.api.internal.plugins.DefaultConvention@49347086
+defaultTasks: []
+deferredProjectConfiguration: org.gradle.api.internal.project.DeferredProjectConfiguration@502cc773
+dependencies: org.gradle.api.internal.artifacts.dsl.dependencies.DefaultDependencyHandler_Decorated@6902a1b1
+dependencyLocking: org.gradle.internal.locking.DefaultDependencyLockingHandler_Decorated@463d0bb1
+depth: 0
+description: null
+displayName: root project 'HolaMundo'
+ext: org.gradle.api.internal.plugins.DefaultExtraPropertiesExtension@2c67f3b0
+extensions: org.gradle.api.internal.plugins.DefaultConvention@49347086
+fileOperations: org.gradle.api.internal.file.DefaultFileOperations@1a46ae10
+fileResolver: org.gradle.api.internal.file.BaseDirFileResolver@66359bc0
+gradle: build 'HolaMundo'
+group:
+identityPath: :
+inheritedScope: org.gradle.api.internal.ExtensibleDynamicObject$InheritedDynamicObject@48fb6434
+layout: org.gradle.api.internal.file.DefaultProjectLayout@5b92e4e8
+logger: org.gradle.internal.logging.slf4j.OutputEventListenerBackedLogger@531f7239
+logging: org.gradle.internal.logging.services.DefaultLoggingManager@740be7a4
+modelRegistry: org.gradle.model.internal.registry.DefaultModelRegistry@3eaa997e
+modelSchemaStore: org.gradle.model.internal.manage.schema.extract.DefaultModelSchemaStore@1ffb6e4d
+module: org.gradle.api.internal.artifacts.ProjectBackedModule@43ff359b
+name: HolaMundo
+normalization: org.gradle.normalization.internal.DefaultInputNormalizationHandler_Decorated@2de3805b
+objects: org.gradle.api.internal.model.DefaultObjectFactory@611a84ab
+parent: null
+parentIdentifier: null
+path: :
+pluginManager: org.gradle.api.internal.plugins.DefaultPluginManager_Decorated@4a0769eb
+plugins: [org.gradle.api.plugins.HelpTasksPlugin@63a2e7d1]
+processOperations: org.gradle.api.internal.file.DefaultFileOperations@1a46ae10
+project: root project 'HolaMundo'
+projectConfigurator: org.gradle.api.internal.project.BuildOperationCrossProjectConfigurator@200c78bc
+projectDir: D:\GitLab\Gradle\workspace\HolaMundo
+projectEvaluationBroadcaster: ProjectEvaluationListener broadcast
+projectEvaluator: org.gradle.configuration.project.LifecycleProjectEvaluator@115cd5be
+projectPath: :
+projectRegistry: org.gradle.api.internal.project.DefaultProjectRegistry@245634e2
+properties: {...}
+providers: org.gradle.api.internal.provider.DefaultProviderFactory@7e342f70
+repositories: repository container
+resourceLoader: org.gradle.internal.resource.transfer.DefaultUriTextResourceLoader@55ef49b2
+resources: org.gradle.api.internal.resources.DefaultResourceHandler@16e5022b
+rootDir: D:\GitLab\Gradle\workspace\HolaMundo
+rootProject: root project 'HolaMundo'
+script: false
+scriptHandlerFactory: org.gradle.api.internal.initialization.DefaultScriptHandlerFactory@61e3d46c
+scriptPluginFactory: org.gradle.configuration.ScriptPluginFactorySelector@74871d96
+serviceRegistryFactory: org.gradle.internal.service.scopes.ProjectScopeServices$4@5b8a686d
+services: ProjectScopeServices
+standardOutputCapture: org.gradle.internal.logging.services.DefaultLoggingManager@740be7a4
+state: project state 'EXECUTED'
+status: release
+subprojects: []
+tasks: task set
+version: unspecified</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_establecer_properties">3.2. Establecer properties</h3>
+<div class="paragraph">
+<p>Es habitual redefinir una serie de properties para cada proyecto:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>description</strong></p>
+</li>
+<li>
+<p><strong>displayName</strong></p>
+</li>
+<li>
+<p><strong>mame</strong></p>
+</li>
+<li>
+<p><strong>version</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para ello se ha de asignar un valor a la propiedad en el fichero <strong>build.gradle</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">version = '0.0.1-SNAPSHOT'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_comentarios">3.3. Comentarios</h3>
+<div class="paragraph">
+<p>Se emplea la misma sintaxis que en groovy o en java</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">//
+/*
+*/</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aplicar_naturaleza_eclipse_al_proyecto">3.4. Aplicar naturaleza eclipse al proyecto</h3>
+<div class="paragraph">
+<p>Si se desea trabajar con un IDE como eclipse, se pueden generar los ficheros propios del IDE eclipse, añadiendo el plugin <strong>eclipse</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">apply plugin: 'eclipse'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y lanzando el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle eclipse</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_propiedades_de_ejecucion">3.5. Propiedades de Ejecucion</h3>
+<div class="paragraph">
+<p>Se puede definir un fichero <strong>gradle.properties</strong>, que defina constantes para la ejecución, estas propiedades se dice que son del proyecto.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="properties">propiedad=valor</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para emplearlas en el fichero <strong>build.gradle</strong> unicamente es necesario hacer referencia al nombre de la propiedad</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">println propiedad</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden definir propiedades de sistema</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="properties">systemProp.sistema=valor</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y accederlas desde <strong>build.gradle</strong> con</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">println System.properties['systema']</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Ojo con definir propiedades con el mismo nombre que propiedades de la tarea</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Si se desea pasar el valor de una propiedad por linea de comandos, se ha de emplear alguna de las siguientes sintaxis</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>-P</strong> para parametros del proyecto</p>
+</li>
+<li>
+<p><strong>-D</strong> para parametros del sistema, con esta ultima opcion, tambien se pueden pasar parametros de proyecto seguiendo el nombrado <strong>org.gradle.project.&lt;propiedad&gt;</strong></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle task -PcommandLineProjectProp=commandLineProjectPropValue -Dorg.gradle.project.systemProjectProp=systemPropertyValue</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si se desea acceder a otro fichero de configuracion, se ha de declarar dicho fichero como objeto properties dentro del script</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">def props = new Properties()
+file(&quot;build.properties&quot;).withInputStream { props.load(it) }
+
+task printProps {
+    doFirst {
+        println props.getProperty(&quot;application.name&quot;)
+        println props.getProperty(&quot;project.name&quot;)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden definir propiedades del proyecto a traves de variables de entorno, siguiendo la sintaxis <strong>ORG_GRADLE_PROJECT_&lt;propiedad&gt;</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">ORG_GRADLE_PROJECT_foo=bar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La misma propiedad definida en el fichero <strong>gradle.properties</strong> seria</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">org.gradle.project.foo=bar</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_logging">4. Logging</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Se puede configurar con que nivel de granularidad se quiere obtener la traza, los niveles son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>ERROR</strong> - Error messages</p>
+</li>
+<li>
+<p><strong>QUIET</strong> - Important information messages</p>
+</li>
+<li>
+<p><strong>WARNING</strong> - Warning messages</p>
+</li>
+<li>
+<p><strong>LIFECYCLE</strong> - Progress information messages</p>
+</li>
+<li>
+<p><strong>INFO</strong> - Information messages</p>
+</li>
+<li>
+<p><strong>DEBUG</strong> - Debug messages</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para configurar el nivel de log, se puede optar por dos formas:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pasando un parametro a la ejecucion</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>&lt;sin parametro&gt;</strong> - LIFECYCLE y superiores</p>
+</li>
+<li>
+<p><strong>-q</strong> o <strong>--quiet</strong> - QUIET y superiores</p>
+</li>
+<li>
+<p><strong>-w</strong> o <strong>--warn</strong> - WARN y superiores</p>
+</li>
+<li>
+<p><strong>-i</strong> o <strong>--info</strong> - INFO y superiores</p>
+</li>
+<li>
+<p><strong>-d</strong> o <strong>--debug</strong> - DEBUG y superiores (es decir todos)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Definiendo en el fichero <strong>gradle.properties</strong> la propiedad <strong>org.gradle.logging.level</strong> con alguno de los siguientes valores: quiet, warn, lifecycle, info, debug.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para hacer uso del log en las tareas definidas, basta con emplear el objeto <strong>logger</strong> definido por <strong>gradle</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">logger.quiet('An info log message which is always logged.')
+logger.error('An error log message.')
+logger.warn('A warning log message.')
+logger.lifecycle('A lifecycle info log message.')
+logger.info('An info log message.')
+logger.debug('A debug log message.')
+logger.trace('A trace log message.')</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ciclo_de_vida_del_build">5. Ciclo de vida del Build</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Gradle define tres fases en el ciclo de vida del Build</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Initialization</strong>: Como se soporta la construccion de multiples proyectos, en esta fase, se determina que proyectos participan del build. Creando una instancia de <strong>Project</strong> por cada uno de ellos.</p>
+</li>
+<li>
+<p><strong>Configuration</strong>: En esta fase los scripts de todos los proyectos son ejecutados, con lo que se acaban configurando los objetos que participan del Build, como los <strong>Repository</strong>, y todas las <strong>Task</strong> disponibles.</p>
+</li>
+<li>
+<p><strong>Execution</strong>: En esta fase se determina el conjunto de <strong>Task</strong> involucradas en la ejecucion del Build, el orden de ejecución de dichas <strong>Task</strong> y se ejecutan.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_inicializacion">5.1. Inicializacion</h3>
+<div class="paragraph">
+<p>Durante esta fase, se ejecutan los scripts definidos en el fichero <strong>settings.gradle</strong>, que genera un objeto <strong>Settings</strong></p>
+</div>
+<div class="paragraph">
+<p>Dado el fichero settings.gradle</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">println 'This is executed during the initialization phase.'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>y el fichero build.gradle</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">println 'This is executed during the configuration phase.'
+
+task configured {
+    println 'This is also executed during the configuration phase.'
+}
+
+task test {
+    doLast {
+        println 'This is executed during the execution phase.'
+    }
+}
+
+task testBoth {
+    doFirst {
+      println 'This is executed first during the execution phase.'
+    }
+    doLast {
+      println 'This is executed last during the execution phase.'
+    }
+    println 'This is executed during the configuration phase as well.'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ejecutando la tarea</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">&gt; gradle test testBoth</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se obtiene la siguiente traza.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">This is executed during the initialization phase.
+This is executed during the configuration phase.
+This is also executed during the configuration phase.
+This is executed during the configuration phase as well.
+:test
+This is executed during the execution phase.
+:testBoth
+This is executed first during the execution phase.
+This is executed last during the execution phase.
+
+BUILD SUCCESSFUL
+
+Total time: 1 secs</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_proyecto_java">6. Proyecto Java</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Se basa en la aplicacion del plugin <strong>java</strong>, uno de los plugins mas empleados.</p>
+</div>
+<div class="paragraph">
+<p>Para añadirlo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">apply plugin: 'java'</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tareas">6.1. Tareas</h3>
+<div class="paragraph">
+<p>Este plugin añade tareas para poder procesar proyectos java (build).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>assemble</strong>: Genera el jar del proyecto.</p>
+</li>
+<li>
+<p><strong>build</strong>: Genera el jar del proecto y lo prueba.</p>
+</li>
+<li>
+<p><strong>buildDependents</strong>: Assembles and tests this project and all projects that depend on it.</p>
+</li>
+<li>
+<p><strong>buildNeeded</strong>: Assembles and tests this project and all projects it depends on.</p>
+</li>
+<li>
+<p><strong>classes</strong>: Assembles main classes.</p>
+</li>
+<li>
+<p><strong>clean</strong>: Deletes the build directory.</p>
+</li>
+<li>
+<p><strong>jar</strong>: Assembles a jar archive containing the main classes.</p>
+</li>
+<li>
+<p><strong>testClasses</strong>: Assembles test classes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Para chequear el estado del proyecto (verification)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>test</strong>: ejecuta la tarea de test</p>
+</li>
+<li>
+<p><strong>check</strong>: es la ultima tarea de la fase verificacion, existe para poder garantizar que todas las tareas de verificacion se ejecutan</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Y generar la documentacion (documentation)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>javadoc</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Estas tareas estan enlazadas entre sí, formando un <strong>Ciclo de Vida</strong> para proyectos java.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/javaPluginTasksDiagram.png" alt="javaPluginTasksDiagram">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_estructura_del_proyecto">6.2. Estructura del Proyecto</h3>
+<div class="paragraph">
+<p>El plugin asume que se empleará la siguiente estructura de proyecto</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>src/main/java</strong> - Directorio que contiene los ficheros java del proyecto</p>
+</li>
+<li>
+<p><strong>src/main/resources</strong> - Directorio que contiene los ficheros no compilables (resources) del proyecto</p>
+</li>
+<li>
+<p><strong>src/test/java</strong> - Directorio que contiene los ficheros java para probar el proyecto</p>
+</li>
+<li>
+<p><strong>src/test/resources</strong> -  Directorio que contiene los ficheros no compilables (resources) para probar el proyecto</p>
+</li>
+<li>
+<p><strong>src/&lt;sourceSet&gt;/java</strong> - Directorio que contiene los ficheros java para el <strong>SourceSet</strong> indicado</p>
+</li>
+<li>
+<p><strong>src/&lt;sourceSet&gt;/resources</strong> - Directorio que contiene los ficheros no compilables (resources) para el <strong>SourceSet</strong> indicado</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Se puede cambiar esta estructura con la siguiente configuracion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">sourceSets {
+    main {
+        java {
+            srcDirs = ['src/java']
+        }
+        resources {
+            srcDirs = ['src/resources']
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dependencias">6.3. Dependencias</h3>
+<div class="paragraph">
+<p>Permiten enriquecer el classpath del proyecto con librerias de terceros.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.0'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Otro formato de definicion de las dependencias sería</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">dependencies {
+    compile 'org.hibernate:hibernate-core:3.6.7.Final'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se puede indicar que se desea la ultima version empleando el operador <strong>+</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>dependencies {
+    compile 'org.hibernate:hibernate-core:+'
+}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_repositorios">6.3.1. Repositorios</h4>
+<div class="paragraph">
+<p>Siempre que se vaya a trabajar con dependecias es necesario definir repositorios desde donde poder realizar la descarga. Los mas habituales son:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>jcenter</p>
+</li>
+<li>
+<p>mavenCentral</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">repositories {
+    jcenter()
+    mavenCentral()
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden definir repostiorios particulares</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">maven {
+    url &quot;http://localhost:8081/nexus/content/repositories/central/&quot;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y definir autenticacion para acceder a ellos</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">maven {
+    url &quot;http://localhost:8081/nexus/content/repositories/releases/&quot;
+    credentials {
+        username = 'admin'
+        password = project.credentials.nexus
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ambitos">6.3.2. Ambitos</h4>
+<div class="paragraph">
+<p>Para este tipo e proyectos se definen los siguientes ambitos</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>compile(Deprecated)</strong>: Compile time dependencies. Superseded by implementation.</p>
+</li>
+<li>
+<p><strong>implementation extends compile</strong>: Implementation only dependencies.</p>
+</li>
+<li>
+<p><strong>compileOnly</strong>: Compile time only dependencies, not used at runtime.</p>
+</li>
+<li>
+<p><strong>compileClasspath extends compile, compileOnly, implementation</strong>: Compile classpath, used when compiling source. Used by task compileJava.</p>
+</li>
+<li>
+<p><strong>annotationProcessor</strong>: Annotation processors used during compilation.</p>
+</li>
+<li>
+<p><strong>runtime(Deprecated) extends compile</strong>: Runtime dependencies. Superseded by runtimeOnly.</p>
+</li>
+<li>
+<p><strong>runtimeOnly</strong>: Runtime only dependencies.</p>
+</li>
+<li>
+<p><strong>runtimeClasspath extends runtimeOnly, runtime, implementation</strong>: Runtime classpath contains elements of the implementation, as well as runtime only elements.</p>
+</li>
+<li>
+<p><strong>testCompile(Deprecated) extends compile</strong>: Additional dependencies for compiling tests. Superseded by testImplementation.</p>
+</li>
+<li>
+<p><strong>testImplementation extends testCompile, implementation</strong>: Implementation only dependencies for tests.</p>
+</li>
+<li>
+<p><strong>testCompileOnly</strong>: Additional dependencies only for compiling tests, not used at runtime.</p>
+</li>
+<li>
+<p><strong>testCompileClasspath extends testCompile, testCompileOnly, testImplementation</strong>: Test compile classpath, used when compiling test sources. Used by task compileTestJava.</p>
+</li>
+<li>
+<p><strong>testRuntime(Deprecated) extends runtime, testCompile</strong>: Additional dependencies for running tests only. Used by task test. Superseded by testRuntimeOnly.</p>
+</li>
+<li>
+<p><strong>testRuntimeOnly extends runtimeOnly</strong>: Runtime only dependencies for running tests. Used by task test.</p>
+</li>
+<li>
+<p><strong>testRuntimeClasspath extends testRuntimeOnly, testRuntime, testImplementation</strong>: Runtime classpath for running tests.</p>
+</li>
+<li>
+<p><strong>archives</strong>: Artifacts (e.g. jars) produced by this project. Used by tasks uploadArchives.</p>
+</li>
+<li>
+<p><strong>default extends runtime</strong>: The default configuration used by a project dependency on this project. Contains the artifacts and dependencies required by this project at runtime.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jar_name">6.4. Jar name</h3>
+<div class="paragraph">
+<p>Se puede configurar el nombre del jar que se genera con las propiedades <strong>archivesBaseName</strong> y <strong>version</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">archivesBaseName = &quot;miProyecto&quot;
+version = '0.0.1-SNAPSHOT'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_java_version">6.5. Java Version</h3>
+<div class="paragraph">
+<p>Se puede definir la version de java a emplear</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">sourceCompatibility = 1.6
+targetCompatibility = 1.6</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sourceset">6.6. SourceSet</h3>
+<div class="paragraph">
+<p>Define un conjunto de recursos del proyecto.</p>
+</div>
+<div class="paragraph">
+<p>Por defecto se definen <strong>main</strong> y <strong>test</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Un ejemplo habitual de su uso, es crear un espacio particular para albergar las pruebas de integracion.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Al definir un nuevo <strong>sourceSet</strong>, se definen por defecto dos <strong>ambitos</strong> (configurations) para gestionar las depedencias a emplear al trabajar con el <strong>SourceSet</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Para el ejemplo anterior serian <strong>integrationTestCompile</strong> y <strong>integrationTestRuntime</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Estos <strong>ambitos</strong> se pueden redefinir indicando algun tipo de herencia, es decir reutilizar otras dependencias definidas para otro ambito en el ambito definido, en este caso es interesante que hereden de los ambitos de <strong>test</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez definido los ambitos, se pueden añadir depedencias con dichos ambitos</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">dependencies {
+    integrationTestCompile 'junit:junit:4.11'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Las dependencias añadidas a un ambito, permiten componer los classpath a emplear por las tareas, en este caso para ejecutar los <strong>test de integracion</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se puede definir relaciones entre la nueva <strong>Task</strong> y las existentes, de tal forma que se la haga participe de por ejemplo el <strong>ciclo de vida java</strong>. En el caso de los test de integracion, es interesante incluir la tarea despues de ejecutar los <strong>test</strong> y antes de ejecutar <strong>check</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">check.dependsOn integrationTest
+integrationTest.mustRunAfter test</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selenium">6.7. Selenium</h3>
+<div class="paragraph">
+<p>Si se desean realizar pruebas de integracion puede ser interesante trabajar con un framework como selenium, que permite automatizar la interaccion con los navegadores.</p>
+</div>
+<div class="paragraph">
+<p>Para incorporarlo al proyecto basta con añadir la dependencia</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.0'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Un ejemplo de uso d el framework seria</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">SeleniumTest</span> {
+    <span class="directive">private</span> WebDriver driver;
+
+    <span class="annotation">@BeforeClass</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">void</span> setUp() {
+        <span class="predefined-type">System</span>.setProperty(<span class="string"><span class="delimiter">&quot;</span><span class="content">webdriver.chrome.driver</span><span class="delimiter">&quot;</span></span>,
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">D:</span><span class="char">\\</span><span class="content">utilidades</span><span class="char">\\</span><span class="content">Selenium</span><span class="char">\\</span><span class="content">chromedriver</span><span class="char">\\</span><span class="content">chromedriver-2.40.exe</span><span class="delimiter">&quot;</span></span>);
+    }
+
+    <span class="annotation">@Test</span>
+    <span class="directive">public</span> <span class="type">void</span> testChromeDriver() {
+        driver = <span class="keyword">new</span> ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:8080/</span><span class="delimiter">&quot;</span></span>);
+        <span class="predefined-type">String</span> titulo = driver.getTitle();
+        assertNotNull(titulo);
+        assertEquals(<span class="string"><span class="delimiter">&quot;</span><span class="content">Apache Tomcat/8.5.9</span><span class="delimiter">&quot;</span></span>, titulo);
+    }
+
+    <span class="annotation">@After</span>
+    <span class="directive">public</span> <span class="type">void</span> closeBrowsers() <span class="directive">throws</span> <span class="exception">Exception</span> {
+        driver.quit();
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_proyecto_java_web">7. Proyecto Java Web</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Se basa en la aplicacion del plugin <strong>war</strong>, uno de los plugins mas empleados.</p>
+</div>
+<div class="paragraph">
+<p>Para añadirlo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">apply plugin: 'war'</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tareas_2">7.1. Tareas</h3>
+<div class="paragraph">
+<p>Añade una unica tarea <strong>war</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_estructura_del_proyecto_2">7.2. Estructura del Proyecto</h3>
+<div class="paragraph">
+<p>Por defecto toma el directorio <strong>src/main/webapp</strong> como el directorio de contenido web.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ambitos_2">7.3. Ambitos</h3>
+<div class="paragraph">
+<p>Se añaden dos nuevos ambitos (configurations) <strong>providedCompile</strong> y <strong>providedRuntime</strong>, para indicar librerias que serán provistas por el servidor donde se despliegue.</p>
+</div>
+<div class="paragraph">
+<p>Permite generar un <strong>war</strong> en vez de un <strong>jar</strong> con el proyecto java, con la tarea <strong>build</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">gradle build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Define una serie de propiedades entre las cuales se encuentra el directorio donde se genera en <strong>war</strong>, que es <strong>archivePath</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_task">8. Task</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La pieza más pequeña que compone un script de gradle es un <strong>task</strong>, una tarea.</p>
+</div>
+<div class="paragraph">
+<p>Para definir un <strong>task</strong>, se emplea la palabra reservada para el DSL <strong>task</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task helloWorld {
+        doLast {
+                println 'Hello world!'
+        }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Existen otras sintaxis validas como</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task(helloWorld) {
+        doLast {
+                println 'Hello world!'
+        }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Estas tareas no se muestran por defecto con el comando <strong>task</strong>, ya que se asignan al grupo por defecto <strong>other</strong>, se pueden mostrar todos los grupos añadiendo un parametro</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle task --all</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O asignandolas a un grupo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task(helloWorld) {
+    group 'hello'
+    doLast {
+        println 'Hello world!'
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para ejecutar la nueva tarea basta con ejecutar el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle helloWorld</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_acciones_ciclo_de_vida_de_la_tarea">8.1. Acciones (ciclo de vida de la tarea)</h3>
+<div class="paragraph">
+<p>Las task de gradle, están formadas por acciones como <strong>doLast</strong>, que es la última acción que se ejecutará asociada al <strong>task</strong>, y ademas es la accion por defecto</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task(helloWorld) {
+    doLast {
+        println 'Hello world!'
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Al ser la accion por defecto, tiene una sintaxis reducida</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task helloWorld &lt;&lt; {
+        println 'Hello world!'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Existen más acciones como:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>dofirst</p>
+</li>
+<li>
+<p>onlyIf</p>
+</li>
+<li>
+<p>mustRunAfter</p>
+</li>
+<li>
+<p>hasProperty</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_propiedades">8.2. Propiedades</h3>
+<div class="paragraph">
+<p>Se pueden añadir más propiedades a las tareas, empleando la propiedad <strong>ext</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task myTask {
+    ext.myProperty = &quot;myValue&quot;
+
+    doLast {
+        println myProperty
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ciclo_de_vida_del_proyecto">8.3. Ciclo de Vida del Proyecto</h3>
+<div class="paragraph">
+<p>En Gradle, no se define un ciclo de vida como tal, sino que se puede definir dependencias de ejecucion entre las tareas, de tal forma que se supedite la ejecucion de una tarea particular a la ejecucion de otra, basta con establecer la propiedad <strong>dependsOn</strong> de la tarea que tiene que supeditar su ejecución a otra.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task myTask{
+    dependsOn help
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tambien se puede emplear la sintaxis</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task hello {
+    doLast {
+        println 'Hello world!'
+    }
+}
+task intro(dependsOn: hello) {
+    doLast {
+        println &quot;I'm Gradle&quot;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si la tarea proviene de un plugin, es decir no se tiene acceso a su codigo fuente, basta con hacer referencia al nombre de la tarea.</p>
+</div>
+<div class="listingblock">
+<div class="title">Ejemplo en el que se supedita la ejecucion de la tarea de Liquibase <strong>update</strong>, a la ejecucion de la tarea <strong>help</strong></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">update.dependsOn test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Las tareas se ejecutan por completo, no se pueden anidar.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_herencia_en_las_tareas">8.4. Herencia en las Tareas</h3>
+<div class="paragraph">
+<p>Se pueden definir nuevas tareas, que hereden la configuracion de la tarea de un tipo predefinido</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task hello(type: GreetingTask)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para el ejemplo anterior, tambien se proporciona la siguiente clase que define la tarea padre.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">class GreetingTask extends DefaultTask {
+    @TaskAction
+    def greet() {
+        println 'hello from GreetingTask'
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se pueden definir tareas basandose en la clase <strong>DefaultTask</strong></p>
+</div>
+<div class="paragraph">
+<p>Un ejemplo de como heredar la tarea de <strong>copy</strong> que proporciona el API</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task(copy, type: Copy) {
+    from(file('srcDir'))
+    into(buildDir)
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ejecucion_de_tareas_multiple">8.5. Ejecucion de tareas multiple</h3>
+<div class="paragraph">
+<p>Se puede asignar a los métodos de las tareas, varios bloques de código, ejecutandose todos, en el orden en el que se asignen</p>
+</div>
+<div class="paragraph">
+<p>Así pues con la siguiente definición</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task hello {
+    doLast {
+        println 'Hello Earth'
+    }
+}
+hello.doFirst {
+    println 'Hello Venus'
+}
+hello.doLast {
+    println 'Hello Mars'
+}
+hello {
+    doLast {
+        println 'Hello Jupiter'
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y lanzando la tarea</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">&gt;gradle hello</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se obtiene la salida</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">Hello Venus
+Hello Earth
+Hello Mars
+Hello Jupiter</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ejecutando_comandos_del_so">8.6. Ejecutando comandos del SO</h3>
+<div class="paragraph">
+<p>Para ejecutar comandos del SO, se porporcionan el tipo de tarea <strong>Exec</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task startTomcat(type:Exec) {
+    group 'docker'
+    executable 'docker'
+    args 'run','-d', '--name', 'dockerTomcat','--rm','-p', '8080:8080','-v', buildDir.getAbsolutePath() + '\\libs' + ':/usr/local/tomcat/webapps', 'tomcat:8.5-alpine'
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ejecutando_test">8.7. Ejecutando Test</h3>
+<div class="paragraph">
+<p>Para la ejecucion e Test, se porporcionan el tipo de tarea <strong>Test</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plugins">9. Plugins</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Los plugins son proyectos independientes que ofrecen un conjunto de <strong>task</strong> a otros proyectos.</p>
+</div>
+<div class="paragraph">
+<p>Para usar un plugin, hay que referenciarlo desde el script.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">apply plugin: &lt;nombre del plugin&gt;</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plugins_de_terceros">9.1. Plugins de terceros</h3>
+<div class="paragraph">
+<p>Para añadir un plugin definido por terceros, es necesario incluir el jar en el ambito de la interpretacion del <strong>script</strong>, para ello se define la seccion <strong>buildScript</strong>, que permite configurar este ambito.</p>
+</div>
+<div class="paragraph">
+<p>Seccion del <strong>script</strong> que permite definir las necesidades que tiene Gradle para ejecutar el <strong>script</strong>, es decir, es la configuracion para poder ejecutar el <strong>build.gradle</strong></p>
+</div>
+<div class="listingblock">
+<div class="title">Configuracion para el uso del plugin Gretty</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:2.0.0'
+    }
+}
+apply plugin: 'org.akhikhl.gretty'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_plugins">9.2. Custom Plugins</h3>
+<div class="paragraph">
+<p>Para crear plugins basta con definir una nueva clase que herede de <strong>Plugin&lt;Project&gt;</strong> dentro del <strong>build.gradle</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">class GreetingPlugin implements Plugin&lt;Project&gt; {
+    void apply(Project project) {
+        project.task('hello') {
+            doLast {
+                println &quot;Hello from the GreetingPlugin&quot;
+            }
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esta herencia, proporciona un método <strong>apply</strong>, que permite asociar al <strong>project</strong> nuevas <strong>task</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Para emplear el plugin desde el mismo script que lo define, basta con añadir</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">apply plugin: GreetingPlugin</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez se aplica el nuevo <strong>plugin</strong> las <strong>task</strong> definidas, están disponiles y se puede invocar dicha tarea</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">gradle -q hello</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuracion_custom_plugins">9.2.1. Configuracion Custom Plugins</h4>
+<div class="paragraph">
+<p>Para poder configurar un Plugin, lo normal es definir una nueva clase con los atributos que se deseen definir para la configuracion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">class DockerTomcatPluginExtension {
+
+  String containerName = 'tomcat8-test'
+    String imageName = 'tomcat:8.5-alpine'
+    String localPort = '8080'
+    String deployDir
+
+  DockerTomcatPluginExtension(Project project) {
+      deployDir = project.buildDir.getAbsolutePath() + '\\libs'
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y asignarla al Plugin como una <strong>extension</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">class DockerTomcatPlugin implements Plugin&lt;Project&gt; {
+
+    void apply(Project project) {
+
+      def extension = project.extensions.create('dockerTomcat', DockerTomcatPluginExtension, project)
+
+      project.task('stopTomcat', type:Exec) {
+        group 'docker'
+        executable 'docker'
+      args 'stop', extension.containerName
+    }
+
+    project.task('startTomcat', type:Exec) {
+      group 'docker'
+      executable 'docker'
+        args 'run','-d', '--name', extension.containerName,'--rm','-p', extension.localPort + ':8080','-v', extension.deployDir + ':/usr/local/tomcat/webapps', extension.imageName
+        /*
+        -d --&gt; Demonio, se arranca el contenedor liberando el proceso de arranque.
+        --name &lt;nombre&gt; --&gt; Establece el nombre del contenedor
+        --rm --&gt; Indica que cuando se pare el contenedor se elimine
+        -P &lt;portLocal&gt;:&lt;portContainer&gt; --&gt; Establece el mapeo de puertos
+        -v &lt;directorioLocal&gt;:&lt;directorioContainer&gt; --&gt; Establece el mapeo de volumenes
+        */
+    }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez hecho, basta con crear una instancia de la clase, con los valores de los campos que se desee.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: DockerTomcatPlugin
+
+dockerTomcat {
+    containerName = 'tomcat8-test'
+    imageName = 'tomcat:8.5-alpine'
+    localPort = '8080'
+    deployDir = war.archivePath
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_otros_plugins">10. Otros Plugins</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_jetty_plugin_deprecated_en_gradle_4_0">10.1. Jetty Plugin (Deprecated en Gradle 4.0)</h3>
+<div class="paragraph">
+<p>Para añadirlo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">apply plugin: 'jetty'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Permite arrancar un jetty y desplegar la aplicacion web</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">gradle jettyRunWar</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gretty_plugin">10.2. Gretty Plugin</h3>
+<div class="paragraph">
+<p>Sustituto del plugin de Jetty, para emplearlo hay que añadir la siguiente configuracion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:2.0.0'
+    }
+}
+apply plugin: 'org.akhikhl.gretty'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>o bien</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">plugins {
+    id 'org.akhikhl.gretty' version '2.0.0'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se añaden multitud de <strong>tasks</strong>, entre las que puede destacar <strong>appRun</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Por defecto se despliega la aplicacion en un jetty9, pero se puede cambiar indicando la propiedad <strong>servletContainer</strong>, donde los valores posibles son: jetty7, jetty8, jetty9, jetty93 (jdk 8 only), jetty94 (jdk 8 only), tomcat7 y tomcat8.</p>
+</div>
+<div class="paragraph">
+<p>Si se desea ejecutar test de integracion sobre el despliegue en el servidor que gestiona <strong>Gretty</strong>, unicamente hay que indicar cual es la tarea que ejecuta dichos test.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">gretty {
+  integrationTestTask = 'integrationTest'
+}
+
+task integrationTest {
+  group 'verification'
+  doLast {
+    println 'Ejecutando los test de integracion'
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_liquibase_plugin">10.3. Liquibase Plugin</h3>
+<div class="paragraph">
+<p>Permite interaccionar con una base de datos con el objetivo de prepararla para su uso, en general en pruebas de integracion.</p>
+</div>
+<div class="paragraph">
+<p>Se ha declarar como dependencia de la fase de construccion</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath &quot;org.liquibase:liquibase-gradle-plugin:1.2.4&quot;
+    }
+}
+apply plugin: 'org.liquibase.gradle'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y configurar:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>El fichero donde se iran generando los cambios que se producen en la base de datos.</p>
+</li>
+<li>
+<p>La conexion a la base de datos.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">liquibase {
+  activities {
+    main {
+      changeLogFile &quot;$rootDir/changelog.xml&quot;
+      url 'jdbc:derby://localhost:1527/facturas;create=true'
+      username 'user'
+      password 'user'
+    }
+  }
+  runList = 'main'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El uso del plugin será el siguiente</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Si la base de datos existe:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Lanzar el comando <strong>generateChangelog</strong>, que genera el fichero configurado <strong>changelog.xml</strong> y las tablas <strong>DATABASECHANGELOG</strong> y <strong>DATABASECHANGELOGLOCK</strong> en el esquema al que se conecta Liquibase.</p>
+</li>
+<li>
+<p>Lanzar el comando <strong>changelogSync</strong>, que actualiza la tabla <strong>DATABASECHANGELOG</strong> con las entradas definidas en el fichero <strong>changelog.xml</strong>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Si la base de datos no existe:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Crear el fichero <strong>changelog.xml</strong> manualmente</p>
+</li>
+<li>
+<p>Lanzar el comando <strong>update</strong> que aplica los cambios indicados en el fichero en la base de datos, controlando no aplicar aquellos que ya han sido aplicados.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_maven">10.4. Maven</h3>
+<div class="paragraph">
+<p>Plugin que permite realizar tareas de <strong>Maven</strong> dentro de un script de <strong>Gradle</strong>, el caso mas habitual de uso, es la publicacion del proyecto como artefacto en un repositorio, para ello</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">apply plugin: 'maven'
+
+apply plugin: 'java'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: &quot;http://localhost:8081/nexus/content/repositories/releases/&quot;){
+              authentication(userName: &quot;admin&quot;, password: &quot;admin123&quot;)
+            }
+            pom.version = '0.0.1'
+            pom.groupId = 'com.ejemplo.gradle'
+            pom.artifactId = 'miProyecto'
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para realizar la plubicacion hay que ejecutar</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle uploadArchive</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Para ejecutar Nexus en un contenedor de Docker, se puede lanzar el siguiente comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">docker run -d -p 8081:8081 --name nexus sonatype/nexus:oss</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El servidor será accesible en la url</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="url">http://localhost:8081/nexus/#welcome</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Siendo el usuario y password, <strong>admin</strong> y <strong>admin123</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_credentials">10.5. Credentials</h3>
+<div class="paragraph">
+<p>Permite encriptar passwords, para posteriormente emplearlos en el script.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'nu.studer:gradle-credentials-plugin:1.0.4'
+    }
+}
+
+apply plugin: 'nu.studer.credentials'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez definido el plugin, se puede encriptar el password con el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle addCredentials --key nexus --value admin123</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Donde <strong>key</strong> es el identificador del password para su recuperacion y <strong>value</strong> el valor del password.</p>
+</div>
+<div class="paragraph">
+<p>Y empelarlo en el script a traves del objeto <strong>credentials</strong>, haciendo referencia a la *key definida.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">repository(url: &quot;http://localhost:8081/nexus/content/repositories/releases/&quot;){
+  authentication(userName: &quot;admin&quot;, password: credentials.nexus)
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_multiproyecto">11. MultiProyecto</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Se pueden crear proyectos independientes, cada uno con su script de gradle, o se pueden establecer relaciones entre ellos, lo que se denomina un multiproyecto.</p>
+</div>
+<div class="paragraph">
+<p>Para ello por defecto se supone que los proyectos estaran definidos en forma de arbol de directorios</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>**Proyecto
+******Subproyecto</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cada uno con su propio <strong>build.gradle</strong></p>
+</div>
+<div class="paragraph">
+<p>Para relacionarlos, lo primero es añadir el <strong>settings.gradle</strong> en el principal, donde se hace referencia a los otros.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">include 'project1', 'project2:child', 'project3:child1'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El método <strong>include</strong>, recibe como parametros paths de proyectos relativos al directorio donde se encuentra el fichero <strong>settings.gradle</strong>, el formato cambia las <strong>/</strong> o <strong>\</strong> por <strong>:</strong> para estandarizar los distintos SO, por lo que 'services:api' equivale a '&lt;root dir&gt;/services/api'.</p>
+</div>
+<div class="paragraph">
+<p>Solo es necesario indicar los proyectos finales, no hace falta indicar los intermedios, por lo que si se tienen distintos <strong>build.gradle</strong> definidos en un arbol de carpetas, al incluir <strong>services:hotels:api</strong>, se incluiran los proyectos: <strong>services</strong>, <strong>services:hotels</strong> y <strong>services:hotels:api</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Una vez definida la relación, en el <strong>build.gradle</strong> del principal, se pueden definir configuraciones comunes empleando <strong>allprojects</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">allprojects {
+        apply plugin : 'java'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A partir de esa configuracion, cuando se lancen tareas configuradas como comunes, sobre el principal, se lanzaran sobre todos los subproyectos tambien, si ses desea lanzar la tarea sobre un subproyecto concreto, se puede emplear la sintaxis</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">&gt; gradle project2:build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si solo se desea afectar a los subproyectos, se dispone de <strong>subprojects</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">subprojects {
+        apply plugin : 'java'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y si se quiere afectar a un proyecto en concreto</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">project(':api') {
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esta ultima configuracion equivale a definir en cada pryeco su propio <strong>build.gradle</strong></p>
+</div>
+<div class="paragraph">
+<p>Se pueden definir dependencias entre proyectos, de forma abreviada</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">dependencies {
+        compile project(':common')
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_otras_funcionalidades">12. Otras Funcionalidades</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deteccion_del_so">12.1. Deteccion del SO</h3>
+<div class="paragraph">
+<p>Gradle porporciona un API de utilidad que permite conocer el SO en el que se ejecuta el script.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">import org.gradle.internal.os.OperatingSystem;
+
+task detect {
+    doLast {
+        if(OperatingSystem.current().isMacOsX())
+            println(&quot;Mac&quot;)
+        if(OperatingSystem.current().isLinux())
+            println(&quot;Linux&quot;)
+        if(OperatingSystem.current().isWindows())
+            println(&quot;Windows&quot;)
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_perfiles">12.2. Perfiles</h3>
+<div class="paragraph">
+<p>No se proporciona una funcionalidad particular para activar configuraciones, pero dado que se puede programar, basta con implementar un <strong>if</strong> para importar distintos ficheros de configuracion.</p>
+</div>
+<div class="listingblock">
+<div class="title">Contenido del <strong>build.gradle</strong></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">if (!hasProperty('buildProfile')) ext.buildProfile = 'default'
+
+apply from: 'build-' + buildProfile + '.gradle'
+
+task saludo &lt;&lt; {
+        println mensaje
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Contenido del <strong>build-default.gradle</strong></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">ext.mensaje = &quot;Default&quot;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Contenido del <strong>build-production.gradle</strong></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="gradle">ext.mensaje = &quot;Produccion&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si se ejecuta el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle saludo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se obtiene como resultado</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">Default</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si se ejecuta el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; gradle saludo -PbuildProfile=production</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se obtiene como resultado</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">Produccion</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-01-04 10:15:44 UTC
+</div>
+</div>
+</body>
+</html>
